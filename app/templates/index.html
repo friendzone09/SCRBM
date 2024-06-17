@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/estilos.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesion</title>
+</head>
+
+<div class="body_index">
+
+    <div class="inicio_de_sesion">
+        <h1>Bienvenido</h1>
+        <p>Ingresa tu correo</p>
+        <input type="text" placeholder="Correo...">
+        <p>Ingresa tu contraseña</p>
+        <input type="password" placeholder="Contraseña...">
+        <a href="{{url_for ('dashboard')}}"> <button>Ingresar</button></a>
+        
+    </div>
+    
+</div>
+
+
+
+</html>

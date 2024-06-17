@@ -1,0 +1,20 @@
+{% extends "dashboard.html" %}
+
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_registrar_unidad">
+    <a class="btn_regresar_unidades" href="{{url_for('unidades')}}">Regresar</a>
+    <form method="post" class="form_regis_unidad" action="{{url_for ('registrando_unidad')}}">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <h2>Registrar una unidad</h2>
+        <input type="text" id="nombre_unidad" placeholder="Inserta nombre de unidad..." name="unidad">
+        <button type="submit">Guardar</button>
+    
+    </form>
+    
+</div>
+
+{% endblock %}
