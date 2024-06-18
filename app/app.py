@@ -77,6 +77,11 @@ def registrando_unidad():
 
 #-------------------------FIN REGISTRO UNIDAD------------------------------------------------------------------
          
+         
+@app.route('/papelera')
+def papelera():
+     return render_template('papelera.html')
+    
 
 def pagina_no_encontrada(error):
     return render_template('error404.html')

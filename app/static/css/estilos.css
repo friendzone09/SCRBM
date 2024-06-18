@@ -110,20 +110,22 @@
 }
 
 
-.foto_usuario button{
-    color: #EEEEEE;
-}
 
-.nombre_usuario{
-    position: absolute;
-    top: 5%;
-    left: 90px;
-}
 
 .cerrar_sesion{
     position: absolute;
     top: 50px;
     left: 70px;
+}
+
+.usuario_opciones{
+    position: absolute;
+    top: 3%;
+    margin-left: 65px;
+}
+
+.usuario_opciones li{
+    margin-top: 10px;
 }
 
 .opciones_proyecto{
@@ -132,9 +134,10 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 90px;
+    top: 130px;
     border-bottom:2px solid white ;
     width: 160px;
+    border-top: 2px solid white;
 }
 .opciones_proyecto a{
     padding: 5px;
@@ -150,7 +153,7 @@
 .proyectos_recientes{
     position: absolute;
     padding: 20px;
-    top: 63%;
+    top: 70%;
     width: 160px;
 }
 
@@ -516,6 +519,21 @@
 /* INICIO ESTILOS MATERIALES */
 
 /* FIN ESTILOS MATERIALES */
+
+
+/* INICIO ESTILOS PAPELERA */
+
+
+.body_papelera{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+}
+
+/* FIN ESTILOS PAPELERA */
+
+
+
 
 /* Estilos error 404 */
 

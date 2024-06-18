@@ -17,8 +17,16 @@
         <div class="usuario">
 
              <button class="foto_usuario"><i class="fa-solid fa-user fa-3x"></i></button>
-            <p class="nombre_usuario">Usuario</p>
-            <a href="{{url_for('index')}}" class="cerrar_sesion">cerrar sesion</a>
+             <div class="usuario_opciones">
+                <ul>
+                    <p>Usuario</p>
+                    <li>Mi cuenta</li>
+                    <li><a href="{{url_for('papelera')}}">Papelera</a></li>
+                    <li><a href="{{url_for('index')}}">Cerrar sesión</a></li>
+                 </ul>
+             </div>
+             
+            
 
         </div>
      
