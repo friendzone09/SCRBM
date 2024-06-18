@@ -35,6 +35,8 @@ def dashboard():
 def materiales():
     return render_template('materiales.html')
 
+#-----------------------------------------------INICIO READ UNIDAD------------------------------------------------------
+
 @app.route("/dashboard/unidades")
 def unidades():
     conn = get_db_conection()
@@ -46,9 +48,15 @@ def unidades():
     conn.close()
     return render_template('unidades.html', unidad = unidad)
 
+#-----------------------------------------------FIN READ UNIDAD ------------------------------------------------------
+
+#-------------------------INICIO REGISTRO UNIDAD------------------------------------------------------------------
+
+
 @app.route("/dashboard/unidades/registrar")
 def form_regis_unidad():
     return render_template('form_regis_unidad.html')
+
 
 @app.route("/dashboard/unidades/registrar/regitrando", methods=('GET', 'POST'))
 def registrando_unidad():
@@ -66,6 +74,8 @@ def registrando_unidad():
         flash('Unidad registrada correctamente')
         return redirect(url_for('unidades'))
     return redirect(url_for('unidades'))
+
+#-------------------------FIN REGISTRO UNIDAD------------------------------------------------------------------
          
 
 def pagina_no_encontrada(error):

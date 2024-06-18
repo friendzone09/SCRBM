@@ -202,7 +202,8 @@
     margin-top: 50px;
     padding: 30px;
     background-color: #FFFFFF;
-    height: 370px; 
+    max-height: 350px;
+    height: auto; 
     width: 350px;
     border-radius: 15px;
     transition: 0.5s all;
