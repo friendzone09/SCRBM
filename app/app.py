@@ -42,7 +42,7 @@ def unidades():
     conn = get_db_conection()
     cur = conn.cursor()
     cur.execute('SELECT * FROM unidades '
-                'ORDER BY nom_unid ASC')
+                'ORDER BY nombre_unidad ASC')
     unidad = cur.fetchall()
     cur.close()
     conn.close()
@@ -65,7 +65,7 @@ def registrando_unidad():
         
         conn = get_db_conection()
         cur = conn.cursor()
-        cur.execute('INSERT INTO unidades(nom_unid)'
+        cur.execute('INSERT INTO unidades(nombre_unidad)'
                     'VALUES (%s)',
                     (unidad,))
         conn.commit()
@@ -77,6 +77,38 @@ def registrando_unidad():
 
 #-------------------------FIN REGISTRO UNIDAD------------------------------------------------------------------
          
+#----------------------------INICIO UBDATE UNIDADE-----------------------------------------------------------------
+@app.route('/unidades/editar/<string:id_unidad>')
+def editar_unidad(id_unidad):
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM unidades WHERE id_unidad ={0}'.format(id_unidad))
+    unidad = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('unidades_editar.html', unidad = unidad[0])
+
+@app.route('/unidad/editar/proceso/<string:id_unidad>', methods =['POST'] )
+def editar_unidad_proceso(id_unidad):
+    if request.method == 'POST':
+        nombre_unidad = request.form['nombre_unidad']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        sql = "UPDATE unidades SET nombre_unidad=%s WHERE id_unidad =%s;"
+        valores = (nombre_unidad, id_unidad)
+        cur.execute(sql, valores)
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Pais editado')
+        return redirect (url_for('unidades'))
+    return redirect (url_for('unidades'))
+
+#----------------------------FIN UBDATE UNIDADE-----------------------------------------------------------------
+
+    
          
 @app.route('/papelera')
 def papelera():
