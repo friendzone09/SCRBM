@@ -5,13 +5,15 @@
 
 {% block head %} {% endblock %}
 
+{% block vision_de_usuario %} {% endblock %}
+
 {% block contenido %}
 
 <div class="body_registrar_material">
     <a class="btn_regresar" href="{{url_for('materiales')}}">Regresar</a>
     <form method="post" class="form_regis_material" action="{{url_for('registrar_material_proceso')}}">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <h2>Registra una herramienta</h2>
+        <h2>Registra un material</h2>
         <p>Nombre del material</p>
         <input type="text" id="nombre_unidad" placeholder="Inserta nombre del material..." name="nombre_material">
         <p>Costo del material</p>

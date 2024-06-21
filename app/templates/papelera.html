@@ -4,12 +4,75 @@
 
 {% block head %} {% endblock %}
 
+{% block vision_de_usuario %}
+ {% endblock %}
+
+
+
 
 
 {% block contenido %}
 <div class="body_papelera">
+    <div class="texto_bienvenida_papelera">
+        <a href="{{url_for('dashboard')}}"><i class="fa-solid fa-house"></i> Regresar</i></a>
+        <h1>Bienvenido a tu papelera</h1>
+        <p>Aqui podras encontrar todos los datos eliminados, podras restaurarlos o eliminarlos definitivamente </p>
+    </div>
 
-    <h1>Bienvenido a la papelera</h1>
+    <div class="deatils_unidades">
+        <details>
+            <summary>Unidades</summary>
+            <table class="tabla_unidades_papelera">
+                <thead>
+                    <th>Nombre de la unidad</th>
+                    <th>Eliminar</th>
+                    <th>Restaurar</th>
+                </thead>
+                <tbody>
+                    {% for unidad in unidades %}
+                    <tr>
+                        <td>{{unidad[1]}}</td> 
+                        <td><a href="#"><i class="fa-solid fa-trash"></i></a></td> 
+                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>                    
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+        </details>
+    </div>
+
+    <div class="details_material">
+        <details>
+            <summary>Materiales</summary>
+
+            <table class="tabla_materiales_papelera">
+                <thead>
+                    <th>Nombre del material</th>
+                    <th>Costo</th>
+                    <th>Unidad</th>
+                    <th>Eliminar</th>
+                    <th>Restaurar</th>
+                </thead>
+                <tbody>
+                    {% for material in materiales %}
+                    <tr>
+                        <td>{{material.1}}</td>
+                        <td>{{material.2}}</td>
+                        <td>{{material.3}}</td>
+                        <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
+                        <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                     
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </details>
+    </div>
+
+
+
+    
 
 
 </div>

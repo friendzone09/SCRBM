@@ -5,6 +5,8 @@
 }
 
 .body_dashboard{
+    height: 100vh;
+    width: 100%;
     display: flex;
     background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
 
@@ -104,7 +106,7 @@
 .vision_de_usuario{
     background: linear-gradient(to bottom, #33ccff 0%, #66ffff 100%);
     position: relative;
-    height: 100vh;
+    height: 100%;
     width: 200px;
     
 }
@@ -289,14 +291,14 @@
 /* ESTILOS UNIDADES */
 
 .body_unidades{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     height: 100vh;
     padding: 30px;
     width: 100%;
 }
 
 .body_unidades h1{
-    margin-left: 43%;
+    margin-left: 37%;
     padding-top: 20px;
     padding-bottom: 30px;
 }
@@ -305,8 +307,9 @@
 
 .tabla_unidades{
     text-align: left;
+    margin-top: 20px;
     width: 370px;
-    margin: 20px auto;
+    margin-left: 25%;
     padding-bottom: 20px;
 }
 
@@ -343,7 +346,7 @@
     border-radius: 15px;
     border: 1px solid black;
     top: 170px;
-    left: 36%;
+    margin-left: 21%;
 }
 
 .modal_eliminar_unidad:target{
@@ -393,14 +396,14 @@
     padding: 20px;
     height: 100vh;
     width: 100%;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     
 }
 
 .form_regis_unidad{
     position: relative;
     align-items: center;
-    margin-left: 37%;
+    margin-left: 25%;
     margin-top: 160px;
     border-radius: 15px;
     padding: 20px;
@@ -443,7 +446,7 @@
 
 /* INICIO ESTILOS EDITAR UNIDAD*/
 .body_editar_unidad{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     height: 100vh;
     width: 100%;
 }
@@ -453,7 +456,7 @@
     color: rgb(0, 0, 0);
     padding: 20px;
     margin-top: 140px;
-    margin-left: 36%;
+    margin-left: 30%;
     width: 300px;
     background-color: rgb(255, 255, 255);
 }
@@ -515,9 +518,16 @@
 /* INICIO ESTILOS MATERIALES */
 
 .body_materiales{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     height: 100vh;
     width: 100%;
+}
+
+.body_materiales h2{
+    margin-left: 37%;
+    padding-top: 5%;
+    padding-bottom: 30px;
+    
 }
 
 .tabla_materiales{
@@ -525,7 +535,7 @@
     text-align: left;
     padding: 20px;
     margin-top: 3%;
-    margin-left: 30%;
+    margin-left: 20%;
 }
 
 .tabla_materiales table{
@@ -543,7 +553,7 @@
 }
 
 .body_registrar_material{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     height: 100vh;
     width: 100%;
 
@@ -554,8 +564,8 @@
     color: black;
     padding: 20px;
     width: 300px;
-    margin-top: 178px;
-    margin-left: 37.5%;
+    margin-top: 160px;
+    margin-left: 25%;
     border-radius: 20px;
 }
 
@@ -594,12 +604,13 @@
     position: fixed;
     background-color: white;
     color: black;
+    text-align: left;
     padding: 20px;
     width: 300px;
     border-radius: 15px;
     border: 1px solid black;
-    top: 170px;
-    left: 36%;
+    top: 140px;
+    margin-left: 22%;
 }
 
 .modal_eliminar_material:target{
@@ -607,12 +618,6 @@
 }
 
 
-
-
-
-.modal_eliminar_material h2{
-    margin-bottom: 20px;
-}
 
 .modal_eliminar_material p{
     color: black;
@@ -640,12 +645,12 @@
 .body_editar_material{
     height: 100vh;
     width: 100%;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
 }
 
 .form_editar_material{
-    margin-left: 36%;
-    margin-top: 3%;
+    margin-left: 30%;
+    margin-top: 10%;
     background-color: white;
     padding: 20px;
     width: 280px;
@@ -657,10 +662,13 @@
 
 .form_editar_material p{
     margin-top: 10px;
+    color: black;
 }
 
 .form_editar_material input{
     margin-bottom: 20px;
+    padding: 5px;
+    width: 250px;
 }
 
 .btns_editar_material{
@@ -704,7 +712,7 @@
 
 .btn_registrar{
     margin-bottom: 20px;
-    margin-left: 35%;
+    margin-left: 25%;
     background-color: white;
     padding: 10px;
     text-decoration: none;
@@ -766,7 +774,7 @@
     text-decoration: none;
     background-color: #000000;
     padding: 9px;
-    top: 135px;
+    top: 120px;
     left: 480px;
 }
 
@@ -785,8 +793,70 @@
 .body_papelera{
     height: 100vh;
     width: 100%;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
 }
+
+.texto_bienvenida_papelera{
+    padding: 20px;
+}
+
+.texto_bienvenida_papelera h1{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.texto_bienvenida_papelera p{
+    color: black;
+}
+
+.texto_bienvenida_papelera a{
+    display: flex;
+    font-size: 30px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    align-content: center;
+}
+
+.texto_bienvenida_papelera a:hover{
+    color: #5a5959;
+}
+.deatils_unidades{
+    padding: 20px;
+}
+
+.tabla_unidades_papelera td,th{
+
+    padding-left: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+
+.tabla_unidades_papelera table{
+    border-collapse: collapse;
+}
+
+.tabla_unidades_papelera a{
+    color: black;
+}
+
+.tabla_unidades_papelera a:hover{
+    color: rgb(255, 255, 255);
+}
+
+.details_material{
+    padding: 20px;
+}
+
+.body_papelera summary{
+    margin-bottom: 20px;
+    
+}
+
+.tabla_materiales_papelera{
+    text-align: center;
+}
+
+
 
 /* FIN ESTILOS PAPELERA */
 

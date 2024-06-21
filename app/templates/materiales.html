@@ -5,11 +5,13 @@
 
 {% block head %} {% endblock %}
 
+{% block vision_de_usuario %} {% endblock %}
+
 
 
 {% block contenido %}
 <div class="body_materiales">
-    <h2 style="margin-left: 45%; margin-bottom: 50px; margin-top: 50px;">Materiales</h2>
+    <h2>Materiales</h2>
     <a href="{{url_for('registrar_material')}}" class="btn_registrar">Registrar un nuevo material</a>
     <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menu</a>
 

@@ -242,7 +242,28 @@ def eliminar_material(id_material):
          
 @app.route('/papelera')
 def papelera():
-     return render_template('papelera.html')
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM public.unidades '
+	            'WHERE visibilidad_unidad = false '
+                'ORDER BY id_unidad ASC')
+    unidades = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad' 
+	            ' FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad '
+                'WHERE visibilidad_material = false '
+                'ORDER BY nombre_material')
+    materiales = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    return render_template('papelera.html', unidades = unidades, materiales = materiales)
     
 
 def pagina_no_encontrada(error):
