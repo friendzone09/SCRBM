@@ -9,7 +9,7 @@
 <div class="body_editar_material">
     <form method="post" action="{{url_for('editar_material_proceso', id_material= materiales[0])}}" class="form_editar_material">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <p>Nombre de el material</p>
+        <h2>Nombre de el material</h2>
         <input type="text" name="nombre_material" value="{{materiales[1]}}">
         <p>Costro del material</p>
         <input type="number" name="costo_material" value="{{materiales[2]}}">
