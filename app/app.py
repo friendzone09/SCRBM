@@ -31,34 +31,44 @@ def index():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route("/dashboard/materiales")
-def materiales():
-    return render_template('materiales.html')
-
 #-----------------------------------------------INICIO READ UNIDAD------------------------------------------------------
 
-@app.route("/dashboard/unidades")
+@app.route("/unidades")
 def unidades():
     conn = get_db_conection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM unidades '
-                'ORDER BY nombre_unidad ASC')
+    cur.execute('SELECT * FROM public.unidades '
+	            'WHERE visibilidad_unidad = true '
+                'ORDER BY id_unidad ASC')
     unidad = cur.fetchall()
+    conn.commit()
     cur.close()
     conn.close()
     return render_template('unidades.html', unidad = unidad)
 
 #-----------------------------------------------FIN READ UNIDAD ------------------------------------------------------
 
+#=====================================================LISTAR UNIDAD=============================================
+def listar_unidad():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM unidades WHERE visibilidad_unidad IS true ORDER BY nombre_unidad ASC')
+    unidades= cur.fetchall()
+    cur.close()
+    conn.close()
+    return unidades
+
+#=======================================FIN LISTAR UNIDAD===========================================================
+
 #-------------------------INICIO REGISTRO UNIDAD------------------------------------------------------------------
 
 
-@app.route("/dashboard/unidades/registrar")
+@app.route("/unidades/registrar")
 def form_regis_unidad():
-    return render_template('form_regis_unidad.html')
+    return render_template('registrar_unidad.html')
 
 
-@app.route("/dashboard/unidades/registrar/regitrando", methods=('GET', 'POST'))
+@app.route("/unidades/registrar/regitrando", methods=('GET', 'POST'))
 def registrando_unidad():
     if request.method == 'POST':
         unidad = request.form['unidad']
@@ -102,13 +112,133 @@ def editar_unidad_proceso(id_unidad):
         conn.commit()
         cur.close()
         conn.close()
-        flash('Pais editado')
+        flash('Unidad editada')
         return redirect (url_for('unidades'))
     return redirect (url_for('unidades'))
 
 #----------------------------FIN UBDATE UNIDADE-----------------------------------------------------------------
 
+#========================================= INICIO ELIMINAR UNIDADES ============================================
+
+@app.route('/unidad/eliminar/<string:id_unidad>')
+def eliminar_unidad(id_unidad):
+    activo = False
+    conn = get_db_conection()
+    cur = conn.cursor()
+    sql = 'UPDATE unidades SET visibilidad_unidad=%s WHERE id_unidad=%s'
+    valores = (activo, id_unidad) 
+    cur.execute(sql, valores)
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('Se elimino la unidad')
+    return redirect (url_for('unidades'))
+
+#========================================= FIN ELIMINAR UNIDADES ============================================
+
+#===========================================INICIO READ MATERIALES=============================================
+
+@app.route('/materiales')
+def materiales():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad' 
+	            ' FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad '
+                'WHERE visibilidad_material = true '
+                'ORDER BY nombre_material')
+    materiales = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('materiales.html', materiales = materiales)
+
+
+#=======================================+FIN READ MATERIALES===================================================
+
+
+#-------------------------INICIO REGISTRO MATERIAL------------------------------------------------------------------
+
+
+@app.route("/materiales/registrar")
+def registrar_material():
+    return render_template('registrar_material.html', unidades = listar_unidad())
+
+
+@app.route("/materiales/registrar/proceso", methods=('GET', 'POST'))
+def registrar_material_proceso():
+    if request.method == 'POST':
+        nombre_material = request.form['nombre_material']
+        costo_material = request.form['costo_material']
+        fk_unidad = request.form['fk_unidad']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO public.materiales(nombre_material, costo_material,  fk_unidad) '
+	                'VALUES (%s, %s, %s);',
+                    (nombre_material, costo_material, fk_unidad,))
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Material registrado correctamente')
+        return redirect(url_for('materiales'))
+    return redirect(url_for('materiales'))
+
+#-------------------------FIN REGISTRO MATERIAL------------------------------------------------------------------
     
+#===============================INICIO UPDATE MATERIAL-============================================================
+@app.route('/material/editar/<string:id_material>')
+def editar_material(id_material):
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM materiales WHERE id_material ={0}'.format(id_material))
+    materiales = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('editar_material.html', materiales = materiales[0], unidades = listar_unidad())
+
+@app.route('/material/editar/proceso/<string:id_material>', methods =['POST'] )
+def editar_material_proceso(id_material):
+    if request.method == 'POST':
+        nombre_material = request.form['nombre_material']
+        costo_material = request.form['costo_material']
+        fk_unidad = request.form['fk_unidad']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        sql = "UPDATE materiales SET nombre_material=%s, costo_material=%s, fk_unidad = %s WHERE id_material =%s;"
+        valores = (nombre_material, costo_material, fk_unidad, id_material)
+        cur.execute(sql, valores)
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Material editado')
+        return redirect (url_for('materiales'))
+    return redirect (url_for('materiales'))
+
+
+
+#================================FIN UPDATE MATERIAL============================================================
+
+#===================================INICIO ELIMINAR MATERIAL====================================================
+
+@app.route('/material/eliminar/<string:id_material>')
+def eliminar_material(id_material):
+    activo = False
+    conn = get_db_conection()
+    cur = conn.cursor()
+    sql = 'UPDATE materiales SET visibilidad_material=%s WHERE id_material=%s'
+    valores = (activo, id_material) 
+    cur.execute(sql, valores)
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('Se elimino el material')
+    return redirect (url_for('materiales'))
+    
+    
+
+#=======================================FIN ELIMINAR MATERIAL===================================================
          
 @app.route('/papelera')
 def papelera():

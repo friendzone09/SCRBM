@@ -301,39 +301,7 @@
     padding-bottom: 30px;
 }
 
-.btn_registrar_unidad{
-    margin-bottom: 20px;
-    margin-left: 35%;
-    background-color: white;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    border-radius: 10px;
-}
 
-.btn_registrar_unidad:hover{
-    color: gray;
-    background-color: rgb(56, 56, 56);
-}
-
-.btn_registrar_unidad a{
-    padding-bottom: 20px;
-}
-
-.regresar_menu{
-    margin-left: 10px;
-    margin-bottom: 20px;
-    background-color: white;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    border-radius: 10px;
-}
-
-.regresar_menu:hover{
-    color: gray;
-    background-color: rgb(56, 56, 56);
-}
 
 .tabla_unidades{
     text-align: left;
@@ -361,91 +329,63 @@
     border-bottom: 2px solid black;
 }
 
-.btn_editar_unidad{
-    color: black;
-    text-decoration: none;
-    margin-right: 20px;
-    margin-left: 40px;
-    cursor: pointer;
-}
 
-.btn_editar_unidad:hover{
-    color: white;
-}
-
-.btn_eliminar_unidad{
-    color: black;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.btn_eliminar_unidad:hover{
-    color: white;
-}
 
 /* ESTILOSMODAL ELIMINAR UNIDAD */
 
 .modal_eliminar_unidad{
     display: none;
-    top: 170px;
-    left: 33%;
     position: fixed;
-    text-align: center;
-    border-radius: 10px;
-    padding: 20px 80px;
-    width: 250px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid black;
     background-color: white;
-    transition: 0.4s
+    color: black;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 170px;
+    left: 36%;
 }
 
-
+.modal_eliminar_unidad:target{
+    display: block;
+}
+.modal_eliminar_unidad h2{
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 .modal_eliminar_unidad p{
-    margin-top: 30px;
+    margin-bottom: 30px;
+    color: black;
 }
 
 .opciones_eliminar_unidad{
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
 }
 
 .opciones_eliminar_unidad a{
     text-decoration: none;
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1.5px solid black ;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
 }
 
-.btn_aceptar_eliminar_unidad{
+.opciones_eliminar_unidad button{
+    background-color: black;
+    padding: 2px;
+    color: white;
+    border-radius: 10px;
     cursor: pointer;
+    border: solid 1px black;
 }
 
-.btn_aceptar_eliminar_unidad:hover{
+.opciones_eliminar_unidad a:hover{
     background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-    
 }
-
-#btn_cancelar_eliminar_unidad{
-    padding: 10px;
-    border-radius: 5px;
-    border: 1.5px solid black;
-    cursor: pointer;
-}
-
-#btn_cancelar_eliminar_unidad:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-    outline-color: rgb(67, 149, 149);
-}
-
 
 /* FIN ESTILOS MODAL ELIMINAR UNIDAD */
-
-/* FIN ESTILOS UNIDADES */
 
 /* ESTILOS REGISTRO UNIDADES*/
 
@@ -496,22 +436,7 @@
     background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
 }
 
-.btn_regresar_unidades{
-    position: absolute;
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-    background-color: #000000;
-    padding: 9px;
-    top: 135px;
-    left: 480px;
-}
 
-.btn_regresar_unidades:hover{
-    border: rgb(67, 149, 149);
-    color: black;
-    background-color: white;
-}
 
 
 /* FIN ESTILOS REGISTRO UNIDADES*/
@@ -544,7 +469,7 @@
     border: 1.5px solid black;
 }
 .btns_editar_unidad a{
-    padding: 5px;
+    padding: 4.5px;
     border-radius: 15px;
     text-decoration: none;
     color: white;
@@ -563,7 +488,7 @@
 
 .btns_editar_unidad a:hover{
     background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-    border: rgb(67, 149, 149);;
+    border: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);;
 
 }
 
@@ -585,9 +510,213 @@
 
 /* FIN ESTILOS EDITAR UNIDAD*/
 
+/* FIN ESTILOS UNIDADES */
+
 /* INICIO ESTILOS MATERIALES */
 
+.body_materiales{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    height: 100vh;
+    width: 100%;
+}
+
+.tabla_materiales{
+    width: 500px;
+    text-align: left;
+    padding: 20px;
+    margin-top: 3%;
+    margin-left: 30%;
+}
+
+.tabla_materiales table{
+    border-collapse: collapse;
+}
+
+.tabla_materiales th{
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+.tabla_materiales td{
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+    border-collapse: collapse;
+}
+
+.body_registrar_material{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+    height: 100vh;
+    width: 100%;
+
+}
+
+.form_regis_material{
+    background: white;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    margin-top: 178px;
+    margin-left: 37.5%;
+    border-radius: 20px;
+}
+
+.form_regis_material h2{
+    margin-bottom: 20px;
+}
+.form_regis_material p{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: black;
+}
+
+.form_regis_material input{
+    padding: 5px;
+    width: 270px;
+    border-radius: 5px;
+    border: solid 1px black;
+}
+
+.form_regis_material button{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border: solid black 1px;
+    border-radius: 5px;
+}
+
+.form_regis_material button:hover{
+    cursor: pointer;
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+
+}
+
+.modal_eliminar_material{
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 170px;
+    left: 36%;
+}
+
+.modal_eliminar_material:target{
+    display: block;
+}
+
+
+
+
+
+.modal_eliminar_material h2{
+    margin-bottom: 20px;
+}
+
+.modal_eliminar_material p{
+    color: black;
+    margin-bottom: 20px;
+}
+
+.btns_eliminar_material{
+    justify-content: space-between;
+    display: flex;
+}
+
+.btns_eliminar_material a{
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: black;
+}
+
+.btns_eliminar_material a:hover{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+
+}
+
+
 /* FIN ESTILOS MATERIALES */
+
+/* INICIO BOTONES REGISTRAR/REGRESAR AL MENU */
+
+.btn_registrar{
+    margin-bottom: 20px;
+    margin-left: 35%;
+    background-color: white;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+.btn_registrar:hover{
+    color: gray;
+    background-color: rgb(56, 56, 56);
+}
+
+.btn_registrar a{
+    padding-bottom: 20px;
+}
+
+.regresar_menu{
+    margin-left: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+.regresar_menu:hover{
+    color: gray;
+    background-color: rgb(56, 56, 56);
+}
+
+.btn_editar{
+    color: black;
+    text-decoration: none;
+    margin-right: 20px;
+    margin-left: 40px;
+    cursor: pointer;
+}
+
+.btn_editar:hover{
+    color: white;
+}
+
+.btn_eliminar{
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn_eliminar:hover{
+    color: white;
+}
+
+.btn_regresar{
+    position: absolute;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #000000;
+    padding: 9px;
+    top: 135px;
+    left: 480px;
+}
+
+.btn_regresar:hover{
+    border: rgb(67, 149, 149);
+    color: black;
+    background-color: white;
+}
+
+/* FIN BOTONES REGISTRAR/REGRESAR AL MENU */
 
 
 /* INICIO ESTILOS PAPELERA */

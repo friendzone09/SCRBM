@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos.css')}}">
     <script src="https://kit.fontawesome.com/f2f934aa4b.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename = 'JS/script.js')}}" defer></script>
-     <title>Inicio</title> 
+     <title>{% block titulo %} Inicio {% endblock %} </title> 
     {% block head %} {% endblock %}
 </head>
 <body class="body_dashboard">
@@ -33,7 +33,7 @@
         <div class="opciones_proyecto">
 
             <a href="{{url_for('unidades')}}">Unidades</a>
-            <a>Materiales</a>
+            <a href="{{url_for('materiales')}}">Materiales</a>
             <a>Basicos</a>
             <a>Oficios</a>
             <a>Herramientas</a>

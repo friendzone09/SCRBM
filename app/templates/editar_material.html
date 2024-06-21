@@ -1,0 +1,30 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Materiales {% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_editar_material">
+    <form method="post" action="{{url_for('editar_material_proceso', id_material= materiales[0])}}" class="form_editar_material">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <p>Nombre de el material</p>
+        <input type="text" name="nombre_material" value="{{materiales[1]}}">
+        <p>Costro del material</p>
+        <input type="number" name="costo_material" value="{{materiales[2]}}">
+        <p>Unidad del material</p>
+        <select name="fk_unidad" id="">
+            {% for unidad in unidades %}
+                <option value="{{unidad.0}}">{{unidad.1}} </option>
+            {% endfor %}
+        </select>
+        <div class="btns_editar_material">
+            <a href="{{url_for('materiales')}}">Regresar</a>
+            <button type="submit">Aceptar</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

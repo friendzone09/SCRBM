@@ -1,5 +1,7 @@
 {% extends "dashboard.html" %}
 
+{% block titulo %} Unidades {% endblock %}
+
 
 
 {% block head %} {% endblock %}
@@ -9,7 +11,7 @@
 {% block contenido %}
 <div class="body_unidades">
     <h1>Unidades</h1>
-    <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar_unidad">Registrar una nueva unidad</a>
+    <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar">Registrar una nueva unidad</a>
     <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menu</a>
     
     <table class="tabla_unidades">
@@ -22,8 +24,8 @@
             <tr>
                 <td>{{unidad[1]}}</td>
                 <td>
-                    <a href="{{url_for('editar_unidad', id_unidad=unidad[0])}}" class="btn_editar_unidad"><i class="fa-solid fa-pen-to-square" ></i></a>
-                    <a class="btn_eliminar_unidad"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{{url_for('editar_unidad', id_unidad=unidad[0])}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" >ED</i></a>
+                    <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash">EL</i></a>
                 </td>
                 
                 
@@ -34,13 +36,18 @@
         {% endfor %}
     </table>
 
-    <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad">
-        <h2>Eliminar unidad</h2>
-        <p>¿Esta seguro de eliminar esta unidad?</p>
-        <div class="opciones_eliminar_unidad">
-            <a href="#" class="btn_aceptar_eliminar_unidad">Aceptar</a> <button id="btn_cancelar_eliminar_unidad">Cancelar</button>
+    {% for unidad in unidad %}
+        <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad_{{unidad[0]}}">
+            <h2>Eliminar unidad</h2>
+            <p>¿Esta seguro de eliminar esta unidad?</p>
+            <p>{{unidad.1}} </p>
+            <div class="opciones_eliminar_unidad">
+                <a href="{{url_for('eliminar_unidad', id_unidad=unidad[0])}}" class="btn_aceptar_eliminar_unidad">Aceptar</a> 
+                <a href="#">Cancelar</a>
+            </div>
         </div>
-    </div>
+
+    {% endfor %}
     
     
 </div>
