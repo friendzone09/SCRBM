@@ -1,0 +1,38 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Maquinaria {% endblock %}
+
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_registrar_maquina">
+    <a class="btn_regresar" href="{{url_for('maquinaria')}}">Regresar</a>
+    <form method="post" class="form_regis_maquina" action="{{url_for('registrar_maquinaria_proceso')}}">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <h2>Registra una maquina</h2>
+        <p>Nombre de la maquina</p>
+        <input type="text" id="nombre_maquina" placeholder="Inserta nombre de la maquina..." name="nombre_maquina">
+        <p>Costo de la maquina</p>
+        <input type="number" step="0.01" name="costo_maquina" id="costo_maquina" placeholder="Inserta el coste...">
+        <p>Vida util de la maquina</p>
+        <input type="number" name="vida_util" id="vida_util" placeholder="Vida util...">
+        <p>Unidad de la maquina</p>
+        <select name="fk_unidad" id="">
+            {% for unidad in unidades %}
+                <option value="{{unidad[0]}}">{{unidad[1]}} </option>
+
+            {% endfor %}
+            
+            
+        </select>
+
+        </select>
+        <button type="submit">Guardar</button>
+    
+    </form>
+    
+</div>
+
+{% endblock %}

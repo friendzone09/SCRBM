@@ -1,0 +1,61 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Maquinaria {% endblock %}
+
+
+{% block head %} {% endblock %}
+
+
+
+{% block contenido %}
+<div class="body_maquinaria">
+    <h2 style="margin-left: 35%; margin-top: 50px; margin-bottom: 30px;">Maquinaria</h2>
+    <a href="{{url_for('registrar_maquinaria')}}" class="btn_registrar">Registrar maquina</a>
+    <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menú</a>
+    
+
+    <table class="tabla_maquinas">
+        <thead>
+            <th>Nombre de la maquinaria</th>
+            <th>Costo</th>
+            <th>Vida util</th>
+            <th>Unidad</th>
+            <th>Opciones</th>
+        </thead>
+        <tbody>
+            {% for maquina in maquinaria %}
+            <tr>
+                <td>{{maquina.1}}</td>
+                <td>{{maquina.2}}</td>
+                <td>{{maquina.3}}</td>
+                <td>{{maquina.4}} </td>
+                <td>
+                    <a href="{{url_for('editar_maquina', id_maquina=maquina[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                    <a class="btn_eliminar" href="#modal_eliminar_maquina_{{maquina[0]}}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+             
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+
+
+    {% for maquina in maquinaria %}
+        <div class="modal_eliminar_maquina" id="modal_eliminar_maquina_{{maquina[0]}}">
+            <h2>Eliminar maquina</h2>
+            <p>¿Estas seguro de eliminar esta maquina?</p>
+            <p>{{maquina.1}} </p>
+            <div class="btns_eliminar_maquina">
+                <a href="{{url_for('eliminar_maquinaria', id_maquina = maquina[0])}}">Aceptar</a>
+                <a href="#">Cancelar</a>
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

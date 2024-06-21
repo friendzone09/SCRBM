@@ -1,0 +1,35 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Maquinaria {% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_editar_maquinaria">
+    <form method="post" action="{{url_for('editar_maquina_proceso', id_maquina= maquinaria[0])}}" class="form_editar_maquinaria">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <p>Nombre de la maquina</p>
+        <input type="text" name="nombre_maquina" value="{{maquinaria[1]}}">
+        <p>Costo de la maquina</p>
+        <input type="number" name="costo_maquina" value="{{maquinaria[2]}}">
+        <p>Vida útil</p>
+        <input type="number" name="vida_util" value="{{maquinaria[3]}}">
+        <p>Selecciona la unidad</p>
+        <select name="fk_unidad" id="">
+            {% for unidad in unidades %}
+                <option value="{{unidad[0]}}">{{unidad[1]}} </option>
+
+            {% endfor %}
+            
+            
+        </select>
+        <div class="btns_editar_maquina">
+            <a href="{{url_for('maquinaria')}}">Regresar</a>
+            <button type="submit">Aceptar</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

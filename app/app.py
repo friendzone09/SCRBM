@@ -239,6 +239,8 @@ def eliminar_material(id_material):
     
 
 #=======================================FIN ELIMINAR MATERIAL===================================================
+
+#======================================INICIO PAPELERA============================================================
          
 @app.route('/papelera')
 def papelera():
@@ -264,6 +266,103 @@ def papelera():
     conn.close()
     
     return render_template('papelera.html', unidades = unidades, materiales = materiales)
+
+
+#====================================FIN PAPELERA==================================================================
+
+#=======================================MAQUINARIA==============================================================
+
+#---------------------------------------------READ MAQUINARIA---------------------------------------------------
+
+@app.route("/maquinaria")
+def maquinaria():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT maquinaria.id_maquina, maquinaria.nombre_maquina, maquinaria.costo_maquina, ' 
+	            'maquinaria.vida_util, unidades.nombre_unidad FROM maquinaria INNER JOIN unidades ' 
+	            'ON fk_unidad = id_unidad WHERE  visibilidad IS true ')
+    maquinaria = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('maquinaria.html', maquinaria = maquinaria)
+
+#--------------------------------------------REGISTRO MAQUINARIA----------------------------------------------------
+
+@app.route("/maquinaria/registrar")
+def registrar_maquinaria():
+    return render_template('registrar_maquinaria.html', unidades = listar_unidad())
+
+
+@app.route("/maquinaria/registrar/proceso", methods=('GET', 'POST'))
+def registrar_maquinaria_proceso():
+    if request.method == 'POST':
+        nombre_maquina = request.form['nombre_maquina']
+        costo_maquina = request.form['costo_maquina']
+        vida_util = request.form['vida_util']
+        fk_unidad =  request.form['fk_unidad']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO public.maquinaria(nombre_maquina, costo_maquina, vida_util, fk_unidad) '
+	                'VALUES (%s, %s, %s, %s);',
+                    (nombre_maquina, costo_maquina, vida_util, fk_unidad,))
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Maquina registrada correctamente')
+        return redirect(url_for('maquinaria'))
+    return redirect(url_for('maquinaria'))
+
+#------------------------------------------UPDATE MAQUINARIA---------------------------------------------------------
+
+@app.route('/maquina/editar/<int:id_maquina>')
+def editar_maquina(id_maquina):
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM maquinaria WHERE id_maquina = %s;', (id_maquina,))
+    maquinaria = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('editar_maquinaria.html', maquinaria=maquinaria[0], unidades=listar_unidad())
+
+@app.route('/maquina/editar/proceso/<string:id_maquina>', methods =['POST'] )
+def editar_maquina_proceso(id_maquina):
+    if request.method == 'POST':
+        nombre_maquina = request.form['nombre_maquina']
+        costo_maquina = request.form['costo_maquina']
+        vida_util = request.form['vida_util']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        sql = "UPDATE maquinaria SET nombre_maquina=%s, costo_maquina=%s, vida_util = %s WHERE id_maquina =%s;"
+        valores = (nombre_maquina, costo_maquina, vida_util, id_maquina)
+        cur.execute(sql, valores)
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Maquina editada')
+        return redirect (url_for('maquinaria'))
+    return redirect (url_for('maquinaria'))
+
+#--------------------------------------------------ELIMINAR MAQUINARIA------------------------------------------------
+
+@app.route('/maquinaria/eliminar/<string:id_maquina>')
+def eliminar_maquinaria(id_maquina):
+    activo = False
+    conn = get_db_conection()
+    cur = conn.cursor()
+    sql = 'UPDATE maquinaria SET visibilidad=%s WHERE id_maquina=%s'
+    valores = (activo, id_maquina) 
+    cur.execute(sql, valores)
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('Se elimino la maquina')
+    return redirect (url_for('maquinaria'))
+
+#---------------------------------------------------------------------------------------------------------------------
     
 
 def pagina_no_encontrada(error):

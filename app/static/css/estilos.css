@@ -564,7 +564,7 @@
     color: black;
     padding: 20px;
     width: 300px;
-    margin-top: 160px;
+    margin-top: 130px;
     margin-left: 25%;
     border-radius: 20px;
 }
@@ -708,6 +708,193 @@
 
 /* FIN ESTILOS MATERIALES */
 
+/* INICIO ESTILOS MAQUINARIA */
+
+.body_maquinaria{
+    height: 100vh;
+    width: 100%;
+}
+.tabla_maquinas{
+    width: 600px;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 15%;
+}
+
+.tabla_maquinas th, td{
+    padding-bottom: 10px;
+    border-bottom:1px solid black ;
+    
+}
+
+.btns_opciones_maquinaria{
+    margin-left: 20px;
+    width: 500px;
+}
+
+.body_registrar_maquina{
+    height: 100vh;
+    width: 100%;
+}
+
+.form_regis_maquina{
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+    margin-left: 25%;
+    margin-top: 2%;
+    width: 260px;
+}
+
+.form_regis_maquina h2{
+    margin-bottom: 20px;
+}
+
+.form_regis_maquina p{
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.form_regis_maquina input{
+    padding: 5px;
+    width: 240px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.form_regis_maquina button{
+    padding: 7px;border-radius: 5px;
+    border: solid black 1px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.form_regis_maquina select{
+    width: 240px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px black solid;
+    margin-bottom: 20px;
+}
+
+.form_regis_maquina button:hover{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+}
+
+
+.modal_eliminar_maquina{
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    text-align: left;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 140px;
+    margin-left: 20%;
+}
+
+.modal_eliminar_maquina:target{
+    display: block;
+}
+
+.modal_eliminar_maquina h2{
+    margin-bottom: 20px;
+}
+
+.modal_eliminar_maquina p{
+    color: black;
+    margin-bottom: 20px;
+}
+
+.btns_eliminar_maquina{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns_eliminar_maquina a{
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: black;
+    text-decoration: none;
+    padding: 5px;
+    color: white;
+}
+
+.body_editar_maquinaria{
+    height: 100vh;
+    width: 100%;
+}
+
+.form_editar_maquinaria{
+    background-color: white;
+    width: 250px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-left: 30%;
+    margin-top: 5%;
+}
+
+.form_editar_maquinaria p{
+    color: black;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.form_editar_maquinaria input{
+    padding: 5px;
+    width: 230px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.form_editar_maquinaria select{
+    padding: 5px;
+    width: 230px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.btns_editar_maquina{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns_editar_maquina a{
+    text-decoration: none;
+    background-color: black;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.btns_editar_maquina a:hover{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+
+}
+
+.btns_editar_maquina button{
+    text-decoration: none;
+    background-color: black;
+    padding: 7px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+}
+
+.btns_editar_maquina button:hover{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+
+}
+
+/* FIN ESTILOS MAQUINARIA */
+
 /* INICIO BOTONES REGISTRAR/REGRESAR AL MENU */
 
 .btn_registrar{
@@ -774,8 +961,8 @@
     text-decoration: none;
     background-color: #000000;
     padding: 9px;
-    top: 120px;
-    left: 480px;
+    top: 20px;
+    left: 220px;
 }
 
 .btn_regresar:hover{
@@ -848,8 +1035,14 @@
 }
 
 .body_papelera summary{
-    margin-bottom: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;   
+}
+
+.body_papelera summary:hover{
+    color: rgb(134, 134, 134);
     
+
 }
 
 .tabla_materiales_papelera{
