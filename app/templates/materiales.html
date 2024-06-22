@@ -27,7 +27,7 @@
             {% for material in materiales %}
             <tr>
                 <td>{{material.1}}</td>
-                <td>{{material.2}}</td>
+                <td>${{material.2}}</td>
                 <td>{{material.3}}</td>
                 <td>
                     <a href="{{url_for('editar_material', id_material=material[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>

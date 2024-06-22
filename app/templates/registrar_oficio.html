@@ -1,0 +1,33 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Oficios {% endblock %}
+
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_registrar_oficio">
+
+    <a class="btn_regresar" href="{{url_for('oficios')}}"><i class="fa-solid fa-arrow-left"></i> Regresar</a>
+
+    <form method="post" class="form_regis_material" action="{{url_for('registrar_oficio_proceso')}}">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <h2>Registra un oficio</h2>
+        <p>Nombre del oficio</p>
+        <input type="text" id="nombre_oficio" placeholder="Inserta nombre del oficio..." name="nombre_oficio">
+        <p>Costo del oficio</p>
+        <input type="number" name="costo_oficio" id="costo_oficio" placeholder="Inserta el coste">
+        <p>Unidad</p>
+        <select name="fk_unidad" id="fk_unidad">
+            <option selected>Elige una unidad</option>
+            {% for unidad in unidades %}
+                <option value="{{unidad.0}}">{{unidad.1}} </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Guardar</button>
+    </form>
+    
+</div>
+
+{% endblock %}

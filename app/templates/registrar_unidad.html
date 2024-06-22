@@ -8,7 +8,7 @@
 {% block contenido %}
 
 <div class="body_registrar_unidad">
-    <a class="btn_regresar" href="{{url_for('unidades')}}">Regresar</a>
+    <a class="btn_regresar" href="{{url_for('unidades')}}"><i class="fa-solid fa-arrow-left"></i> Regresar</a>
     <form method="post" class="form_regis_unidad" action="{{url_for ('registrando_unidad')}}">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <h2>Registrar una unidad</h2>

@@ -8,7 +8,7 @@
 {% block contenido %}
 
 <div class="body_registrar_maquina">
-    <a class="btn_regresar" href="{{url_for('maquinaria')}}">Regresar</a>
+    <a class="btn_regresar" href="{{url_for('maquinaria')}}"><i class="fa-solid fa-arrow-left"></i> Regresar</a>
     <form method="post" class="form_regis_maquina" action="{{url_for('registrar_maquinaria_proceso')}}">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <h2>Registra una maquina</h2>
@@ -20,6 +20,7 @@
         <input type="number" name="vida_util" id="vida_util" placeholder="Vida util...">
         <p>Unidad de la maquina</p>
         <select name="fk_unidad" id="">
+            <option selected>Elige una unidad</option>
             {% for unidad in unidades %}
                 <option value="{{unidad[0]}}">{{unidad[1]}} </option>
 

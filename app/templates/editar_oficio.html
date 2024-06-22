@@ -1,0 +1,30 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Oficios {% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block contenido %}
+
+<div class="body_editar_material">
+    <form method="post" action="{{url_for('editar_oficio_proceso', id_oficio=oficios[0])}}" class="form_editar_material">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <h2>Nombre de oficio</h2>
+        <input type="text" name="nombre_oficio" value="{{oficios[1]}}" id="nombre_oficio">
+        <p>Costo del oficio</p>
+        <input type="number" name="costo_oficio" value="{{oficios[3]}}" id="costo_oficio">
+        <p>Unidad del oficio</p>
+        <select name="fk_unidad" id="fk_unidad" name="fk_unidad">
+            {% for unidad in unidades %}
+                <option value="{{unidad.0}}"">{{unidad.1}} </option>
+            {% endfor %}
+        </select>
+        <div class="btns_editar_material">
+            <a href="{{url_for('oficios')}}">Regresar</a>
+            <button type="submit">Aceptar</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

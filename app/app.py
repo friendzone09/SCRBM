@@ -363,6 +363,111 @@ def eliminar_maquinaria(id_maquina):
     return redirect (url_for('maquinaria'))
 
 #---------------------------------------------------------------------------------------------------------------------
+
+#======================================= OFICIOS ===================================================
+
+#=======================================INICIO READ OFICIOS==========================================================
+
+@app.route('/oficios')
+def oficios():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT id_oficio, nombre_oficio, unidades.nombre_unidad, costo_oficio, visibilidad '
+                'FROM oficios '
+                'INNER JOIN unidades '
+                'ON oficios.fk_unidad = unidades.id_unidad '
+                'WHERE visibilidad = true '
+                'ORDER BY nombre_oficio ASC ')
+    oficios = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('oficios.html', oficios=oficios)
+
+#======================================= FIN READ OFICIOS ===========================================================
+
+#-------------------------INICIO REGISTRO OFICIO------------------------------------------------------------------
+
+@app.route("/oficios/registrar")
+def registrar_oficio():
+    return render_template('registrar_oficio.html', unidades = listar_unidad())
+
+
+@app.route("/oficios/registrar/proceso", methods=('GET', 'POST'))
+def registrar_oficio_proceso():
+    if request.method == 'POST':
+        nombre_oficio = request.form['nombre_oficio']
+        costo_oficio = request.form['costo_oficio']
+        fk_unidad = request.form['fk_unidad']
+        
+        conn = get_db_conection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO public.oficios(nombre_oficio, costo_oficio, fk_unidad) VALUES (%s, %s, %s)', (nombre_oficio, costo_oficio, fk_unidad))
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Oficio registrado correctamente')
+        return redirect(url_for('oficios'))
+    return redirect(url_for('oficios'))
+
+#-------------------------FIN REGISTRO OFICIO------------------------------------------------------------------
+
+#===============================INICIO UPDATE OFICIO-============================================================
+
+@app.route('/oficio/editar/<string:id_oficio>')
+def editar_oficio(id_oficio):
+    conn = get_db_conection()
+    cur = conn.cursor()
+
+    cur.execute('SELECT id_oficio, nombre_oficio, unidades.nombre_unidad, costo_oficio, visibilidad '
+                'FROM oficios '
+                'INNER JOIN unidades '
+                'ON oficios.fk_unidad = unidades.id_unidad '
+                'WHERE id_oficio ={0}'.format(id_oficio))
+    oficios = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('editar_oficio.html', oficios=oficios[0], unidades = listar_unidad())
+
+@app.route('/oficio/editar/proceso/<string:id_oficio>', methods =['POST'] )
+def editar_oficio_proceso(id_oficio):
+    if request.method == 'POST':
+        nombre_oficio = request.form['nombre_oficio']
+        costo_oficio = request.form['costo_oficio']
+        fk_unidad = request.form['fk_unidad']
+
+        conn = get_db_conection()
+        cur = conn.cursor()
+        sql = "UPDATE public.oficios SET nombre_oficio=%s, costo_oficio=%s, fk_unidad=%s WHERE id_oficio=%s"
+        valores = (nombre_oficio, costo_oficio, fk_unidad, id_oficio)
+        cur.execute(sql, valores)
+        conn.commit()
+        cur.close()
+        conn.close()
+        flash('Oficio editado')
+        return redirect (url_for('oficios'))
+    return redirect (url_for('oficios'))
+
+#================================FIN UPDATE OFICIO============================================================
+
+#===================================INICIO ELIMINAR OFICIO====================================================
+
+@app.route('/oficio/eliminar/<string:id_oficio>')
+def eliminar_oficio(id_oficio):
+    activo = False
+    conn = get_db_conection()
+    cur = conn.cursor()
+    sql = 'UPDATE oficios SET visibilidad=%s WHERE id_oficio=%s'
+    valores = (activo, id_oficio) 
+    cur.execute(sql, valores)
+    conn.commit()
+    cur.close()
+    conn.close()
+    flash('Se elimino el oficio')
+    return redirect (url_for('oficios'))
+
+#=======================================FIN ELIMINAR OFICIO===================================================
     
 
 def pagina_no_encontrada(error):
