@@ -106,7 +106,7 @@
 .vision_de_usuario{
     background: linear-gradient(to bottom, #33ccff 0%, #66ffff 100%);
     position: relative;
-    height: 100%;
+    height: 100vh;
     width: 200px;
     
 }
@@ -531,25 +531,19 @@
 }
 
 .tabla_materiales{
-    width: 500px;
     text-align: left;
-    padding: 20px;
-    margin-top: 3%;
-    margin-left: 20%;
+    margin-left: 15%;
+    margin-top: 30px;
 }
 
 .tabla_materiales table{
-    border-collapse: collapse;
+    text-align: center;
+    width: 400px;
 }
 
-.tabla_materiales th{
-    border-bottom: 2px solid black;
+.tabla_materiales th, td{
+    padding-left: 50px;
     padding-bottom: 10px;
-}
-.tabla_materiales td{
-    padding-bottom: 10px;
-    border-bottom: 2px solid black;
-    border-collapse: collapse;
 }
 
 .body_registrar_material{
@@ -723,16 +717,20 @@
     width: 100%;
 }
 .tabla_maquinas{
-    width: 600px;
     text-align: left;
+    margin-left: 7%;
     margin-top: 30px;
-    margin-left: 15%;
+}
+
+.tabla_maquinas table{
+    text-align: center;
+    width: 400px;
 }
 
 .tabla_maquinas th, td{
+    border-bottom: 1px solid black;
+    padding-left: 50px;
     padding-bottom: 10px;
-    border-bottom:1px solid black ;
-    
 }
 
 .btns_opciones_maquinaria{
@@ -922,6 +920,21 @@
     width: 100%;
 }
 
+.tabla_oficios{
+    text-align: left;
+    margin-left: 17%;
+    margin-top: 30px;
+}
+
+.tabla_oficios table{
+    text-align: center;
+    width: 400px;
+}
+
+.tabla_oficios th, td{
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
 
 /* FIN ESTILOS OFICIOS */
 
@@ -1013,6 +1026,15 @@
     background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
 }
 
+.body_papelera details{
+    padding: 10px;
+    background-color: rgba(180, 180, 180, 0.2);
+}
+.body_papelera summary{
+    margin-bottom: 20px;
+
+}
+
 .texto_bienvenida_papelera{
     padding: 20px;
 }
@@ -1065,8 +1087,7 @@
 }
 
 .body_papelera summary{
-    cursor: pointer;
-    margin-bottom: 20px;   
+    cursor: pointer;  
 }
 
 .body_papelera summary:hover{
@@ -1079,11 +1100,43 @@
     text-align: center;
 }
 
+.tabla_materiales_papelera th, td{
+    padding-left: 50px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.details_oficios{
+    padding: 20px;
+}
+
+.tabla_oficios_papelera table{
+    text-align: center;
+    width: 400px;
+}
+
+.tabla_oficios_papelera th, td{
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
+.details_maquinaria{
+    padding: 20px;
+}
+
+.tabla_maquinas_papelera table{
+    text-align: center;
+    width: 400px;
+}
+
+.tabla_maquinas_papelera th,td{
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
 
 
 /* FIN ESTILOS PAPELERA */
-
-
 
 
 /* Estilos error 404 */

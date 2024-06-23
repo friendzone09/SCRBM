@@ -42,6 +42,7 @@
         </details>
     </div>
 
+
     <div class="details_material">
         <details>
             <summary>Materiales</summary>
@@ -68,15 +69,73 @@
                 {% endfor %}
             </table>
         </details>
+
+        
+
+        </div>
+
+    <div class="details_oficios">
+        <details>
+            <summary>Oficios</summary>
+
+            <table class="tabla_oficios_papelera">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Unidad</th>
+                    <th>Costo</th>
+                    <th>Eliminar</th>
+                    <th>Restaurar</th>
+                </thead>
+                <tbody>
+                {% for oficio in oficios %}
+                    <tr>
+                        <td>{{oficio.1}}</td>
+                        <td>{{oficio.2}}</td>
+                         <td>${{oficio.3}}</td>
+                         <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                         <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                    
+            </table>
+
+        </details>
+
+
+    </div>
+
+    <div class="details_maquinaria">
+        <details>
+            <summary>Maquinaria</summary>
+            <table class="tabla_maquinas_papelera">
+                <thead>
+                    <tr>
+                        <th>Nombre de la maquinaria</th>
+                        <th>Costo</th>
+                        <th>Vida util</th>
+                        <th>Unidad</th>
+                        <th>Eliminar</th>
+                        <th>Restaurar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for maquina in maquinaria %}
+                    <tr>
+                        <td>{{maquina.1}}</td>
+                        <td>${{maquina.2}}</td>
+                        <td>{{maquina.3}}</td>
+                        <td>{{maquina.4}} </td>
+                        <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
+                         <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>   
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </details>
     </div>
 
 
-
-    
-
-
 </div>
-
-
 
 {% endblock %}

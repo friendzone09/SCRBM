@@ -240,35 +240,6 @@ def eliminar_material(id_material):
 
 #=======================================FIN ELIMINAR MATERIAL===================================================
 
-#======================================INICIO PAPELERA============================================================
-         
-@app.route('/papelera')
-def papelera():
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM public.unidades '
-	            'WHERE visibilidad_unidad = false '
-                'ORDER BY id_unidad ASC')
-    unidades = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad' 
-	            ' FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad '
-                'WHERE visibilidad_material = false '
-                'ORDER BY nombre_material')
-    materiales = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    
-    return render_template('papelera.html', unidades = unidades, materiales = materiales)
-
-
-#====================================FIN PAPELERA==================================================================
 
 #=======================================MAQUINARIA==============================================================
 
@@ -468,7 +439,60 @@ def eliminar_oficio(id_oficio):
     return redirect (url_for('oficios'))
 
 #=======================================FIN ELIMINAR OFICIO===================================================
+
+
+#======================================INICIO PAPELERA============================================================
+         
+@app.route('/papelera')
+def papelera():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM public.unidades '
+	            'WHERE visibilidad_unidad = false '
+                'ORDER BY id_unidad ASC')
+    unidades = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
     
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad' 
+	            ' FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad '
+                'WHERE visibilidad_material = false '
+                'ORDER BY nombre_material')
+    materiales = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT id_oficio, nombre_oficio, unidades.nombre_unidad, costo_oficio, visibilidad '
+                'FROM oficios '
+                'INNER JOIN unidades '
+                'ON oficios.fk_unidad = unidades.id_unidad '
+                'WHERE visibilidad = false '
+                'ORDER BY nombre_oficio ASC ')
+    oficios = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT maquinaria.id_maquina, maquinaria.nombre_maquina, maquinaria.costo_maquina, ' 
+	            'maquinaria.vida_util, unidades.nombre_unidad FROM maquinaria INNER JOIN unidades ' 
+	            'ON fk_unidad = id_unidad WHERE visibilidad = false ')
+    maquinaria = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    
+    return render_template('papelera.html', unidades = unidades, materiales = materiales, oficios=oficios, maquinaria=maquinaria)
+
+#====================================FIN PAPELERA==================================================================    
 
 def pagina_no_encontrada(error):
     return render_template('error404.html')
