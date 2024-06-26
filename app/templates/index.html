@@ -7,7 +7,7 @@
     <title>Inicio de sesion</title>
 </head>
 
-<div class="body_index">
+<body  class="body_index">
 
     <div class="inicio_de_sesion">
         <h1>Bienvenido</h1>
@@ -15,11 +15,15 @@
         <input type="text" placeholder="Correo...">
         <p>Ingresa tu contraseña</p>
         <input type="password" placeholder="Contraseña...">
+        <div class="opciones_inicio_sesion">
+            <a href="#">Registrarte</a>
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
         <a href="{{url_for ('dashboard')}}"> <button>Ingresar</button></a>
         
     </div>
     
-</div>
+</body>
 
 
 

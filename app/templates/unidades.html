@@ -8,37 +8,39 @@
 
 
 
-{% block contenido %}
-<div class="body_unidades">
-    <h1>Unidades</h1>
-    <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar">Registrar una nueva unidad</a>
-    <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menu</a>
-    
-    <table class="tabla_unidades">
-        <thead>
-            <th>Nombre de la unidad</th>
-            <th>Opciones</th>
-        </thead>
-        <tbody>
-            {% for unidad in unidad %}
-            <tr>
-                <td>{{unidad[1]}}</td>
-                <td>
-                    <a href="{{url_for('editar_unidad', id_unidad=unidad[0])}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                    <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
-                </td>
-                
-                
-                
-                
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
 
-    {% for unidad in unidad %}
+<body class="body_unidades">
+    {% block contenido %}
+    <div class="contenido_unidades">
+
+        <h2>Unidades de medida</h2>
+
+        <div class="btns_opcion_registro">
+            <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar">Registrar una nueva unidad</a>
+        </div>
+
+        <table class="tabla_unidades">
+            <thead>
+                <th>Unidad de medida</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                {% for unidad in unidad %}
+                <tr>
+                    <td>{{unidad[1]}}</td>
+                    <td>
+                        <a href="{{url_for('editar_unidad', id_unidad=unidad[0])}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                                   
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+
+        {% for unidad in unidad %}
         <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad_{{unidad[0]}}">
-            <h2>Eliminar unidad</h2>
+            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar unidad</h3>
             <p>¿Esta seguro de eliminar esta unidad?</p>
             <p>{{unidad.1}} </p>
             <div class="opciones_eliminar_unidad">
@@ -48,7 +50,8 @@
         </div>
 
     {% endfor %}
-    
-    
-</div>
-{% endblock %}
+
+    </div>
+
+{% endblock %}    
+</body>

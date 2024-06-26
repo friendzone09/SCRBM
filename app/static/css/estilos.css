@@ -4,8 +4,13 @@
     padding: 0;
 }
 
+
+
+body{
+    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
+}
+
 .body_dashboard{
-    height: 100vh;
     width: 100%;
     display: flex;
     background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
@@ -58,7 +63,7 @@
 
 .inicio_de_sesion button{
     left: 30%;
-    bottom: 30px;
+    bottom: 20px;
     position: absolute;
     padding: 13px 47px;
     border-radius: 25px;
@@ -69,6 +74,17 @@
 .inicio_de_sesion button:hover{
     background: linear-gradient(to bottom right, #33ccff 0%, #66ffff 100%);
     
+}
+
+.opciones_inicio_sesion{
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.opciones_inicio_sesion a{
+    margin-bottom: 10px;
 }
 
 
@@ -103,12 +119,13 @@
     cursor: pointer;
 }
 
-.vision_de_usuario{
+.vision_de_usuario {
     background: linear-gradient(to bottom, #33ccff 0%, #66ffff 100%);
     position: relative;
-    height: 100vh;
     width: 200px;
-    
+    min-height: 100vh; /* Asegura que cubra al menos el viewport */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Evita que el panel lateral se reduzca con el contenido */
 }
 
 
@@ -122,7 +139,7 @@
 
 .usuario_opciones{
     position: absolute;
-    top: 3%;
+    top: 10px;
     margin-left: 65px;
 }
 
@@ -155,7 +172,7 @@
 .proyectos_recientes{
     position: absolute;
     padding: 20px;
-    top: 70%;
+    top: 400px;
     width: 160px;
 }
 
@@ -290,26 +307,19 @@
 
 /* ESTILOS UNIDADES */
 
-.body_unidades{
-    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
-    height: 100vh;
-    padding: 30px;
-    width: 100%;
+
+
+.contenido_unidades h2{
+    margin-left: 370px;
+    margin-top: 50px;
 }
-
-.body_unidades h1{
-    margin-left: 37%;
-    padding-top: 20px;
-    padding-bottom: 30px;
-}
-
-
 
 .tabla_unidades{
     text-align: left;
     margin-top: 20px;
     width: 370px;
-    margin-left: 25%;
+    margin-left: 300px;
+    padding-top: 10px;
     padding-bottom: 20px;
 }
 
@@ -319,24 +329,21 @@
     text-align: left;
 }
 
-.tabla_unidades th{
+.tabla_unidades th, td{
+    border-bottom: 1px solid black;
+    padding-left: 50px;
+    padding-bottom: 10px;
     padding-bottom: 20px;
 }
 
-.tabla_unidades td{
-    padding-bottom: 10px;
-    border-bottom: 2px solid black;
-}
 
-.tabla_unidades thead, tbody{
-    border-bottom: 2px solid black;
-}
 
 
 
 /* ESTILOSMODAL ELIMINAR UNIDAD */
 
 .modal_eliminar_unidad{
+    text-align: left;
     display: none;
     position: fixed;
     background-color: white;
@@ -346,16 +353,15 @@
     border-radius: 15px;
     border: 1px solid black;
     top: 170px;
-    margin-left: 21%;
+    margin-left: 314px;
 }
+
+
 
 .modal_eliminar_unidad:target{
     display: block;
 }
-.modal_eliminar_unidad h2{
-    margin-bottom: 20px;
-    text-align: center;
-}
+
 
 .modal_eliminar_unidad p{
     margin-bottom: 30px;
@@ -445,18 +451,15 @@
 /* FIN ESTILOS REGISTRO UNIDADES*/
 
 /* INICIO ESTILOS EDITAR UNIDAD*/
-.body_editar_unidad{
-    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
-    height: 100vh;
-    width: 100%;
-}
+
 
 .form_editar_unidad{
     border-radius: 20px;
     color: rgb(0, 0, 0);
     padding: 20px;
     margin-top: 140px;
-    margin-left: 30%;
+    margin-left: 300px;
+    height: 155px;
     width: 300px;
     background-color: rgb(255, 255, 255);
 }
@@ -517,22 +520,17 @@
 
 /* INICIO ESTILOS MATERIALES */
 
-.body_materiales{
-    background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
-    height: 100vh;
-    width: 100%;
+.contenido_materiales h2{
+    margin-left: 370px;
+    margin-top: 50px;
 }
 
-.body_materiales h2{
-    margin-left: 37%;
-    padding-top: 5%;
-    padding-bottom: 30px;
-    
-}
+
 
 .tabla_materiales{
+    width: 590px;
     text-align: left;
-    margin-left: 15%;
+    margin-left: 150px;
     margin-top: 30px;
 }
 
@@ -542,6 +540,7 @@
 }
 
 .tabla_materiales th, td{
+    border-bottom: 1px solid black;
     padding-left: 50px;
     padding-bottom: 10px;
 }
@@ -712,13 +711,13 @@
 
 /* INICIO ESTILOS MAQUINARIA */
 
-.body_maquinaria{
-    height: 100vh;
-    width: 100%;
+.contenido_maquinaria h2{
+    margin-left: 370px;
+    margin-top: 50px;
 }
 .tabla_maquinas{
     text-align: left;
-    margin-left: 7%;
+    margin-left: 150px;
     margin-top: 30px;
 }
 
@@ -832,6 +831,10 @@
     color: white;
 }
 
+.btns_eliminar_maquina a:hover{
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
+}
+
 .body_editar_maquinaria{
     height: 100vh;
     width: 100%;
@@ -899,13 +902,15 @@
 
 }
 
+
+
 /* FIN ESTILOS MAQUINARIA */
 
 /* INICIO ESILOS OFICIOS */
 
-.body_oficios{
-    height: 100vh;
-    width: 100%;
+.contenido_oficios h2{
+    margin-left: 370px;
+    margin-top: 50px;
 }
 
 .tabla_oficios{
@@ -921,8 +926,9 @@
 }
 
 .tabla_oficios{
+    width: 590px;
     text-align: left;
-    margin-left: 17%;
+    margin-left: 170px;
     margin-top: 30px;
 }
 
@@ -932,6 +938,7 @@
 }
 
 .tabla_oficios th, td{
+    border-bottom: 1px solid black;
     padding-left: 50px;
     padding-bottom: 10px;
 }
@@ -940,9 +947,12 @@
 
 /* INICIO BOTONES REGISTRAR/REGRESAR AL MENU */
 
+.btns_opcion_registro{
+    margin-top: 30px;
+}
+
 .btn_registrar{
-    margin-bottom: 20px;
-    margin-left: 25%;
+    margin-left: 200px;
     background-color: white;
     padding: 10px;
     text-decoration: none;
@@ -959,21 +969,6 @@
     padding-bottom: 20px;
 }
 
-.regresar_menu{
-    margin-left: 10px;
-    margin-bottom: 20px;
-    background-color: white;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    border-radius: 10px;
-}
-
-.regresar_menu:hover{
-    color: gray;
-    background-color: rgb(56, 56, 56);
-}
-
 .btn_editar{
     color: black;
     text-decoration: none;
@@ -983,7 +978,7 @@
 }
 
 .btn_editar:hover{
-    color: white;
+    color: rgb(101, 101, 101);
 }
 
 .btn_eliminar{
@@ -994,7 +989,7 @@
 }
 
 .btn_eliminar:hover{
-    color: white;
+    color: rgb(101, 101, 101);
 }
 
 .btn_regresar{
@@ -1020,20 +1015,11 @@
 /* INICIO ESTILOS PAPELERA */
 
 
-.body_papelera{
-    height: 100vh;
-    width: 100%;
+.body_papelera {
     background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
 }
 
-.body_papelera details{
-    padding: 10px;
-    background-color: rgba(180, 180, 180, 0.2);
-}
-.body_papelera summary{
-    margin-bottom: 20px;
 
-}
 
 .texto_bienvenida_papelera{
     padding: 20px;
@@ -1048,93 +1034,55 @@
     color: black;
 }
 
-.texto_bienvenida_papelera a{
-    display: flex;
-    font-size: 30px;
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    align-content: center;
+.contenido_papelera details{
+    padding: 20px;
+    background-color: rgba(114, 114, 114, 0.2);
+    margin-bottom: 30px;
 }
 
-.texto_bienvenida_papelera a:hover{
-    color: #5a5959;
+.contenido_papelera summary{
+    cursor: pointer;
 }
-.deatils_unidades{
+
+.tabla_unidades_papelera{
+    width: 430px;
     padding: 20px;
 }
 
-.tabla_unidades_papelera td,th{
-
-    padding-left: 20px;
-    border-bottom: 1px solid black;
-    padding-bottom: 10px;
+.tabla_unidades_papelera th, td{
+    margin-right: 20px;
 }
 
-.tabla_unidades_papelera table{
-    border-collapse: collapse;
-}
-
-.tabla_unidades_papelera a{
-    color: black;
-}
-
-.tabla_unidades_papelera a:hover{
-    color: rgb(255, 255, 255);
-}
-
-.details_material{
-    padding: 20px;
-}
-
-.body_papelera summary{
-    cursor: pointer;  
-}
-
-.body_papelera summary:hover{
-    color: rgb(134, 134, 134);
-    
-
-}
 
 .tabla_materiales_papelera{
-    text-align: center;
+    width: 600px;
+    padding: 20px;
 }
 
 .tabla_materiales_papelera th, td{
-    padding-left: 50px;
-    padding-bottom: 10px;
-    text-align: center;
+    margin-right: 20px;
 }
 
-.details_oficios{
+
+.tabla_oficios_papelera{
+    width: 600px;
     padding: 20px;
-}
-
-.tabla_oficios_papelera table{
-    text-align: center;
-    width: 400px;
 }
 
 .tabla_oficios_papelera th, td{
-    padding-left: 50px;
-    padding-bottom: 10px;
+    margin-right: 20px;
 }
 
-.details_maquinaria{
+
+
+.tabla_maquinas_papelera{
+    width: 700px;
     padding: 20px;
 }
 
-.tabla_maquinas_papelera table{
-    text-align: center;
-    width: 400px;
+.tabla_maquinas_papelera th, td{
+    margin-right: 20px;
 }
-
-.tabla_maquinas_papelera th,td{
-    padding-left: 50px;
-    padding-bottom: 10px;
-}
-
-
 
 /* FIN ESTILOS PAPELERA */
 

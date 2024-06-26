@@ -1,52 +1,57 @@
 {% extends "dashboard.html" %}
 
+{% block titulo %} Unidades {% endblock %}
+
 
 
 {% block head %} {% endblock %}
 
-{% block vision_de_usuario %}
- {% endblock %}
-
-
-
 
 
 {% block contenido %}
-<div class="body_papelera">
-    <div class="texto_bienvenida_papelera">
-        <a href="{{url_for('dashboard')}}"><i class="fa-solid fa-house"></i> Regresar</i></a>
-        <h1>Bienvenido a tu papelera</h1>
-        <p>Aqui podras encontrar todos los datos eliminados, podras restaurarlos o eliminarlos definitivamente </p>
-    </div>
+<body class="body_papelera">
+    <div class="contenido_papelera">
 
-    <div class="deatils_unidades">
+        <div class="texto_bienvenida_papelera">
+            <h1 style="font-size: 50px;">Papelera</h1>
+            <p>Bienvenido a tu papelera, aqui encontraras todos los datos que alguna vez eliminaste.
+            Aqui podras restaurarlos o eliminarlos definitivamente.
+            </p>
+        </div>
+
         <details>
+            <summary>Proyectos</summary>
+            
+        </details>
+
+        <details>
+
             <summary>Unidades</summary>
+
             <table class="tabla_unidades_papelera">
                 <thead>
-                    <th>Nombre de la unidad</th>
+                    <th>Unidad de medida</th>
                     <th>Eliminar</th>
                     <th>Restaurar</th>
                 </thead>
                 <tbody>
                     {% for unidad in unidades %}
                     <tr>
-                        <td>{{unidad[1]}}</td> 
-                        <td><a href="#"><i class="fa-solid fa-trash"></i></a></td> 
-                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>                    
+                        <td>{{unidad[1]}}</td>
+                        <td>
+                            <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                                       
                     </tr>
                 </tbody>
                 {% endfor %}
             </table>
 
         </details>
-    </div>
 
-
-    <div class="details_material">
         <details>
             <summary>Materiales</summary>
-
             <table class="tabla_materiales_papelera">
                 <thead>
                     <th>Nombre del material</th>
@@ -59,65 +64,62 @@
                     {% for material in materiales %}
                     <tr>
                         <td>{{material.1}}</td>
-                        <td>{{material.2}}</td>
+                        <td>${{material.2}}</td>
                         <td>{{material.3}}</td>
-                        <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
-                        <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                        <td>
+                            <a class="btn_eliminar" href="#modal_eliminar_material_{{material[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
                      
                     </tr>
                 </tbody>
                 {% endfor %}
             </table>
+
         </details>
 
-        
+        <details>
+            <summary>Basicos</summary>
+        </details>
 
-        </div>
-
-    <div class="details_oficios">
         <details>
             <summary>Oficios</summary>
-
             <table class="tabla_oficios_papelera">
                 <thead>
-                    <th>Nombre</th>
+                    <th>Nombre del oficio</th>
                     <th>Unidad</th>
                     <th>Costo</th>
                     <th>Eliminar</th>
                     <th>Restaurar</th>
                 </thead>
                 <tbody>
-                {% for oficio in oficios %}
+                    {% for oficio in oficios %}
                     <tr>
                         <td>{{oficio.1}}</td>
                         <td>{{oficio.2}}</td>
-                         <td>${{oficio.3}}</td>
-                         <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
-                         <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
+                        <td>${{oficio.3}}</td>
+                        <td>
+                            <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+        
                     </tr>
-                {% endfor %}
+                    {% endfor %}
                 </tbody>
-                    
             </table>
-
         </details>
 
-
-    </div>
-
-    <div class="details_maquinaria">
         <details>
             <summary>Maquinaria</summary>
+
             <table class="tabla_maquinas_papelera">
                 <thead>
-                    <tr>
-                        <th>Nombre de la maquinaria</th>
-                        <th>Costo</th>
-                        <th>Vida util</th>
-                        <th>Unidad</th>
-                        <th>Eliminar</th>
-                        <th>Restaurar</th>
-                    </tr>
+                    <th>Nombre de la maquina</th>
+                    <th>Costo</th>
+                    <th>Vida util</th>
+                    <th>Unidad</th>
+                    <th>Eliminar</th>
+                    <th>Restaurar</th>
                 </thead>
                 <tbody>
                     {% for maquina in maquinaria %}
@@ -126,16 +128,20 @@
                         <td>${{maquina.2}}</td>
                         <td>{{maquina.3}}</td>
                         <td>{{maquina.4}} </td>
-                        <td> <a href="#" class="btn_eliminar"> <i class="fa-solid fa-trash"></i></a></td>
-                         <td><a href="#" class="btn_eliminar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>   
+                        <td>
+                            <a class="btn_eliminar" href="#modal_eliminar_maquina_{{maquina[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                     
                     </tr>
-                    {% endfor %}
                 </tbody>
+                {% endfor %}
             </table>
+
         </details>
+        
     </div>
-
-
-</div>
+    
+</body>
 
 {% endblock %}

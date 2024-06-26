@@ -9,41 +9,43 @@
 
 
 
+
+<body class="body_materiales">
+
 {% block contenido %}
-<div class="body_materiales">
-    <h2>Materiales</h2>
-    <a href="{{url_for('registrar_material')}}" class="btn_registrar">Registrar un nuevo material</a>
-    <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menu</a>
+    <div class="contenido_materiales">
 
+        <h2>Tabla de materiales</h2>
+        <div class="btns_opcion_registro">
+            <a href="{{url_for('registrar_material')}}" class="btn_registrar">Registrar material</a>
+        </div>
 
-    <table class="tabla_materiales">
-        <thead>
-            <th>Nombre del material</th>
-            <th>Costo</th>
-            <th>Unidad</th>
-            <th>Opciones</th>
-        </thead>
-        <tbody>
-            {% for material in materiales %}
-            <tr>
-                <td>{{material.1}}</td>
-                <td>${{material.2}}</td>
-                <td>{{material.3}}</td>
-                <td>
-                    <a href="{{url_for('editar_material', id_material=material[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                    <a class="btn_eliminar" href="#modal_eliminar_material_{{material[0]}}"><i class="fa-solid fa-trash"></i></a>
-                </td>
-             
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
+        <table class="tabla_materiales">
+            <thead>
+                <th>Nombre del material</th>
+                <th>Costo</th>
+                <th>Unidad</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                {% for material in materiales %}
+                <tr>
+                    <td>{{material.1}}</td>
+                    <td>${{material.2}}</td>
+                    <td>{{material.3}}</td>
+                    <td>
+                        <a href="{{url_for('editar_material', id_material=material[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#modal_eliminar_material_{{material[0]}}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                 
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
 
-
-
-    {% for material in materiales %}
+        {% for material in materiales %}
         <div class="modal_eliminar_material" id="modal_eliminar_material_{{material[0]}}">
-            <h2>Eliminar material</h2>
+            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
             <p>¿Estas seguro de eliminar este material?</p>
             <p>{{material.1}} </p>
             <div class="btns_eliminar_material">
@@ -52,10 +54,13 @@
             </div>
         </div>
 
-
     {% endfor %}
 
+   
+    
+    </div>  
 
-</div>
+ {% endblock %}
 
-{% endblock %}
+</body>
+

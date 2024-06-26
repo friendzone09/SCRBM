@@ -9,11 +9,8 @@
      <title>{% block titulo %} Inicio {% endblock %} </title> 
     {% block head %} {% endblock %}
 </head>
-<body class="body_dashboard">
 
-    
-
-    {% block vision_de_usuario %} {% endblock %}
+{% block vision_de_usuario %} {% endblock %}
 
     <div class="vision_de_usuario">
         <div class="usuario">
@@ -46,7 +43,9 @@
         
     </div>
 
+<body class="body_dashboard">
     {% block contenido %} 
+
 
     <a class="crear_proyecto" id="abrir_modal_crear_proyecto">
         <i class="fas fa-plus-circle"></i>
@@ -81,4 +80,5 @@
     
     {% endblock %}
 </body>
+
 </html>

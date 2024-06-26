@@ -7,41 +7,44 @@
 
 
 
+
+<body class="body_oficios">
 {% block contenido %}
-<div class="body_oficios">
-    <h2 style="margin-left: 40%; margin-bottom: 50px; margin-top: 50px;">Oficios</h2>
-    <a href="{{url_for('registrar_oficio')}}" class="btn_registrar">Registrar un nuevo oficio</a>
-    <a class="regresar_menu" href="{{url_for('dashboard')}}">Regresar al menu</a>
 
+    <div class="contenido_oficios">
 
-    <table class="tabla_oficios">
-        <thead>
-            <th>Nombre</th>
-            <th>Unidad</th>
-            <th>Costo</th>
-            <th>Opciones</th>
-        </thead>
-        <tbody>
-            {% for oficio in oficios %}
-            <tr>
-                <td>{{oficio.1}}</td>
-                <td>{{oficio.2}}</td>
-                <td>${{oficio.3}}</td>
-                <td>
-                    <a href="{{url_for('editar_oficio', id_oficio=oficio[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                    <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio[0]}}"><i class="fa-solid fa-trash"></i></a>
-                </td>
+        <h2>Tabla de oficios</h2>
 
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="btns_opcion_registro">
+            <a href="{{url_for('registrar_oficio')}}" class="btn_registrar">Registrar oficio</a>
+        </div>
 
+        <table class="tabla_oficios">
+            <thead>
+                <th>Nombre del oficio</th>
+                <th>Unidad</th>
+                <th>Costo</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                {% for oficio in oficios %}
+                <tr>
+                    <td>{{oficio.1}}</td>
+                    <td>{{oficio.2}}</td>
+                    <td>${{oficio.3}}</td>
+                    <td>
+                        <a href="{{url_for('editar_oficio', id_oficio=oficio[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio[0]}}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-
-    {% for oficio in oficios %}
+        {% for oficio in oficios %}
         <div class="modal_eliminar_material" id="modal_eliminar_oficio_{{oficio[0]}}">
-            <h2>Eliminar oficio</h2>
+            <h3 style="font-size: 25px;">Eliminar oficio</h3>
             <br>
             <p>¿Estas seguro de eliminar este oficio?</p>
             <br>
@@ -54,8 +57,8 @@
 
 
     {% endfor %}
-
-
-</div>
-
+    </div>
+   
 {% endblock %}
+</body>
+

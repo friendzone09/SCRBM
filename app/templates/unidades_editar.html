@@ -4,9 +4,11 @@
 
 {% block head %} {% endblock %}
 
-{% block contenido %}
 
-<div class="body_editar_unidad">
+
+<body class="body_editar_unidad">
+
+    {% block contenido %}
     <form method="post" action="{{url_for('editar_unidad_proceso', id_unidad=unidad[0])}}" class="form_editar_unidad">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <h2>Nombre de la unidad</h2>
@@ -17,6 +19,5 @@
         </div>
     </form>
 
-</div>
-
-{% endblock %}
+    {% endblock %}
+</body>
