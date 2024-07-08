@@ -30,12 +30,12 @@
             <tbody>
                 {% for material in materiales %}
                 <tr>
-                    <td>{{material.1}}</td>
-                    <td>${{material.2}}</td>
-                    <td>{{material.3}}</td>
+                    <td>{{material.nombre_material}}</td>
+                    <td>${{material.costo_material}}</td>
+                    <td>{{material.nombre_unidad}}</td>
                     <td>
-                        <a href="{{url_for('editar_material', id_material=material[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                        <a class="btn_eliminar" href="#modal_eliminar_material_{{material[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{{url_for('editar_material', id_material=material.id_material )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#modal_eliminar_material_{{material.id_material}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                  
                 </tr>
@@ -44,17 +44,46 @@
         </table>
 
         {% for material in materiales %}
-        <div class="modal_eliminar_material" id="modal_eliminar_material_{{material[0]}}">
+        <div class="modal_eliminar_material" id="modal_eliminar_material_{{material.id_material}}">
             <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
             <p>¿Estas seguro de eliminar este material?</p>
-            <p>{{material.1}} </p>
+            <p>{{material.nombre_material}} </p>
             <div class="btns_eliminar_material">
-                <a href="{{url_for('eliminar_material', id_material = material[0])}}">Aceptar</a>
+                <a href="{{url_for('eliminar_material', id_material = material.id_material)}}">Aceptar</a>
                 <a href="#">Cancelar</a>
             </div>
         </div>
 
     {% endfor %}
+
+  
+
+    <div class="paginador">
+
+        {% if total_pages == 1 and page== 1 %}
+        <a class="btn_inactivo">Aun sin páginas</a>
+         
+        {% endif %}
+
+        
+        {% if page == 1 and total_pages > 1 %}
+        <a  class="btn_inactivo">Regresar</a>
+        <a href="{{url_for ('materiales')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+
+        {% endif %}
+        {% if page > 1 and page != total_pages %}
+        <a href="{{url_for ('materiales')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a href="{{url_for ('materiales')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+
+        {% if page == total_pages and total_pages != 1 %}
+        <a href="{{url_for ('materiales')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a  class="btn_inactivo">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+    </div>
 
    
     

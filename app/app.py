@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 import os
 import psycopg2
 from  flask_wtf.csrf import CSRFProtect
+from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
 csrf = CSRFProtect()
@@ -31,22 +32,31 @@ def index():
 def dashboard():
     return render_template('dashboard.html')
 
-#-----------------------------------------------INICIO READ UNIDAD------------------------------------------------------
 
-@app.route("/unidades")
-def unidades():
+#=======================================================PAGINADOR=================================================
+def paginador(sql_count,sql_lim,in_page,per_pages):
+    page = request.args.get('page',in_page,type=int)
+    per_page = request.args.get('per_page',per_pages, type=int)
+    
+    offset= (page - 1) * per_page
+    
     conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM public.unidades '
-	            'WHERE visibilidad_unidad = true '
-                'ORDER BY id_unidad ASC')
-    unidad = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    return render_template('unidades.html', unidad = unidad)
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    
+    cursor.execute(sql_count)
+    total_items = cursor.fetchone()['count']
+    
+    cursor.execute(sql_lim,(per_page, offset))
+    items = cursor.fetchall()
+    
+    cursor.close()
+    conn.close()    
+    
+    total_pages = (total_items + per_page - 1) // per_page
+    
+    return items, page, per_page, total_items, total_pages 
 
-#-----------------------------------------------FIN READ UNIDAD ------------------------------------------------------
+#=======================================FIN PAGINADOR=============================================================
 
 #=====================================================LISTAR UNIDAD=============================================
 def listar_unidad():
@@ -59,6 +69,26 @@ def listar_unidad():
     return unidades
 
 #=======================================FIN LISTAR UNIDAD===========================================================
+
+#-----------------------------------------------INICIO READ UNIDAD------------------------------------------------------
+
+@app.route("/unidades")
+def unidades():
+    sql_count= 'SELECT COUNT(*) FROM unidades where visibilidad_unidad=true'
+    sql_lim = 'SELECT * FROM public.unidades WHERE visibilidad_unidad = true ORDER BY id_unidad ASC LIMIT %s OFFSET %s'     
+    paginado = paginador(sql_count, sql_lim,1,7) 
+    
+    return render_template('unidades.html',
+                           unidades = paginado[0],
+                           page = paginado[1],
+                           per_page = paginado[2], 
+                           total_items = paginado[3],
+                           total_pages = paginado[4])
+
+#-----------------------------------------------FIN READ UNIDAD ------------------------------------------------------
+
+
+
 
 #-------------------------INICIO REGISTRO UNIDAD------------------------------------------------------------------
 
@@ -140,17 +170,16 @@ def eliminar_unidad(id_unidad):
 
 @app.route('/materiales')
 def materiales():
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad' 
-	            ' FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad '
-                'WHERE visibilidad_material = true '
-                'ORDER BY nombre_material')
-    materiales = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    return render_template('materiales.html', materiales = materiales)
+    sql_count= 'SELECT COUNT(*) FROM materiales where visibilidad_material=true'
+    sql_lim = 'SELECT materiales.id_material, materiales.nombre_material, materiales.costo_material, unidades.nombre_unidad FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad WHERE visibilidad_material = true ORDER BY nombre_material ASC LIMIT %s OFFSET %s'     
+    paginado = paginador(sql_count, sql_lim,1,7) 
+   
+    return render_template('materiales.html', 
+                           materiales = paginado[0],
+                           page = paginado[1],
+                           per_page = paginado[2], 
+                           total_items = paginado[3],
+                           total_pages = paginado[4])
 
 
 #=======================================+FIN READ MATERIALES===================================================
@@ -247,16 +276,14 @@ def eliminar_material(id_material):
 
 @app.route("/maquinaria")
 def maquinaria():
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT maquinaria.id_maquina, maquinaria.nombre_maquina, maquinaria.costo_maquina, ' 
-	            'maquinaria.vida_util, unidades.nombre_unidad FROM maquinaria INNER JOIN unidades ' 
-	            'ON fk_unidad = id_unidad WHERE  visibilidad IS true ')
-    maquinaria = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    return render_template('maquinaria.html', maquinaria = maquinaria)
+    sql_count='SELECT COUNT(*) FROM maquinaria where visibilidad=true'
+    sql_lim='SELECT maquinaria.id_maquina, maquinaria.nombre_maquina, maquinaria.costo_maquina, maquinaria.vida_util, unidades.nombre_unidad FROM maquinaria INNER JOIN unidades ON fk_unidad = id_unidad WHERE  visibilidad IS true LIMIT %s OFFsET %s'
+    paginado = paginador(sql_count,sql_lim, 1, 7)
+    return render_template('maquinaria.html', maquinaria = paginado[0],
+                           page = paginado[1],
+                           per_page = paginado[2], 
+                           total_items = paginado[3],
+                           total_pages = paginado[4])
 
 #--------------------------------------------REGISTRO MAQUINARIA----------------------------------------------------
 
@@ -304,11 +331,12 @@ def editar_maquina_proceso(id_maquina):
         nombre_maquina = request.form['nombre_maquina']
         costo_maquina = request.form['costo_maquina']
         vida_util = request.form['vida_util']
+        fk_unidad =  request.form['fk_unidad']
         
         conn = get_db_conection()
         cur = conn.cursor()
-        sql = "UPDATE maquinaria SET nombre_maquina=%s, costo_maquina=%s, vida_util = %s WHERE id_maquina =%s;"
-        valores = (nombre_maquina, costo_maquina, vida_util, id_maquina)
+        sql = "UPDATE maquinaria SET nombre_maquina=%s, costo_maquina=%s, vida_util = %s, fk_unidad=%s WHERE id_maquina =%s;"
+        valores = (nombre_maquina, costo_maquina, vida_util, fk_unidad, id_maquina)
         cur.execute(sql, valores)
         conn.commit()
         cur.close()
@@ -341,19 +369,14 @@ def eliminar_maquinaria(id_maquina):
 
 @app.route('/oficios')
 def oficios():
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT id_oficio, nombre_oficio, unidades.nombre_unidad, costo_oficio, visibilidad '
-                'FROM oficios '
-                'INNER JOIN unidades '
-                'ON oficios.fk_unidad = unidades.id_unidad '
-                'WHERE visibilidad = true '
-                'ORDER BY nombre_oficio ASC ')
-    oficios = cur.fetchall()
-    conn.commit()
-    cur.close()
-    conn.close()
-    return render_template('oficios.html', oficios=oficios)
+    sql_count= 'SELECT COUNT(*) FROM oficios where visibilidad=true'
+    sql_lim= 'SELECT id_oficio, nombre_oficio, unidades.nombre_unidad, costo_oficio, visibilidad  FROM oficios INNER JOIN unidades ON oficios.fk_unidad = unidades.id_unidad WHERE visibilidad = true ORDER BY nombre_oficio ASC LIMIT %s OFFSET %s'
+    paginado = paginador(sql_count, sql_lim, 1, 7)
+    return render_template('oficios.html', oficios = paginado[0],
+                           page = paginado[1],
+                           per_page = paginado[2], 
+                           total_items = paginado[3],
+                           total_pages = paginado[4])
 
 #======================================= FIN READ OFICIOS ===========================================================
 

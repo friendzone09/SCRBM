@@ -29,12 +29,12 @@
             <tbody>
                 {% for oficio in oficios %}
                 <tr>
-                    <td>{{oficio.1}}</td>
-                    <td>{{oficio.2}}</td>
-                    <td>${{oficio.3}}</td>
+                    <td>{{oficio.nombre_oficio}}</td>
+                    <td>{{oficio.nombre_unidad}}</td>
+                    <td>${{oficio.costo_oficio}}</td>
                     <td>
-                        <a href="{{url_for('editar_oficio', id_oficio=oficio[0] )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                        <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{{url_for('editar_oficio', id_oficio=oficio.id_oficio )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio.id_oficio}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
     
                 </tr>
@@ -43,20 +43,47 @@
         </table>
 
         {% for oficio in oficios %}
-        <div class="modal_eliminar_material" id="modal_eliminar_oficio_{{oficio[0]}}">
+        <div class="modal_eliminar_material" id="modal_eliminar_oficio_{{oficio.id_oficio}}">
             <h3 style="font-size: 25px;">Eliminar oficio</h3>
             <br>
             <p>¿Estas seguro de eliminar este oficio?</p>
             <br>
             <p>{{oficio.1}} </p>
             <div class="btns_eliminar_material">
-                <a href="{{url_for('eliminar_oficio', id_oficio = oficio[0])}}">Aceptar</a>
+                <a href="{{url_for('eliminar_oficio', id_oficio = oficio.id_oficio)}}">Aceptar</a>
                 <a href="#">Cancelar</a>
             </div>
         </div>
 
 
     {% endfor %}
+
+    <div class="paginador">
+        {% if total_pages == 1 and page== 1 %}
+        <a class="btn_inactivo">Aun sin páginas</a>
+         
+        {% endif %}
+
+        {% if page == 1 and total_pages > 1 %}
+        <a  class="btn_inactivo">Regresar</a>
+        <a href="{{url_for ('oficios')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+
+        {% endif %}
+        {% if page > 1 and page != total_pages %}
+        <a href="{{url_for ('oficios')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a href="{{url_for ('oficios')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+
+        {% if page == total_pages and total_pages != 1 %}
+        <a href="{{url_for ('oficios')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a  class="btn_inactivo">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+    </div>
+
+
     </div>
    
 {% endblock %}

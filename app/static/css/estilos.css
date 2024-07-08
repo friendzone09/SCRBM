@@ -1020,7 +1020,6 @@ body{
 }
 
 
-
 .texto_bienvenida_papelera{
     padding: 20px;
 }
@@ -1076,12 +1075,41 @@ body{
 
 
 .tabla_maquinas_papelera{
-    width: 700px;
-    padding: 20px;
+    width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
-.tabla_maquinas_papelera th, td{
-    margin-right: 20px;
+.tabla_maquinas_papelera table{
+    width: 500px;
+    border-collapse: collapse;
+    margin-left: 23%;
+}
+
+.tabla_maquinas_papelera th{
+    padding-bottom: 20px;
+    padding-left: 30px;
+}
+
+.tabla_maquinas_papelera td{
+    padding-bottom: 10px;
+    padding-left: 30px;
+    border-bottom: 2px solid black;
+    
+}
+
+.tabla_maquinas_papelera thead, tbody{
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.tabla_maquinas_papelera tbody a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.tabla_maquinas_papelera tbody a:hover{
+    color: rgb(132, 132, 132);
 }
 
 /* FIN ESTILOS PAPELERA */
@@ -1126,3 +1154,68 @@ body{
     color: rgb(50, 50, 50);
 }
 /* FIN ESTILOS 404*/
+
+/* INICIO ESTILOS BARRA SCROLL */
+body::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgb(202, 202, 202);
+}
+
+body::-webkit-scrollbar-thumb{
+    background: #33ccff;
+    border-radius: 5px;
+}
+
+/* FIN ESTILOS BARRA SCROLL */
+
+/* ESTILOS PAGINADOR */
+
+.paginador{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 371px;
+    width: 200px;
+    background-color: #989898;
+    border-radius: 5px;
+    padding: 5px;
+    justify-content: space-between;
+}
+
+.paginador .btn_avanzar{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.paginador .btn_retroceder{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.paginador .btn_avanzar:hover{
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to bottom right, #33ccff 0%, #66ffff 100%);
+}
+
+.paginador .btn_retroceder:hover{
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to bottom right, #33ccff 0%, #66ffff 100%);
+}
+
+.btn_inactivo{
+    padding: 5px;
+    color: #656565;
+    text-decoration: none;
+}
+
+.contador{
+    padding: 5px;
+    color: #656565;
+
+}
+
+/* FIN ESTILOS PAGINADOR */

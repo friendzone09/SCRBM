@@ -25,12 +25,12 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                {% for unidad in unidad %}
+                {% for unidad in unidades %}
                 <tr>
-                    <td>{{unidad[1]}}</td>
+                    <td>{{unidad.nombre_unidad}}</td>
                     <td>
-                        <a href="{{url_for('editar_unidad', id_unidad=unidad[0])}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                        <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{{url_for('editar_unidad', id_unidad=unidad.id_unidad)}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad.id_unidad}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                                    
                 </tr>
@@ -38,18 +38,43 @@
             {% endfor %}
         </table>
 
-        {% for unidad in unidad %}
-        <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad_{{unidad[0]}}">
+        {% for unidad in unidades %}
+        <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad_{{unidad.id_unidad}}">
             <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar unidad</h3>
             <p>¿Esta seguro de eliminar esta unidad?</p>
             <p>{{unidad.1}} </p>
             <div class="opciones_eliminar_unidad">
-                <a href="{{url_for('eliminar_unidad', id_unidad=unidad[0])}}" class="btn_aceptar_eliminar_unidad">Aceptar</a> 
+                <a href="{{url_for('eliminar_unidad', id_unidad=unidad.id_unidad)}}" class="btn_aceptar_eliminar_unidad">Aceptar</a> 
                 <a href="#">Cancelar</a>
             </div>
         </div>
 
     {% endfor %}
+
+    <div class="paginador">
+        {% if total_pages == 1 and page== 1 %}
+        <a class="btn_inactivo">Aun sin páginas</a>
+         
+        {% endif %}
+
+        {% if page == 1 and total_pages > 1 %}
+        <a  class="btn_inactivo">Regresar</a>
+        <a href="{{url_for ('unidades')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+
+        {% endif %}
+        {% if page > 1 and page != total_pages %}
+        <a href="{{url_for ('unidades')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a href="{{url_for ('unidades')}}?page={{ page + 1 }}&per_page= {{ per_page }}" class="btn_avanzar">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+
+        {% if page == total_pages and total_pages != 1 %}
+        <a href="{{url_for ('unidades')}}?page={{ page - 1 }}&per_page= {{ per_page }}" class="btn_retroceder">Regresar</a>
+        <a  class="btn_inactivo">Avanazar</a>
+        <a class="contador">{{page}}/{{total_pages}} </a>
+        {% endif %}
+    </div>
 
     </div>
 
