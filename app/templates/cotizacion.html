@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="{{url_for('static', filename = 'JS/script.js')}}" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización</title>
+</head>
+<body>
+    <h1>Cotización</h1>
+
+    <div id="form-container">
+        <div class="form-group">
+            <label for="material1">Material 1:</label>
+            <select name="material1" id="material1" class="material-select">
+                <option selected>Elige un material</option>
+                {% for listar_material in listar_materiales %}
+                    <option value="{{ listar_material[2] }}">{{ listar_material[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <button id="add-field">Agregar Material</button>
+
+    <h2>Total: $<span id="total">0</span></h2>
+
+    <!-- Pre-rendered options -->
+    <script id="material-options" type="text/template">
+        <option selected>Elige un material</option>
+        {% for listar_material in listar_materiales %}
+            <option value="{{ listar_material[2] }}">{{ listar_material[1] }}</option>
+        {% endfor %}
+    </script>
+
+
+</body>
+</html>

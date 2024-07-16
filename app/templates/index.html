@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/estilos.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesion</title>
+    <title>Inicio de sesión</title>
 </head>
 
-<body  class="body_index">
+<body class="body_index">
 
     <div class="inicio_de_sesion">
-        <h1>Bienvenido</h1>
-        <p>Ingresa tu correo</p>
-        <input type="text" placeholder="Correo...">
-        <p>Ingresa tu contraseña</p>
-        <input type="password" placeholder="Contraseña...">
-        <div class="opciones_inicio_sesion">
-            <a href="#">Registrarte</a>
-            <a href="#">¿Olvidaste tu contraseña?</a>
-        </div>
-        <a href="{{url_for ('dashboard')}}"> <button>Ingresar</button></a>
-        
+        <form method="post" class="form_usuarios" action="{{ url_for('loguear') }}">    
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <h1>Bienvenido</h1>
+            <p>Ingresa tu correo</p>
+            <input type="text" name="correo_usuario" placeholder="Correo..." required>
+            <p>Ingresa tu contraseña</p>
+            <input type="password" name="contraseña_usuario" placeholder="Contraseña..." required>
+            <div class="opciones_inicio_sesion">
+                <a href="{{ url_for('registrar_usuario') }}">Registrarte</a>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+            <button type="submit">Ingresar</button>
+        </form>
     </div>
     
 </body>
-
-
-
 </html>
