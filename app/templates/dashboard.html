@@ -18,7 +18,7 @@
              <button class="foto_usuario"><i class="fa-solid fa-user fa-3x"></i></button>
              <div class="usuario_opciones">
                 <ul>
-                    <p>Usuario</p>
+                    <p>{{current_user.nombre}} </p>
                     <li>Mi cuenta</li>
                     <li><a href="{{url_for('papelera')}}">Papelera</a></li>
                     <li><a href="{{url_for('logout')}}">Cerrar sesión</a></li>

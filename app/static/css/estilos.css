@@ -1129,7 +1129,7 @@ body{
     position: absolute;
     top: 160px;
     left: 42%;
-    color: white;
+    color: rgb(108, 108, 108);
     align-items: center;
 }
 
@@ -1141,9 +1141,8 @@ body{
     color: white;
 }
 
-.body_error404 a{
+.a_volver_inicio{
     text-decoration: none;
-    color: white;
     font-weight: bold;
     position: absolute;
     top: 420px;
@@ -1152,6 +1151,50 @@ body{
 
 .body_error404 a:hover{
     color: rgb(50, 50, 50);
+}
+
+.texto_error401{
+    left: 25%;
+    top: 340px;
+    position: absolute;
+    font-size: 20px;
+    color: white;
+}
+
+.texto_error4012{
+    left: 35%;
+    top: 380px;
+    position: absolute;
+    font-size: 20px;
+    color: white;
+
+}
+.texto_error4013{
+    left: 35%;
+    top: 80px;
+    position: absolute;
+    color: white;
+}
+
+.faw_error401{
+    position: absolute;
+    top: 160px;
+    left: 39%;
+    color: rgb(108, 108, 108);
+    align-items: center;
+}
+
+.volver_sesion{
+    text-decoration: none;
+    font-weight: bold;
+    position: absolute;
+    top: 450px;
+    left: 42%;
+    
+}
+
+.volver_inicio_sesion{
+    color: white;
 }
 /* FIN ESTILOS 404*/
 

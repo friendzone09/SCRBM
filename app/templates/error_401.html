@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos.css')}}">
+    <script src="https://kit.fontawesome.com/f2f934aa4b.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404</title>
+</head>
+<body class="body_error404">
+    <h1 class="texto_error4013" >Acceso no autorizado</h1>
+
+    <p class="faw_error401"><i class="fa-solid fa-road-barrier fa-10x"></i></i></p>
+
+    <p class="texto_error401">Acceso no autorizado. Por favor inicia sesión o con una cuenta con privilegios</p>
+
+    <p class="texto_error4012">Si el error persiste vuelve al inicio de sesión</p>
+
+    <a class="a_volver_inicio" href="{{url_for('dashboard')}}">Volver al inicio</a>
+    
+    <a class="volver_sesion" href="{{url_for('index')}}">Volver a iniciar sesión</a>
+</body>
+</html>
