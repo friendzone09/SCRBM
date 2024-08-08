@@ -1,0 +1,58 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Detalles Proyecto {% endblock %}
+
+{% block head %} {% endblock %}
+
+<body class="body_regis_procesos">
+
+    {% block contenido %}
+
+        <div class="contenido_regis_proceso">
+            <p>Id proyecto = {{proyectaso.0}} </p>
+
+            <h2 style="margin-bottom: 20px; font-size: 25px;">Registrar Concepto</h2>
+                
+                <form action="#" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="fk_proy_con" value="{{proyectaso[0]}}">
+
+                        <p>Nombre del Concepto</p>
+                        <input type="text" placeholder="Nombre del concepto..." id="floatingNombre" name="nombre_concepto" required>
+
+                        <p>Unidad</p>
+                        <label for="fk_unid_con"></label>
+                        <select class="" id="fk_unid_con" name="fk_unid_con">
+                            {% for unidad in unidades %}
+                                <option value="{{ unidad[0] }}">{{ unidad[1] }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <p>Cantidad</p>
+                        <input type="number" step="0.00001" placeholder="Cantidad..." name="cantidad_concepto" required>
+
+                        <p>% de Maquinaria y Equipos</p>
+                        <input type="number" step="0.00001" placeholder="% Maq. y Eq..." name="porcentajemaqyeq_con" required>
+
+                        <p>% de Indirectos</p>
+                        <input type="number" step="0.00001" placeholder="Indirectos..." name="indirectos_con" required>%
+
+                        <p>% de Financiamiento</p>
+                        <input type="number" step="0.00001" placeholder="Financiamiento..." name="financiamiento_con" required>%
+
+                        <p>% de Utilidad</p>
+                        <input type="number" step="0.00001" placeholder="Utilidad..." name="utilidad_con" required>%
+
+                    <p></p>
+                    <div class="btns_eliminar_oficio">
+                        <button type="submit">Registrar</button>
+                        <a href="#" id="btn_cancelar_registrar_concepto">Cancelar</a>
+                    </div>
+                </form>
+
+        </div>
+
+    {% endblock %}
+
+</body>
+

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos.css')}}">
     <script src="https://kit.fontawesome.com/f2f934aa4b.js" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename = 'JS/script.js')}}" defer></script>
      <title>{% block titulo %} Inicio {% endblock %} </title> 
     {% block head %} {% endblock %}
 </head>
@@ -30,7 +29,7 @@
             <a href="{{url_for('dashboard')}}">Proyectos</a>
             <a href="{{url_for('unidades')}}">Unidades</a>
             <a href="{{url_for('materiales')}}">Materiales</a>
-            <a>Basicos</a>
+            <a href="{{url_for('basicos')}}">Basicos</a>
             <a href="{{url_for('oficios')}}">Oficios</a>
             <a href="{{url_for('maquinaria')}}">Maquinaria</a>
             
@@ -46,38 +45,82 @@
 <body class="body_dashboard">
     {% block contenido %} 
 
+    
+        <div class="container_proyectos">
+      
+            <a href="#modal_crear_proyecto" class="crear_proyecto" id="abrir_modal_crear_proyecto">
+                <i class="fas fa-plus-circle"></i>
+                <p>Nuevo proyecto</p>
+            </a> 
+              
 
-    <a class="crear_proyecto" id="abrir_modal_crear_proyecto">
-        <i class="fas fa-plus-circle"></i>
-        <p>Nuevo proyecto</p>
-    </a>  
+            <div class="proyectos_nuevos">
 
-    <form id="id_modal_crear_proyecto" class="modal_crear_proyecto">
-        <h3 id="tiutlo_proyecto">Titulo del proyecto</h3>
-        <p>Nombre de el proyecto:</p>
-        <input type="text" placeholder="Titulo..." class="input_titulo_proyecto" id="input_titulo_proyecto">
-        <p>Gubernamental:</p>
-        <div class="label_gubernamental">
-            <label for="">
-                <input type="checkbox">Si
-            </label>
+                {% for proyecto in proyectos %}
+                <a href="{{url_for('detalles_proyecto', id_proyecto=proyecto.id_proyecto )}}" class="proyectos">
+                    <i class="fa-solid fa-folder-open icono_proyecto"></i>
+                    <p id="nombre_proyectos">{{proyecto.nombre_proyecto}}</p> 
+                </a>
+                {% endfor %}
 
-            <label for="">
-                <input type="checkbox">No
-
-            </label>
-
-        </div>  
-
-        <div class="btns_modal_crear_proyecto">
-            <button href="#">Aceptar</button>
-            <button id="btn_cancelar_proyecto" >Cancelar</button>
+            </div>
+            
         </div>
-    </form>
+             
+        <div class="modal_crear_proyecto" id="modal_crear_proyecto">
+
+            <form method="post" action="{{url_for('registrar_proyecto_proceso')}}">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                <h1>Crear un proyecto</h1>
+                <div class="textos_nombre_proyectos">
+                    <p id="nombre_proyecto">Nombre</p>
+                    <p id="titulo_proyecto">Titulo</p>
+                </div>
+                
+                <div class="inputs_nombre_proyecto">
+                    <input type="text" class="input_nombre_proyecto" name="nombre_proyecto" placeholder="Nombre del proyecto">
+                    <input type="text" class="input_titulo_proyecto" name="titulo_proyecto" placeholder="Titulo del proyecto">
+                </div>
+                <h2>Direccion</h2>
+
+                <div class="textos_direccion">
+                    <p>Colonia</p>
+                    <p class="texto_municipio">Municipio</p>
+                    <p class="texto_estado">Estado</p>
+                </div>
+                    
+                <div class="inputs_direccion_proyecto">
+                    <input type="text" id="colonia_proyecto" name="colonia_proyecto" placeholder="Colonia"> 
+                    <input type="text" id="municipio_proyecto" name="municipio_proyecto" placeholder="Municipio">
+                    <input type="text" id="estado_proyecto" name="estado_proyecto" placeholder="Estado">
+                </div>
+
+                <p class="nombre_cliente">Nombre del cliente</p>
+                <input type="text" id="nombrecliente_proyecto" name="nombrecliente_proyecto" placeholder="Nombre del cliente">
+
+                <p>¿Es gubernamental?</p>
+                <input type="checkbox" id="gubernamental_proyecto" name="gubernamental_proyecto">
+                <label for="">Si es así marque la casilla, de lo contrario dejela así.</label>
+                <p></p>
+
+                <div class="btns_registro_proyecto">
+
+                    <button type="submit" id="btn_guardar_proyecto" class="boton">Guardar</button>
+                    <a href="#"id="btn_cancelar_proyecto" class="boton">Cancelar</a>
+
+                </div>
+                
+
+            </form>
+
+        </div>
+    
+        
 
     
 
-    
+    <script src="{{url_for('static', filename = 'JS/script.js')}}"></script>
     {% endblock %}
 </body>
 

@@ -65,10 +65,10 @@ def loguear():
                 login_user(loged_user)
                 return redirect(url_for('dashboard'))
             else:
-                flash('Correo de usuario y/o Contraseña incorrecta.')
+                flash('Advertencia: Correo y/o Contraseña incorrecta.')
                 return redirect(url_for('index'))
         else:
-            flash('Correo de usuario y/o Contraseña incorrecta.')
+            flash('Advertencia: Correo y/o Contraseña incorrecta.')
             return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
@@ -113,10 +113,7 @@ def registrar_usuario():
 
 #=========================================FIN INICIO DE SESION==================================================
 
-@app.route ("/dashboard")
-@login_required
-def dashboard():
-    return render_template('dashboard.html')
+
 
 
 
@@ -169,12 +166,196 @@ def listar_unidad():
 
 #=======================================FIN LISTAR UNIDAD===========================================================
 
+#==========================================LISTAR OfICIOS=============================================================
+
+def listar_oficios():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM oficios WHERE visibilidad IS true')
+    oficios= cur.fetchall()
+    cur.close()
+    conn.close()
+    return oficios
+  
+#==========================================FIN LISTAR OfICIOS=============================================================
+
+#-=============================================DASHBOARD===========================================================
+
+@app.route ("/dashboard")
+@login_required
+def dashboard():
+    sql_count = 'SELECT COUNT(*) FROM proyectos WHERE visible_proyecto = true' 
+    sql_lim = 'SELECT * FROM public.proyectos WHERE visible_proyecto=true;'
+    paginado = paginador(sql_count, sql_lim,1,10)
+    
+    return render_template('dashboard.html',
+                           proyectos= paginado[0],
+                           page = paginado[1],
+                           per_page = paginado[2],
+                           total_items = paginado[3],
+                           total_pages = paginado[4])
+
+#-=============================================FIN DASHBOARD===========================================================
+
+#============================================INICICIO CRUD PROYECTOS===================================================
+
+#==================================================CREATE======================================================
+
+@app.route('/proyecto/registrar/proceso', methods=('GET', 'POST'))
+def registrar_proyecto_proceso():
+    if request.method == 'POST':
+        #fk_creador_proyecto = request.form['fk_creador_proyecto']
+        nombre_proyecto = request.form['nombre_proyecto']
+        titulo_proyecto = request.form['titulo_proyecto']
+        colonia_proyecto = request.form['colonia_proyecto']
+        municipio_proyecto = request.form['municipio_proyecto']
+        estado_proyecto = request.form['estado_proyecto']
+        nombrecliente_proyecto = request.form['nombrecliente_proyecto']
+        gubernamental_proyecto = 'gubernamental_proyecto' in request.form
+
+        conn = get_db_conection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO public.proyectos(nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, gubernamental_proyecto) '
+                    'VALUES (%s,%s,%s,%s,%s,%s,%s);',
+                    (nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, gubernamental_proyecto,))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('dashboard'))
+    return redirect(url_for('dashboard'))
+
+#==========================================VER PROYECTO=======================================================================
+@app.route('/proyecto/detalles/<string:id_proyecto>')
+def detalles_proyecto(id_proyecto):
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT id_proyecto, fk_creador_proyecto, nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, visible_proyecto, gubernamental_proyecto FROM proyectos WHERE id_proyecto=%s;', (id_proyecto,))
+    proyectaso = cur.fetchall()
+    conn.commit()
+    cur.execute('SELECT id_concepto, nombre_concepto, fk_proy_con, nombre_unidad, cantidad_concepto, fk_cuad_con, cantcuad_con, porcentajemaqyeq_con, indirectos_con, financiamiento_con, utilidad_con, visible_con FROM conceptos INNER JOIN unidades uni ON fk_unid_con = uni.id_unidad WHERE visible_con=true AND fk_proy_con=%s;', (id_proyecto,))
+    conceptos=cur.fetchall()
+    conn.commit()
+    cur.execute('SELECT id_unidad, nombre_unidad FROM public.unidades;')
+    unidades=cur.fetchall()
+    conn.commit()   
+    cur.close()
+    conn.close()
+    return render_template('detalles_proyecto.html', proyectaso=proyectaso[0], conceptos=conceptos, unidades=unidades)
+
+#======================================================UPTADE====================================================================================
+
+@app.route('/proyecto/editar/<string:id_proyecto>', methods =['POST'] )
+def editar_proyecto_proceso(id_proyecto):
+    if request.method == 'POST':
+        nombre_proyecto = request.form['nombre_proyecto']
+        titulo_proyecto = request.form['titulo_proyecto']
+        colonia_proyecto = request.form['colonia_proyecto']
+        municipio_proyecto = request.form['municipio_proyecto']
+        estado_proyecto = request.form['estado_proyecto']
+        nombrecliente_proyecto = request.form['nombrecliente_proyecto']
+        gubernamental_proyecto = 'gubernamental_proyecto' in request.form
+        conn = get_db_conection()
+        cur = conn.cursor()
+        valores = (nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, gubernamental_proyecto, id_proyecto)
+        sql = 'UPDATE proyectos SET nombre_proyecto=%s, titulo_proyecto=%s, colonia_proyecto=%s, municipio_proyecto=%s, estado_proyecto=%s, nombrecliente_proyecto=%s, gubernamental_proyecto=%s WHERE id_proyecto=%s;'
+        cur.execute(sql, valores)
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('detalles_proyecto', id_proyecto=id_proyecto))
+    return redirect(url_for('dashboard'))
+
+#============================================CREATE PROCESO=============================================================
+
+@app.route('/proyectos/registrar/proceso/<string:id_proyecto>')
+def registrar_concepto(id_proyecto):
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT id_proyecto, fk_creador_proyecto, nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, visible_proyecto, gubernamental_proyecto FROM proyectos WHERE id_proyecto=%s;', (id_proyecto,))
+    proyectaso = cur.fetchall()
+    cur.execute('SELECT id_unidad, nombre_unidad FROM public.unidades;')
+    unidades=cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return render_template('resgitrar_concepto.html', proyectaso =  proyectaso[0], unidades = unidades)
+
+@app.route('/proyecto/detalles/<string:id_proyecto>/registrarconcepto', methods=('GET', 'POST'))
+def registrar_concepto_proceso(id_proyecto):
+    if request.method == 'POST':
+            nombre_concepto = request.form['nombre_concepto']
+            fk_proy_con = request.form['fk_proy_con']
+            fk_unid_con = request.form['fk_unid_con']
+            cantidad_concepto = request.form['cantidad_concepto']
+            porcentajemaqyeq_con = request.form['porcentajemaqyeq_con']
+            indirectos_con = request.form['indirectos_con']
+            financiamiento_con = request.form['financiamiento_con']
+            utilidad_con = request.form['utilidad_con']
+
+            conn = get_db_conection()
+            cur = conn.cursor()
+            sql = '''
+                INSERT INTO public.conceptos(
+                    nombre_concepto, fk_proy_con, fk_unid_con, cantidad_concepto, 
+                    porcentajemaqyeq_con, indirectos_con, financiamiento_con, utilidad_con
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            '''
+            valores = (nombre_concepto, fk_proy_con, fk_unid_con, cantidad_concepto, 
+                       porcentajemaqyeq_con, indirectos_con, financiamiento_con, utilidad_con)
+            cur.execute(sql, valores)
+            conn.commit()  # Asegúrate de hacer commit para guardar los cambios
+            cur.close()
+            conn.close()
+
+            return redirect(url_for('detalles_proyecto', id_proyecto=id_proyecto))
+    return redirect(url_for('detalles_proyecto', id_proyecto=id_proyecto))
+
+#============================================DETALLES CONCEPTO========================================================
+
+@app.route('/proyecto/detalles/concepto/<string:id_concepto>/detalles/')
+def detalles_concepto(id_concepto):
+    conn = get_db_conection()
+    cur = conn.cursor()
+
+    sqlconceptos = "SELECT id_concepto, nombre_concepto, pr.nombre_proyecto, un.nombre_unidad, co.porcentajemaqyeq_con, co.indirectos_con, financiamiento_con, utilidad_con, fk_proy_con FROM conceptos co INNER JOIN unidades un ON co.fk_unid_con = un.id_unidad INNER JOIN proyectos pr ON co.fk_proy_con = pr.id_proyecto WHERE visible_con = true AND id_concepto = %s;"
+    cur.execute(sqlconceptos, (id_concepto,))
+    concepton = cur.fetchone()
+    conn.commit()
+
+    sqlmaterialesconcepto = "SELECT ma.id_material, ma.nombre_material, cm.costo_mat, cm.cant_conmat, (cm.cant_conmat * cm.costo_mat) AS importe, ma.visibilidad_material, un.nombre_unidad, cm.id_conmat, cm.fk_id_con FROM materiales ma INNER JOIN unidades un ON ma.fk_unidad = un.id_unidad INNER JOIN conceptosmateriales cm ON ma.id_material = cm.fk_id_mat WHERE cm.fk_id_con = %s;"
+    cur.execute(sqlmaterialesconcepto, (id_concepto,))
+    materialon = cur.fetchall()
+    conn.commit()
+
+    sqlmateriales = "SELECT id_material, nombre_material, costo_material, visibilidad_material, nombre_unidad FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad WHERE visibilidad_material = true;"
+    cur.execute (sqlmateriales)
+    materiales = cur.fetchall()
+    conn.commit()
+
+    sqlmaquinariaconcepto = "SELECT mq.id_maquina, mq.nombre_maquina, cq.costo_maq, cq.cant_conmaq, (cq.costo_maq*cq.cant_conmaq) AS importe, mq.vida_util, mq.visibilidad, un.nombre_unidad, cq.id_conmaq, cq.fk_id_con FROM maquinaria mq INNER JOIN unidades un ON mq.fk_unidad = un.id_unidad INNER JOIN conceptosmaquinaria cq ON mq.id_maquina = cq.fk_id_maq WHERE cq.fk_id_con = %s;"
+    cur.execute(sqlmaquinariaconcepto, (id_concepto,))
+    maquinon = cur.fetchall()
+    conn.commit()
+
+    sqlmaquinaria = "SELECT id_maquina, nombre_maquina, costo_maquina, vida_util, visibilidad, nombre_unidad FROM maquinaria INNER JOIN unidades ON maquinaria.fk_unidad = unidades.id_unidad WHERE maquinaria.visibilidad = true;"
+    cur.execute(sqlmaquinaria)
+    maquinaria = cur.fetchall()
+
+    cur.close()
+    conn.close()
+    return render_template('detalles_concepto.html', concepton=concepton,
+                           materialon=materialon, materiales=materiales,
+                           maquinon=maquinon, maquinaria=maquinaria
+                           )
+    
+#=============================================FIN CRUD PROYECTOS=======================================================
+
 #-----------------------------------------------INICIO READ UNIDAD------------------------------------------------------
 
 @app.route("/unidades")
 @login_required
 def unidades():
-    sql_count= 'SELECT COUNT(*) FROM unidades where visibilidad_unidad=true'
+    sql_count= 'SELECT COUNT(*) FROM unidades WHERE visibilidad_unidad=true'
     sql_lim = 'SELECT * FROM public.unidades WHERE visibilidad_unidad = true ORDER BY id_unidad ASC LIMIT %s OFFSET %s'     
     paginado = paginador(sql_count, sql_lim,1,7) 
     
@@ -586,6 +767,26 @@ def eliminar_oficio(id_oficio):
 
 #=======================================FIN ELIMINAR OFICIO===================================================
 
+#========================================INICIO BASICOS===========================================================
+
+@app.route('/basicos')
+def basicos():
+    return render_template('basicos.html')
+
+@app.route('/basicos/registrar')
+def regis_basico():
+    return render_template ('registrar_basicos.html', unidades = listar_unidad(), materiales = listar_materiales(), oficios = listar_oficios())
+
+#===============================================FIN BASICOS==========================================================
+#==================================================INICIO CRUD PROYECTOS/PROCESOS=================================================
+
+
+    
+
+
+
+#=====================================================FIN CRUD PROYECTOS/PROCESOS==========================================
+
 
 
 
@@ -645,20 +846,8 @@ def papelera():
 #====================================FIN PAPELERA==================================================================    
 
 
-#FUNCION TEMPORAL
 
-@app.route('/cotizacion')
-def cotizacion():
-    conn = get_db_conection()
-    cur = conn.cursor()
-    cur.execute('SELECT nombre_material, costo_material FROM materiales WHERE visibilidad_material = true')
-    materiales = cur.fetchall()
-    cur.close()
-    conn.close()
-    
-    total = sum([material[1] for material in materiales])
-    
-    return render_template('cotizacion.html', materiales=materiales, total=total, listar_materiales=listar_materiales())
+
 
 def pagina_no_encontrada(error):
     return render_template('error404.html')

@@ -1,0 +1,150 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Detalles Proyecto {% endblock %}
+
+{% block head %} {% endblock %}
+
+
+
+{% block contenido %}
+<div class="body_detalles_proyectos">
+    <div class="contenido_detalles_proyecto">
+        <a class="regresar_menu btn_regresar" href="{{url_for('dashboard')}}">Regresar</a>
+        <h2 style="margin-left: 200px; margin-top: 20px; margin-bottom: 15px;">Proyecto: {{proyectaso.2}}</h2>
+        <div class="alinear-horizontal">
+            <a class="boton" href="#modal_crear_proyecto" id="abrir_editar_proyecto">Editar</a>
+
+            
+            <p> Nombre: <p>{{proyectaso.2}}</p> </p>
+            <p>Título: </p>
+            <p>Creador: </p>
+            <p>Dirección: </p>
+            <p>Cliente: </p>
+            <p>Tipo: </p>
+            <p>Costo: </p>
+           
+
+            
+            
+            <!--<p>{{proyectaso.3}}</p>
+            <p>Creador</p>
+            <p></p>
+            <p>{{proyectaso.4}}, {{proyectaso.5}}, {{proyectaso.6}}.</p>
+            <p>{{proyectaso.7}}</p>
+            <p>{% if proyectaso.9 == true %}
+                Gubernamental
+            {% else %}
+                Partícular
+            {% endif %}</p>
+            <p>Costo</p>-->
+           
+        </div>
+
+        
+            
+            
+        <h2 style="margin-left: 290px; margin-bottom: 20px; margin-top: 10px;">Conceptos del proyecto</h2>
+        <a class="boton" href="{{url_for('registrar_concepto', id_proyecto=proyectaso.0)}}" id="abrir_registrar_concepto">Nuevo concepto</a>
+        <table class="table_procesos">
+            <thead>
+                <th>Detalles</th>
+                <th>Nombre</th>
+                <th>Unidad</th>
+                <th>Costo</th>
+                <th>Cantidad</th>
+                <th>% de maq. y eq.</th>
+                <th>Importe</th>
+                <th>Eliminar</th>
+            </thead>
+            <tbody>
+                {% for concepto in conceptos %}
+                    <tr>
+                        <td>
+                            <a href="{{url_for('detalles_concepto', id_concepto=concepto[0])}}" class=""> <!--BTN EDITAR CLASS-->
+                                <i class="fa-solid fa-gear"></i>
+                            </a>
+                        </td>
+                        <td>{{concepto.1}}</td>
+                        <td>{{concepto.3}}</td>
+                        <td></td>
+                        <td>{{concepto.4}}</td>
+                        <td>{{concepto.7}}%</td>
+                        <td></td>
+                        <td>
+                            <a class="btn_eliminar" href="#">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="modal_crear_proyecto" id="modal_crear_proyecto">
+
+                <form method="post" action="{{url_for('editar_proyecto_proceso', id_proyecto=proyectaso[0] )}}">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                    <h1>Editar proyecto</h1>
+                    <div class="textos_nombre_proyectos">
+                        <p id="nombre_proyecto">Nombre</p>
+                        <p id="titulo_proyecto">Titulo</p>
+                    </div>
+                    
+                    <div class="inputs_nombre_proyecto">
+                        <input type="text" class="input_nombre_proyecto" name="nombre_proyecto" placeholder="Nombre del proyecto" value="{{proyectaso[2]}}">
+                        <input type="text" class="input_titulo_proyecto" name="titulo_proyecto" placeholder="Titulo del proyecto" value="{{proyectaso[3]}}">
+                    </div>
+                    <h2>Direccion</h2>
+
+                    <div class="textos_direccion">
+                        <p>Colonia</p>
+                        <p class="texto_municipio">Municipio</p>
+                        <p class="texto_estado">Estado</p>
+                    </div>
+                        
+                    <div class="inputs_direccion_proyecto">
+                        <input type="text" id="colonia_proyecto" name="colonia_proyecto" placeholder="Colonia" value="{{proyectaso[4]}}"> 
+                        <input type="text" id="municipio_proyecto" name="municipio_proyecto" placeholder="Municipio" value="{{proyectaso[5]}}">
+                        <input type="text" id="estado_proyecto" name="estado_proyecto" placeholder="Estado" value="{{proyectaso[6]}}">
+                    </div>
+
+                    <p class="nombre_cliente">Nombre del cliente</p>
+                    <input type="text" id="nombrecliente_proyecto" name="nombrecliente_proyecto" placeholder="Nombre del cliente" value="{{proyectaso[7]}}">
+
+                    <p>¿Es gubernamental?</p>
+                    <input type="checkbox" name="gubernamental_proyecto" {% if proyectaso[9] == true %}checked{% endif %}>
+                    <label for="">Si es así marque la casilla, de lo contrario dejela así.</label>
+                    <p></p>
+
+                    <div class="btns_registro_proyecto">
+
+                        <button type="submit" id="btn_guardar_proyecto" class="boton">Guardar</button>
+                        <a href="#"id="btn_cancelar_proyecto" class="boton">Cancelar</a>
+
+                    </div>
+                    
+
+                </form>
+
+            </div>
+
+            <!--
+            {% for concepto in conceptos %}
+                <div class="modal_eliminar_concepto" id="modal_eliminar_concepto_{{concepto.id_concepto}}">
+                    <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar concepto</h3>
+                    <p>¿Estas seguro de eliminar este concepto?</p>
+                    <p>{{concepto.1}}</p>
+                    <div class="btns_eliminar_concepto">
+                        <a href="#">Aceptar</a>
+                        <a href="#">Cancelar</a>
+                    </div>
+                </div>
+            {% endfor %}-->
+
+        </div>
+
+        {% endblock %}
+    </div>
+    
+

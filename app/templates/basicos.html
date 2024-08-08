@@ -1,0 +1,25 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Unidades {% endblock %}
+
+
+
+{% block head %} {% endblock %}
+
+<body class="body_basicos">
+
+    {% block contenido %}
+
+    <div class="contenido_basicos">
+
+        <h2>Básicos</h2>
+
+        <div class="btns_opcion_registro">
+            <a href="{{url_for('regis_basico')}}" class="btn_registrar">Registrar un nuevo básico</a>
+        </div>
+
+    </div>
+
+     {% endblock %}
+    
+</body>

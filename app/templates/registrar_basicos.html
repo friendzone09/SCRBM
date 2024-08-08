@@ -1,0 +1,130 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Unidades {% endblock %}
+
+
+
+{% block head %} {% endblock %}
+
+<body class="body_regis_basico">
+    {% block contenido %}
+
+    <div class="contenido_registrar_basico">
+
+        <h1>Registrar un básico</h1>
+
+        <form action="" >
+            <div class="form1_basico">
+                <h4>Nombre del básico</h4>
+                <input type="text">
+                <h4>Unidad del básico</h4>
+                <select name="" id="unidad_basico">
+                    <option selected>Selecciona una unidad</option>
+                    {% for unidad in unidades %}
+                    <option value="{{unidad.0}}"> {{unidad.1}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form2_basico">
+                <h2>Materiales</h2>
+
+                <h4>Subtotal materiales</h4>
+                <input type="number" readonly id="total_mat_bas">
+                <h3>Selecciona tus materiales</h3>
+                <button id="btn_agregar_materiales_basico" type="button">Ingresar otro material</button>
+
+                <div class="opciones_bas">
+                    <p>Materiales</p>
+                    <p>Cantidad</p>
+                    <p>Importe</p>
+                </div>
+
+                <div class="form_mat_basico">
+                    <select name="" id="" class="material_select_bas">
+                        <option selected>Seleccionar material</option>
+                        {% for  material in materiales %}
+                        <option value="{{material.0}}" data-price="{{material.2}}" id="material[0]">{{material.1}} </option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="number" placeholder="Ingresa una cantidad" class="cant_mat_bas" id="cant_mat_bas[0]">
+                    <input type="number" readonly placeholder="Importe" class="imp_mat_bas" id="imp_mat_bas[0]">
+
+                </div>
+
+
+            </div>
+
+            <div class="form3_basico">
+
+                <h2>Mano de obra</h2>
+
+                <h4>Subtotal mano de obra</h4>
+                <input type="number" readonly id="total_oficios_basico">
+                <h3>Selecciona la mano de obra</h3>
+                <button id="btn_agregar_oficios_basico" type="button">Ingresar mas mano  de obra</button>
+
+                <div class="opciones_bas">
+                    <p>Mano de obra</p>
+                    <p>Cantidad</p>
+                    <p>Rendimiento en min</p>
+                    <p>Costo</p>
+                </div>
+
+                <div class="form_oficio_basico">
+                    <select name="" id="" class="oficio_select_basico">
+                        <option selected>Seleccionar mano de obra</option>
+                        {% for  oficio in oficios %}
+                        <option value="{{oficio.0}}" data-price="{{oficio.2}}" >{{oficio.1}} </option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="number" placeholder="Ingresa una Cantidad" class="cant_oficio_basico">
+                    <input type="number" placeholder="Rendimiento" id="rend_ofi_basico">
+                    <input type="number" readonly placeholder="Costo" id="imp_oficio_basico">
+
+                </div>
+
+            </div>
+
+            <div class="form4_basico">
+                <h2>Herramienta y equipo menor</h2>
+
+                <div class="opciones_bas">
+                    <p>Precio</p>
+                    <p>Porcentaje</p>
+                    <p>Importe</p>
+                </div>
+                <input type="number" id="precio_herr_bas" placeholder="Precio de la herramienta..." readonly>
+                <input type="number" id="por_herr_bas" placeholder="Porcentaje...">
+                <input type="number" id="imp_herr_bas" readonly placeholder="Importe">
+
+            </div>
+
+            <h3>Total de el basico</h3>
+            <input type="number" name="" id="total_bas" placeholder="Total del basico" readonly>
+
+        </form>
+
+    </div>
+
+
+    <script id="opciones_mat" type="text/template">
+        <option selected>Seleccionar material</option>
+        {% for  material in materiales %}
+            <option value="{{material.0}}" data-price="{{material.2}}">{{material.1}} </option>
+        {% endfor %}
+    </script>
+
+    <script id="opciones_oficios" type="text/template">
+        <option selected>Seleccionar mano de obra</option>
+        {% for  oficio in oficios %}
+            <option value="{{oficio.0}}" data-price="{{oficio.2}}" >{{oficio.1}} </option>
+        {% endfor %}
+    </script>
+
+    <script src="{{url_for('static', filename = 'JS/calculadora.js')}}"></script>
+
+    {% endblock %}    
+</body>

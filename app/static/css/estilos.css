@@ -49,7 +49,7 @@ body{
 .inicio_de_sesion input, p{
     font-size: 17px;
     color: #5a5959;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 .inicio_de_sesion input{
@@ -169,6 +169,37 @@ body{
 }
 
 
+
+.container_proyectos{
+    display: flex;
+    justify-content: space-between;
+}
+.proyectos{
+    background-color: rgb(181, 181, 181);
+    display: flex;
+    border-radius: 15px;
+    cursor: pointer;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    padding: 20px;
+    color: blue;
+    margin-left: 65px;
+    width: 113px;
+    height: 80px;
+    text-decoration: none;
+    top: 70px;
+}
+
+.proyectos:hover{
+    background-color: gray;
+}
+
+.proyectos_nuevos{
+    display: flex;
+    margin-left: 100px;
+}
+
 .proyectos_recientes{
     position: absolute;
     padding: 20px;
@@ -213,97 +244,205 @@ body{
 .crear_proyecto .fas{
     cursor: pointer;
 }
+.icono_proyecto{
+    color: rgb(255, 255, 255);
+}
+
+#nombre_proyectos{
+    margin-top: 40px;
+    color: black;
+}
 
 
 
 /* Ventana modal crear proyecto*/
 
 .modal_crear_proyecto{
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    height: 390px;
+    width: 800px;
+    left: 250px;
+    top: 70px;
+    border-radius: 15px;
+    padding: 20px;
     display: none;
-    margin-left: 10%;
-    margin-top: 50px;
-    padding: 30px;
-    background-color: #FFFFFF;
-    max-height: 350px;
-    height: auto; 
-    width: 350px;
-    border-radius: 15px;
-    transition: 0.5s all;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
 }
 
-.mostrar_modal_crear_proyecto{
-    pointer-events: auto;
+.modal_crear_proyecto:target{
     display: block;
-}
-
-.input_titulo_proyecto{
-    outline-color: rgb(67, 149, 149);
-    padding: 5px;
-    border-radius: 15px;
-    border: 1.5px solid black;
-}
-
-.label_gubernamental{
-    display: flex;
-    gap: 20px;
 }
 
 .modal_crear_proyecto p{
     color: black;
-    margin-bottom: 20px;
+}
+.textos_nombre_proyectos{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.textos_nombre_proyectos #titulo_proyecto{
+    margin-left: 360px;
+}
+
+.inputs_nombre_proyecto{
+    margin-bottom: 5px;
+}
+.input_nombre_proyecto{
+    border-radius: 10px;
+    width: 386px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+}
+.input_titulo_proyecto{
+    width: 330px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-left: 20px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+}
+.textos_direccion{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+.texto_municipio{
+    margin-left: 180px;
+}
+.texto_estado{
+    margin-left: 160px;
+}
+
+.inputs_direccion_proyecto #colonia_proyecto{
+    width: 200px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+}
+
+.inputs_direccion_proyecto #municipio_proyecto{
+    width: 200px;
+    margin-left: 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-left: 20px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+}
+
+.inputs_direccion_proyecto #estado_proyecto{
+    width: 200px;
+    margin-left: 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-left: 20px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+}
+
+.inputs_direccion_proyecto{
+    margin-bottom: 30px;
+}
+.nombre_cliente{
+    margin-bottom: 5px;
+}
+#nombrecliente_proyecto{
+    width: 750px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 4px 5px;
+    border: 1px solid black;
+    outline-color: rgb(67, 149, 149);
+    margin-bottom: 30px;
+}
+
+.btns_registro_proyecto{
     margin-top: 20px;
 }
-.procesos_modal_crear_proyecto{
-    display: flex;
-    gap: 20px;
-}
 
-.btns_modal_crear_proyecto{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#btn_guardar_proyecto{
+    width: 250px;
 }
 
 
-.btns_modal_crear_proyecto button{
-    border-radius: 10px;
-    background-color: rgb(206, 206, 206);
-    border: none;
-    cursor: pointer;
-    padding: 10px 30px;
-}
-
-.btns_modal_crear_proyecto button:hover{
-    background: linear-gradient(to bottom, #33ccff 0%, #66ffff 100%);
-}
-
-
-
-.btns_modal_crear_proyecto a{
-    padding: 10px 30px;
-    font-size: 13px;
-    color: black;
+#btn_cancelar_proyecto{
+    display: inline-block;
+    padding: 10px;
     text-decoration: none;
-    border-radius: 10px;
-    background-color: rgb(206, 206, 206);
+    margin-left: 250px;
+    color: black;
+    width: 250px;
+    text-align: center;
 }
-
-.btns_modal_crear_proyecto a:hover{
-    background: linear-gradient(to bottom, #33ccff 0%, #66ffff 100%);
-}
-
-
-.modal_crear_proyecto .btns_modal_crear_proyecto{
-    margin-top: 30px;
-}
-
 
 
 /* Fin Ventana modal crear proyecto*/
 
 
 /* FIN ESTILOS DASHBOARD */
+
+/* ESTILOS DETALLES PROYECTO */
+
+.contenido_detalles_proyecto{
+    padding: 30px;
+}
+
+.alinear-horizontal{
+    display: flex;
+}
+.alinear-horizontal p{
+    color: black;
+}
+
+.alinear-horizontal-btns{
+    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-left: 300px;
+    justify-content: space-between;
+}
+#abrir_editar_proyecto{
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+#abrir_registrar_concepto{
+    margin-left: 50px;
+    text-decoration: none;
+    color: black;
+}
+
+.table_procesos{
+    text-align: left;
+    margin-top: 20px;
+    width: 370px;
+    margin-left: 10px;
+}
+
+.table_procesos table{
+    width: 700px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table_procesos th, td{
+    border-bottom: 1px solid black;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+/* FIN ESTILOS DETALLES PROYECTO */
 
 /* ESTILOS UNIDADES */
 
@@ -433,15 +572,15 @@ body{
 
 .form_regis_unidad button{
     cursor: pointer;
+    background-color: #989898;
     color: white;
-    background-color: black;
-    border: 1.5px solid black;
+    border: none;
     border-radius: 15px;
-    padding: 10px;
+    padding: 12px;
 }
 
 .form_regis_unidad button:hover{
-    border: rgb(67, 149, 149);
+    color: black;
     background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
 }
 
@@ -953,16 +1092,17 @@ body{
 
 .btn_registrar{
     margin-left: 200px;
-    background-color: white;
+    background-color: #6d6d6d;
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: rgb(255, 255, 255);
     border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);-moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);
 }
 
 .btn_registrar:hover{
-    color: gray;
-    background-color: rgb(56, 56, 56);
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
 }
 
 .btn_registrar a{
@@ -1196,6 +1336,46 @@ body{
 .volver_inicio_sesion{
     color: white;
 }
+
+
+/* INICIO ESTILOS NOTIFICACION */
+
+.error_sesion p{
+    color: red;
+    font-size: 10px;
+    margin-bottom: 1px;
+}
+
+.notifcacion{
+    position: absolute; 
+    margin-left: 10px;
+    top: 10px;
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.peligro{
+    background-color: rgb(250, 94, 94);
+}
+
+.advertencia{
+    background-color: #FFFD91;
+}
+
+.completado{
+    color: white;
+    background-color: rgb(55, 160, 170);
+}
+
+
+
+
+/* FIN ESTILOS NOTIFICACION */
+
 /* FIN ESTILOS 404*/
 
 /* INICIO ESTILOS BARRA SCROLL */
@@ -1262,3 +1442,91 @@ body::-webkit-scrollbar-thumb{
 }
 
 /* FIN ESTILOS PAGINADOR */
+
+ /* INICIO ESTILOS BASICOS */
+ .contenido_basicos h2{
+    margin-left: 370px;
+    margin-top: 50px;
+}
+
+/* ESTILOS REGIS BAS*/
+
+.contenido_registrar_basico{
+    padding: 30px;
+}
+
+.opciones_bas{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.opciones_bas p{
+    color: black;
+    margin-right: 100px;
+
+}
+
+/* FIN ESTILOS REGIS BAS*/
+
+/* FIN ESTILOS BASICOS */
+
+
+/* REGIS USUARIO */
+
+.body_registrar_usuario{
+    background: linear-gradient(to bottom right, #33ccff 0%, #66ffff 100%);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenido_registrar_usuario{
+    position: relative;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 350px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    background-color: #EEEEEE;
+}
+
+.contenido_registrar_usuario h1{
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.contenido_registrar_usuario input, p{
+    font-size: 17px;
+    color: #5a5959;
+    margin-bottom: 4px;
+}
+
+.contenido_registrar_usuario input{
+    padding: 3px 4px;
+    border-radius: 15px;
+    border: 1px solid black;
+    margin-bottom: 25px;
+    outline-color: rgb(67, 149, 149);
+    width: 300px;
+}
+
+.boton{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.4px #006b77 solid;
+    cursor: pointer;
+    background-color: #00e4ff;
+    -webkit-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+}
+.boton:hover{
+    background-color: #00c4da;
+}
+

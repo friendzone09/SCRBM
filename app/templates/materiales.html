@@ -13,7 +13,20 @@
 <body class="body_materiales">
 
 {% block contenido %}
+
+    
+
     <div class="contenido_materiales">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                        {{message}} 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
 
         <h2>Tabla de materiales</h2>
         <div class="btns_opcion_registro">
@@ -88,6 +101,22 @@
    
     
     </div>  
+
+
+    <script> 
+        function mostrarNotificacion() {
+            const notificacion = document.getElementById("notificacion");
+            notificacion.style.display = "block";
+        
+            // Cerrar la notificación después de 4 segundos
+            setTimeout(function() {
+                notificacion.style.display = "none";
+            }, 2000);
+        }
+        
+        // Mostrar la notificación para probar
+        mostrarNotificacion();
+    </script>
 
  {% endblock %}
 

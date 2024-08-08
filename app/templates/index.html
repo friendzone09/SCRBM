@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <script src="{{url_for('static', filename = 'JS/script.js')}}" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesión</title>
 </head>
 
 <body class="body_index">
+    
 
     <div class="inicio_de_sesion">
+
+
         <form method="post" class="form_usuarios" action="{{ url_for('loguear') }}">    
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <h1>Bienvenido</h1>
@@ -17,6 +21,15 @@
             <input type="text" name="correo_usuario" placeholder="Correo..." required>
             <p>Ingresa tu contraseña</p>
             <input type="password" name="contraseña_usuario" placeholder="Contraseña..." required>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                        <div class="error_sesion" id="notificacion">
+                            <p>{{message}}</p> 
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <div class="opciones_inicio_sesion">
                 <a href="{{ url_for('registrar_usuario') }}">Registrarte</a>
                 <a href="#">¿Olvidaste tu contraseña?</a>
@@ -24,6 +37,16 @@
             <button type="submit">Ingresar</button>
         </form>
     </div>
+
+    <script> 
+        function mostrarNotificacion() {
+            const notificacion = document.getElementById("notificacion");
+            notificacion.style.display = "block";   
+        }
+        
+        // Mostrar la notificación para probar
+        mostrarNotificacion();
+    </script>
     
 </body>
 </html>
