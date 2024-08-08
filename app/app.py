@@ -179,6 +179,19 @@ def listar_oficios():
   
 #==========================================FIN LISTAR OfICIOS=============================================================
 
+#================================================LISTAR MAQUINAS======================================================
+
+def listar_maquinas():
+    conn = get_db_conection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM maquinaria WHERE visibilidad IS true')
+    maquinas = cur.fetchall()
+    cur.close()
+    conn.close()
+    return maquinas
+
+#============================================FIN LISTAR MAQUINAS=====================================================
+
 #-=============================================DASHBOARD===========================================================
 
 @app.route ("/dashboard")
@@ -232,7 +245,7 @@ def detalles_proyecto(id_proyecto):
     cur.execute('SELECT id_proyecto, fk_creador_proyecto, nombre_proyecto, titulo_proyecto, colonia_proyecto, municipio_proyecto, estado_proyecto, nombrecliente_proyecto, visible_proyecto, gubernamental_proyecto FROM proyectos WHERE id_proyecto=%s;', (id_proyecto,))
     proyectaso = cur.fetchall()
     conn.commit()
-    cur.execute('SELECT id_concepto, nombre_concepto, fk_proy_con, nombre_unidad, cantidad_concepto, fk_cuad_con, cantcuad_con, porcentajemaqyeq_con, indirectos_con, financiamiento_con, utilidad_con, visible_con FROM conceptos INNER JOIN unidades uni ON fk_unid_con = uni.id_unidad WHERE visible_con=true AND fk_proy_con=%s;', (id_proyecto,))
+    cur.execute('SELECT id_concepto, nombre_concepto, fk_proy_con, nombre_unidad, cantidad_concepto, fk_cuadrilla_con, cant_cuadrilla_con, porcentaje_con, indirectos_con, financiamiento_con, utilidad_con, visible_con FROM conceptos INNER JOIN unidades uni ON fk_unid_con = uni.id_unidad WHERE visible_con=true AND fk_proy_con=%s;', (id_proyecto,))
     conceptos=cur.fetchall()
     conn.commit()
     cur.execute('SELECT id_unidad, nombre_unidad FROM public.unidades;')
@@ -297,7 +310,7 @@ def registrar_concepto_proceso(id_proyecto):
             sql = '''
                 INSERT INTO public.conceptos(
                     nombre_concepto, fk_proy_con, fk_unid_con, cantidad_concepto, 
-                    porcentajemaqyeq_con, indirectos_con, financiamiento_con, utilidad_con
+                    porcentaje_con, indirectos_con, financiamiento_con, utilidad_con
                 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
             '''
             valores = (nombre_concepto, fk_proy_con, fk_unid_con, cantidad_concepto, 
@@ -317,7 +330,7 @@ def detalles_concepto(id_concepto):
     conn = get_db_conection()
     cur = conn.cursor()
 
-    sqlconceptos = "SELECT id_concepto, nombre_concepto, pr.nombre_proyecto, un.nombre_unidad, co.porcentajemaqyeq_con, co.indirectos_con, financiamiento_con, utilidad_con, fk_proy_con FROM conceptos co INNER JOIN unidades un ON co.fk_unid_con = un.id_unidad INNER JOIN proyectos pr ON co.fk_proy_con = pr.id_proyecto WHERE visible_con = true AND id_concepto = %s;"
+    sqlconceptos = "SELECT id_concepto, nombre_concepto, nombre_proyecto, nombre_unidad, porcentaje_con, indirectos_con, financiamiento_con, utilidad_con, fk_proy_con FROM conceptos INNER JOIN unidades un ON fk_unid_con = id_unidad INNER JOIN proyectos pr ON fk_proy_con = id_proyecto WHERE visible_con = true AND id_concepto = %s;"
     cur.execute(sqlconceptos, (id_concepto,))
     concepton = cur.fetchone()
     conn.commit()
@@ -327,25 +340,17 @@ def detalles_concepto(id_concepto):
     materialon = cur.fetchall()
     conn.commit()
 
-    sqlmateriales = "SELECT id_material, nombre_material, costo_material, visibilidad_material, nombre_unidad FROM materiales INNER JOIN unidades ON materiales.fk_unidad = unidades.id_unidad WHERE visibilidad_material = true;"
-    cur.execute (sqlmateriales)
-    materiales = cur.fetchall()
-    conn.commit()
 
     sqlmaquinariaconcepto = "SELECT mq.id_maquina, mq.nombre_maquina, cq.costo_maq, cq.cant_conmaq, (cq.costo_maq*cq.cant_conmaq) AS importe, mq.vida_util, mq.visibilidad, un.nombre_unidad, cq.id_conmaq, cq.fk_id_con FROM maquinaria mq INNER JOIN unidades un ON mq.fk_unidad = un.id_unidad INNER JOIN conceptosmaquinaria cq ON mq.id_maquina = cq.fk_id_maq WHERE cq.fk_id_con = %s;"
     cur.execute(sqlmaquinariaconcepto, (id_concepto,))
     maquinon = cur.fetchall()
     conn.commit()
 
-    sqlmaquinaria = "SELECT id_maquina, nombre_maquina, costo_maquina, vida_util, visibilidad, nombre_unidad FROM maquinaria INNER JOIN unidades ON maquinaria.fk_unidad = unidades.id_unidad WHERE maquinaria.visibilidad = true;"
-    cur.execute(sqlmaquinaria)
-    maquinaria = cur.fetchall()
-
     cur.close()
     conn.close()
     return render_template('detalles_concepto.html', concepton=concepton,
-                           materialon=materialon, materiales=materiales,
-                           maquinon=maquinon, maquinaria=maquinaria
+                           materialon=materialon, materiales=listar_materiales(),
+                           maquinon=maquinon, maquinaria=listar_maquinas()
                            )
     
 #=============================================FIN CRUD PROYECTOS=======================================================

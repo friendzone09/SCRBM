@@ -6,13 +6,13 @@ class User(UserMixin):
     def get_id(self):
         return self.id_usuario
 
-    def __init__(self, id_usuario, nombre, apellidos, correo_usuario, contrasenhia_usuario, img_usuario, activo) -> None:
+    def __init__(self, id_usuario, nombre, apellidos, correo_usuario, password, foto, activo) -> None:
         self.id_usuario = id_usuario
         self.nombre = nombre
         self.apellidos = apellidos
         self.correo_usuario = correo_usuario
-        self.contrasenhia_usuario = contrasenhia_usuario
-        self.img_usuario = img_usuario
+        self.contrasenhia_usuario = password
+        self.img_usuario = foto
         self.activo = activo
 
     @classmethod

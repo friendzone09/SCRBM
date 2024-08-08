@@ -5,7 +5,7 @@ class ModuleUser():
     def login(self, db, user):
         try:
             cur = db.cursor()
-            sql = "SELECT id_usuario, nombre, apellidos, correo_usuario, contrasenhia_usuario, img_usuario, activo FROM usuarios WHERE correo_usuario = %s"
+            sql = "SELECT id_usuario, nombre, apellidos, correo_usuario, password, foto, activo FROM usuarios WHERE correo_usuario = %s"
             cur.execute(sql, (user.correo_usuario,))
             row = cur.fetchone()
             if row != None:
@@ -20,7 +20,7 @@ class ModuleUser():
     def get_by_id(self, db, id_usuario):
         try:
             cur = db.cursor()
-            sql = "SELECT id_usuario, nombre, apellidos, correo_usuario, img_usuario, activo FROM usuarios WHERE id_usuario = %s"
+            sql = "SELECT id_usuario, nombre, apellidos, correo_usuario, foto, activo FROM usuarios WHERE id_usuario = %s"
             cur.execute(sql, (id_usuario,))
             row = cur.fetchone()
             if row is not None:
