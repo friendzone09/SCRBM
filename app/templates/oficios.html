@@ -26,24 +26,28 @@
         <h2>Tabla de oficios</h2>
 
         <div class="btns_opcion_registro">
-            <a href="{{url_for('registrar_oficio')}}" class="btn_registrar">Registrar oficio</a>
+            <a href="{{url_for('registrar_oficio')}}" class="btn_registrar boton">Registrar oficio</a>
         </div>
 
         <table class="tabla_oficios">
             <thead>
+                <th>Editar</th>
                 <th>Nombre del oficio</th>
                 <th>Unidad</th>
                 <th>Costo</th>
-                <th>Opciones</th>
+                <th>Eliminar</th>
             </thead>
             <tbody>
                 {% for oficio in oficios %}
                 <tr>
+                    <td>
+                        <a href="{{url_for('editar_oficio', id_oficio=oficio.id_oficio )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                    </td>
                     <td>{{oficio.nombre_oficio}}</td>
                     <td>{{oficio.nombre_unidad}}</td>
                     <td>${{oficio.costo_oficio}}</td>
                     <td>
-                        <a href="{{url_for('editar_oficio', id_oficio=oficio.id_oficio )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        
                         <a class="btn_eliminar" href="#modal_eliminar_oficio_{{oficio.id_oficio}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
     
@@ -58,10 +62,10 @@
             <br>
             <p>¿Estas seguro de eliminar este oficio?</p>
             <br>
-            <p>{{oficio.1}} </p>
+            <p>{{oficio.nombre_oficio}} </p>
             <div class="btns_eliminar_material">
-                <a href="{{url_for('eliminar_oficio', id_oficio = oficio.id_oficio)}}">Aceptar</a>
-                <a href="#">Cancelar</a>
+                <a href="{{url_for('eliminar_oficio', id_oficio = oficio.id_oficio)}}" class="boton_eliminar">Aceptar</a>
+                <a href="#" class="boton_cancelar">Cancelar</a>
             </div>
         </div>
 

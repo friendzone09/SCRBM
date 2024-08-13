@@ -5,33 +5,31 @@
 {% block contenido %}
 <div class="contenido_editar_usuario">
     <h2>Editar Usuario</h2>
-    <form action="{{ url_for('editar_usuario', id_usuario=usuario.id_usuario) }}" method="POST">
+    <form method="post" class="form_usuarios" action="{{ url_for('usuarios_actualizar', id_usuario=usuario[0]) }}" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
         <div class="form-group mb-3">
             <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" value="{{ usuario[1] }}" required>
+            <input type="text" placeholder="Nombre..." name="nombre" id="nombre" value="{{ usuario[1] }}" required>
         </div>
         <div class="form-group mb-3">
             <label for="apellidos">Apellidos:</label>
-            <input type="text" name="apellidos" id="apellidos" value="{{ usuario[2] }}" required>
-        </div>
-        <div class="form-group mb-3">
-            <label for="correo_usuario">Correo:</label>
-            <input type="email" name="correo_usuario" id="correo_usuario" value="{{ usuario[3] }}" required>
+            <input type="text" placeholder="Apellidos..." name="apellidos" id="apellidos" value="{{ usuario[2] }}" required>
         </div>
         <div class="form-group mb-3">
             <label for="contraseña_usuario">Contraseña:</label>
-            <input type="password" name="contraseña_usuario" id="contraseña_usuario">
+            <input type="password" name="password" id="contraseña_usuario" value="{{ usuario[4] }}" required>
         </div>
+
         <div class="form-group mb-3">
-            <label for="img_usuario">Imagen:</label>
-            <input type="text" name="img_usuario" id="img_usuario" value="{{ usuario[5] }}">
+            <label for="formFile" class="form-label">Foto de perfil</label>
+            <input class="form-control" type="file" id="formFile" name="foto" accept="image/png, .jpeg, .jpg">
         </div>
-        <div class="form-group mb-3">
-            <label for="activo">Activo:</label>
-            <input type="checkbox" name="activo" id="activo" {% if usuario[6] %}checked{% endif %}>
-        </div>
-        <button type="submit">Actualizar</button>
-        </div>
+    
+        <button class="btn btn-primary d-inline-flex align-items-center" type="submit">
+            Actualizar
+        </button>
+        <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('usuarios_detalles', id_usuario=usuario[0]) }}">Cancelar</a>
     </form>
 </div>
 {% endblock %}

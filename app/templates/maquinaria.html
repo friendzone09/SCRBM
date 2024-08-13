@@ -24,42 +24,46 @@
         <h2>Tabla de maquinaria</h2>
 
         <div class="btns_opcion_registro">
-            <a href="{{url_for('registrar_maquinaria')}}" class="btn_registrar">Registrar maquina</a>
+            <a href="{{url_for('registrar_maquinaria')}}" class="btn_registrar boton">Registrar maquina</a>
         </div>
 
         <table class="tabla_maquinas">
             <thead>
+                <th>Editar</th>
                 <th>Nombre de la maquina</th>
                 <th>Costo</th>
                 <th>Vida util</th>
                 <th>Unidad</th>
-                <th>Opciones</th>
+                <th>Eliminar</th>
             </thead>
             <tbody>
                 {% for maquina in maquinaria %}
                 <tr>
+                    <td>
+                        <a href="{{url_for('editar_maquina', id_maquina=maquina.id_maquina )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                    </td>
                     <td>{{maquina.nombre_maquina}}</td>
                     <td>${{maquina.costo_maquina}}</td>
                     <td>{{maquina.vida_util}}</td>
                     <td>{{maquina.nombre_unidad}} </td>
                     <td>
-                        <a href="{{url_for('editar_maquina', id_maquina=maquina.id_maquina )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
                         <a class="btn_eliminar" href="#modal_eliminar_maquina_{{maquina.id_maquina}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                  
                 </tr>
+                {% endfor %}
             </tbody>
-            {% endfor %}
+            
         </table>
 
         {% for maquina in maquinaria %}
         <div class="modal_eliminar_maquina" id="modal_eliminar_maquina_{{maquina.id_maquina}}">
             <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar maquina</h3>
             <p>¿Estas seguro de eliminar esta maquina?</p>
-            <p>{{maquina.1}} </p>
+            <p>{{maquina.nombre_maquina}} </p>
             <div class="btns_eliminar_maquina">
-                <a href="{{url_for('eliminar_maquinaria', id_maquina = maquina.id_maquina)}}">Aceptar</a>
-                <a href="#">Cancelar</a>
+                <a href="{{url_for('eliminar_maquinaria', id_maquina = maquina.id_maquina)}}" class="boton_eliminar">Aceptar</a>
+                <a href="#" class="boton_cancelar">Cancelar</a>
             </div>
         </div>
 

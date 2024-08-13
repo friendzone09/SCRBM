@@ -39,9 +39,9 @@
                     <tr>
                         <td>{{unidad[1]}}</td>
                         <td>
-                            <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
+                            <a class="btn_eliminar" href="#id_modal_eliminar_unidad{{unidad[0]}}"><i class="fa-solid fa-trash"></i></a>
                         </td>
-                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                        <td><a href="{{url_for('restaurar_unidad', id_unidad=unidad.0)}}" class="boton_restaurar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
                                        
                     </tr>
                 </tbody>
@@ -49,6 +49,18 @@
             </table>
 
         </details>
+
+        {% for unidad in unidades %}
+        <div class="modal_eliminar_unidad_de_papelera" id="id_modal_eliminar_unidad{{unidad[0]}}">
+            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar unidad</h3>
+            <p>¿Esta seguro de eliminar esta unidad para siempre? No se podra restaurar</p>
+            <p>{{unidad.1}} </p>
+            <div class="opciones_eliminar_unidad">
+                <a href="{{url_for('papelera_eliminar_unidad', id_unidad=unidad.0)}}" class="btn_aceptar_eliminar_unidad boton_eliminar">Aceptar</a> 
+                <a href="#"  class="boton_cancelar">Cancelar</a>
+            </div>
+        </div>
+        {% endfor %}
 
         <details>
             <summary>Materiales</summary>
@@ -69,7 +81,7 @@
                         <td>
                             <a class="btn_eliminar" href="#modal_eliminar_material_{{material[0]}}"><i class="fa-solid fa-trash"></i></a>
                         </td>
-                        <td><a href="#"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
+                        <td><a href="{{url_for('restaurar_material', id_material=material.0)}}" class="boton_restaurar"><i class="fa-solid fa-trash-can-arrow-up"></i></a></td>
                      
                     </tr>
                 </tbody>
@@ -77,6 +89,18 @@
             </table>
 
         </details>
+
+        {% for material in materiales %}
+        <div class="modal_eliminar_unidad_de_papelera" id="modal_eliminar_material_{{material[0]}}">
+            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
+            <p>¿Esta seguro de eliminar este material para siempre? No se podra restaurar</p>
+            <p>{{material.1}} </p>
+            <div class="opciones_eliminar_unidad">
+                <a href="{{url_for('eliminar_material_papelera', id_material=material.0)}}" class="btn_aceptar_eliminar_unidad boton_eliminar">Aceptar</a> 
+                <a href="#"  class="boton_cancelar">Cancelar</a>
+            </div>
+        </div>
+        {% endfor %}
 
         <details>
             <summary>Basicos</summary>

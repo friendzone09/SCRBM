@@ -8,8 +8,8 @@
 {% block contenido %}
 
 <div class="body_registrar_maquina">
-    <a class="btn_regresar" href="{{url_for('maquinaria')}}"><i class="fa-solid fa-arrow-left"></i> Regresar</a>
-    <form method="post" class="form_regis_maquina" action="{{url_for('registrar_maquinaria_proceso')}}">
+    <a class="btn_regresar boton" href="{{url_for('maquinaria')}}"><i class="fa-solid fa-arrow-left"></i> Regresar</a>
+    <form method="post" class="form_regis_material" action="{{url_for('registrar_maquinaria_proceso')}}">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <h2>Registra una maquina</h2>
         <p>Nombre de la maquina</p>
@@ -30,7 +30,7 @@
         </select>
 
         </select>
-        <button type="submit">Guardar</button>
+        <button type="submit" class="boton">Guardar</button>
     
     </form>
     

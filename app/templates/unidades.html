@@ -32,39 +32,42 @@
         <h2>Unidades de medida</h2>
 
         <div class="btns_opcion_registro">
-            <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar">Registrar una nueva unidad</a>
+            <a href="{{url_for('form_regis_unidad')}}" class="btn_registrar boton">Registrar una nueva unidad</a>
         </div>
 
         <table class="tabla_unidades">
             <thead>
-                <th>Unidad de medida</th>
-                <th>Opciones</th>
+                <tr>
+                    <th>Editar</th>
+                    <th>Unidad de medida</th>
+                    <th>Eliminar</th>
+                </tr>
             </thead>
             <tbody>
                 {% for unidad in unidades %}
                 <tr>
-                    <td>{{unidad.nombre_unidad}}</td>
                     <td>
                         <a href="{{url_for('editar_unidad', id_unidad=unidad.id_unidad)}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
-                        <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad.id_unidad}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
-                                   
+                    <td>{{unidad.nombre_unidad}}</td>
+                    <td>
+                        <a class="btn_eliminar" href="#id_modal_eliminar_unidad_{{unidad.id_unidad}}"><i class="fa-solid fa-trash"></i></a>
+                    </td>                   
                 </tr>
-            </tbody>
-            {% endfor %}
+                {% endfor %}
+            </tbody> 
         </table>
 
         {% for unidad in unidades %}
         <div class="modal_eliminar_unidad" id="id_modal_eliminar_unidad_{{unidad.id_unidad}}">
             <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar unidad</h3>
             <p>¿Esta seguro de eliminar esta unidad?</p>
-            <p>{{unidad.1}} </p>
+            <p>{{unidad.nombre_unidad}} </p>
             <div class="opciones_eliminar_unidad">
-                <a href="{{url_for('eliminar_unidad', id_unidad=unidad.id_unidad)}}" class="btn_aceptar_eliminar_unidad">Aceptar</a> 
-                <a href="#">Cancelar</a>
+                <a href="{{url_for('eliminar_unidad', id_unidad=unidad.id_unidad)}}" class="btn_aceptar_eliminar_unidad boton_eliminar">Aceptar</a> 
+                <a href="#"  class="boton_cancelar">Cancelar</a>
             </div>
         </div>
-
     {% endfor %}
 
     <div class="paginador">

@@ -17,6 +17,7 @@
         <input type="number" name="costo_material" value="{{materiales[2]}}">
         <p>Unidad del material</p>
         <select name="fk_unidad" id="">
+            <option value="{{materiales.4}}">{{materiales.4}}</option>
             {% for unidad in unidades %}
                 <option value="{{unidad.0}}">{{unidad.1}} </option>
             {% endfor %}

@@ -1,0 +1,58 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Tu perfil {% endblock %}
+
+
+
+  <body class="body_usuarios_detalles">
+    {% block contenido %}
+    <div class="contenido_usuarios_detalles">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                        {{message}} 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="titulo-perfil">
+            <h2>Tu Perfil</h2>
+          </div>
+          
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="col-md-4">
+              {% set foto = usuario[5] %}
+              {% if foto and foto is string and foto != '' %}
+                  <img src="{{ url_for('static', filename='img/uploads/' + foto) }}" class="img-usuario">
+              {% else %}
+                  <img src="{{ url_for('static', filename='img/uploads/default-profile.png') }}" class="img-usuario" >
+              {% endif %}
+            </div>
+            <div>
+              <h3 class="card-title">Nombre: {{ usuario[1] }} {{ usuario[2] }}</h3>
+              <h3 class="card-title">Correo: {{ usuario[3] }}</h3>
+            </div>
+        
+            <a class="boton-perfil-editar" href="{{ url_for('editar_usuario', id_usuario=usuario[0]) }}"> Editar perfil </a>
+          </div>
+    </div>
+
+    <script> 
+        function mostrarNotificacion() {
+            const notificacion = document.getElementById("notificacion");
+            notificacion.style.display = "block";
+        
+            // Cerrar la notificación después de 4 segundos
+            setTimeout(function() {
+                notificacion.style.display = "none";
+            }, 2000);
+        }
+        
+        // Mostrar la notificación para probar
+        mostrarNotificacion();
+    </script>
+
+    {% endblock %}
+  </body>

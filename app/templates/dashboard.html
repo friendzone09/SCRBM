@@ -18,7 +18,7 @@
              <div class="usuario_opciones">
                 <ul>
                     <p>{{current_user.nombre}} </p>
-                    <li>Mi cuenta</li>
+                    <li><a href="{{url_for('usuarios_detalles', id_usuario=current_user.id_usuario)}}">Mi cuenta</a></li>
                     <li><a href="{{url_for('papelera')}}">Papelera</a></li>
                     <li><a href="{{url_for('logout')}}">Cerrar sesión</a></li>
                  </ul>
@@ -29,7 +29,7 @@
             <a href="{{url_for('dashboard')}}">Proyectos</a>
             <a href="{{url_for('unidades')}}">Unidades</a>
             <a href="{{url_for('materiales')}}">Materiales</a>
-            <a href="{{url_for('basicos')}}">Basicos</a>
+            <a href="#">Basicos</a>
             <a href="{{url_for('oficios')}}">Oficios</a>
             <a href="{{url_for('maquinaria')}}">Maquinaria</a>
             
@@ -37,7 +37,9 @@
 
         <div class="proyectos_recientes">
             <p>Proyectos recientes:</p>
-
+            {% for lis_proyectos in listar_proyecto %}
+            <a href="{{url_for('detalles_proyecto', id_proyecto=lis_proyectos.0 )}}">{{lis_proyectos.2}}</a>
+            {% endfor %}
         </div>
         
     </div>
@@ -47,12 +49,10 @@
 
     
         <div class="container_proyectos">
-      
-            <a href="#modal_crear_proyecto" class="crear_proyecto" id="abrir_modal_crear_proyecto">
-                <i class="fas fa-plus-circle"></i>
+              
+            <a href="#modal_crear_proyecto" class="crear_proyecto boton" id="abrir_modal_crear_proyecto">
                 <p>Nuevo proyecto</p>
             </a> 
-              
 
             <div class="proyectos_nuevos">
 
@@ -63,7 +63,11 @@
                 </a>
                 {% endfor %}
 
+
             </div>
+
+            
+
             
         </div>
              
@@ -101,7 +105,7 @@
 
                 <p>¿Es gubernamental?</p>
                 <input type="checkbox" id="gubernamental_proyecto" name="gubernamental_proyecto">
-                <label for="">Si es así marque la casilla, de lo contrario dejela así.</label>
+                <label for="">Si es así marque la casilla, de lo contrario no la marque.</label>
                 <p></p>
 
                 <div class="btns_registro_proyecto">
@@ -115,10 +119,6 @@
             </form>
 
         </div>
-    
-        
-
-    
 
     <script src="{{url_for('static', filename = 'JS/script.js')}}"></script>
     {% endblock %}

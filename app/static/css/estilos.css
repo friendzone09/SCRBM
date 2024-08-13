@@ -168,12 +168,20 @@ body{
     color: rgb(118, 118, 118);
 }
 
+/*===================================*/
 
 
-.container_proyectos{
+
+
+/*=========================================*/
+
+
+.proyectos_nuevos {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre los iconos */
 }
+
 .proyectos{
     background-color: rgb(181, 181, 181);
     display: flex;
@@ -184,21 +192,31 @@ body{
     align-items: center;
     padding: 20px;
     color: blue;
-    margin-left: 65px;
     width: 113px;
     height: 80px;
     text-decoration: none;
-    top: 70px;
+    margin-left: 80px;
 }
 
 .proyectos:hover{
-    background-color: gray;
+    background-color: rgb(120, 120, 120);
+
 }
 
-.proyectos_nuevos{
+
+
+.container_proyectos{
     display: flex;
-    margin-left: 100px;
+    flex-wrap: wrap;
+    overflow-x: auto;/* Habilita el desplazamiento vertical */
 }
+
+.container_proyectos {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+}
+
 
 .proyectos_recientes{
     position: absolute;
@@ -214,20 +232,16 @@ body{
 
 
 .crear_proyecto{
-    background-color: rgb(181, 181, 181);
     display: flex;
-    border-radius: 15px;
     cursor: pointer;
-    flex-direction: column;
     position: relative;
     align-items: center;
-    padding: 20px;
-    color: blue;
-    width: 113px;
-    height: 80px;
+    width: 130px;
+    text-align: center;
+    height: 20px;
     left: 80px;
     text-decoration: none;
-    top: 70px;
+    top: 20px;
 }
 
 .crear_proyecto:hover{
@@ -235,9 +249,6 @@ body{
 }
 
 .crear_proyecto p{
-    margin-top: 40px;
-    cursor: pointer;
-    font-size: 15px;
     color: rgb(0, 0, 0);
 }
 
@@ -422,27 +433,25 @@ body{
     color: black;
 }
 
-.table_procesos{
-    text-align: left;
-    margin-top: 20px;
-    width: 370px;
-    margin-left: 10px;
-}
 
-.table_procesos table{
-    width: 700px;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-.table_procesos th, td{
-    border-bottom: 1px solid black;
-    padding-left: 50px;
-    padding-bottom: 10px;
-    padding-bottom: 20px;
-}
 
 /* FIN ESTILOS DETALLES PROYECTO */
+
+/* ESTILOS TODAS LAS TABLAS */
+
+table thead tr {
+    background-color: #33ccff; /* Color del encabezado */
+    border-bottom: 1px solid black;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #8fe6f2; /* Color para las filas impares */
+}
+
+table tbody tr:hover {
+    cursor:default;
+    background-color: #6ab0b9; 
+}
 
 /* ESTILOS UNIDADES */
 
@@ -453,29 +462,17 @@ body{
     margin-top: 50px;
 }
 
-.tabla_unidades{
-    text-align: left;
+table.tabla_unidades{
+    margin-left: 270px;
     margin-top: 20px;
-    width: 370px;
-    margin-left: 300px;
-    padding-top: 10px;
-    padding-bottom: 20px;
-}
-
-.tabla_unidades table{
-    width: 100%;
+    border: 1px solid black;
+    width: 400px;
     border-collapse: collapse;
-    text-align: left;
 }
 
-.tabla_unidades th, td{
-    border-bottom: 1px solid black;
-    padding-left: 50px;
-    padding-bottom: 10px;
-    padding-bottom: 20px;
+table.tabla_unidades, th, td{
+    padding: 0.50rem;
 }
-
-
 
 
 
@@ -514,10 +511,7 @@ body{
 
 .opciones_eliminar_unidad a{
     text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
+    color: black;
 }
 
 .opciones_eliminar_unidad button{
@@ -529,9 +523,6 @@ body{
     border: solid 1px black;
 }
 
-.opciones_eliminar_unidad a:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-}
 
 /* FIN ESTILOS MODAL ELIMINAR UNIDAD */
 
@@ -546,45 +537,27 @@ body{
 }
 
 .form_regis_unidad{
-    position: relative;
-    align-items: center;
-    margin-left: 25%;
-    margin-top: 160px;
-    border-radius: 15px;
-    padding: 20px;
-    background-color: white;
-    height: auto;
-    width: 300px;
+    margin-top: 70px;
 }
 
 .form_regis_unidad h2{
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    
 }
 
 .form_regis_unidad input{
-    outline-color: rgb(67, 149, 149);
-    margin-left: 20px;
-    padding: 10px;
-    border: 1.5px solid black;
+    padding: 10px 11px;
+    width: 900px;
     border-radius: 15px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-bottom: 10px;
 }
 
 .form_regis_unidad button{
-    cursor: pointer;
-    background-color: #989898;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 12px;
+    display: block;
+    
 }
-
-.form_regis_unidad button:hover{
-    color: black;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-}
-
-
 
 
 /* FIN ESTILOS REGISTRO UNIDADES*/
@@ -664,41 +637,27 @@ body{
     margin-top: 50px;
 }
 
-
-
-.tabla_materiales{
-    width: 590px;
-    text-align: left;
-    margin-left: 150px;
-    margin-top: 30px;
+table.tabla_materiales{
+    margin-left: 200px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 600px;
+    border-collapse: collapse;
 }
 
-.tabla_materiales table{
-    text-align: center;
-    width: 400px;
-}
 
-.tabla_materiales th, td{
-    border-bottom: 1px solid black;
-    padding-left: 50px;
-    padding-bottom: 10px;
-}
 
 .body_registrar_material{
     background: linear-gradient(to bottom right, #ffffff 0%, #c0c0c0 100%);
     height: 100vh;
     width: 100%;
+    padding: 20px;
 
 }
 
 .form_regis_material{
-    background: white;
-    color: black;
-    padding: 20px;
-    width: 300px;
-    margin-top: 90px;
-    margin-left: 25%;
-    border-radius: 20px;
+    margin-top: 70px;   
+ 
 }
 
 .form_regis_material h2{
@@ -706,38 +665,32 @@ body{
 }
 .form_regis_material p{
     margin-bottom: 15px;
-    margin-top: 15px;
     color: black;
+    
 }
 
 .form_regis_material input{
-    padding: 5px;
-    width: 270px;
-    border-radius: 5px;
-    border: solid 1px black;
+    margin-bottom: 10px;
+    padding: 10px 11px;
+    outline-color: #00c4da;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 900px;
 }
 
 .form_regis_material button{
-    background-color: black;
-    color: white;
-    padding: 5px;
-    border: solid black 1px;
-    border-radius: 5px;
+    display: block;
 }
 
 .form_regis_material select{
-    width: 275px;
-    padding: 5px;
-    border-radius: 5px;
-    border: solid black 1px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding: 10px 11px;
+    outline-color: #00c4da;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 300px;
 }
 
-.form_regis_material button:hover{
-    cursor: pointer;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-
-}
 
 .modal_eliminar_material{
     display: none;
@@ -771,16 +724,9 @@ body{
 
 .btns_eliminar_material a{
     text-decoration: none;
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
-    background-color: black;
+    color: black;
 }
 
-.btns_eliminar_material a:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-
-}
 
 .body_editar_material{
     height: 100vh;
@@ -854,22 +800,15 @@ body{
     margin-left: 370px;
     margin-top: 50px;
 }
-.tabla_maquinas{
-    text-align: left;
-    margin-left: 150px;
-    margin-top: 30px;
+
+table.tabla_maquinas{
+    margin-left: 200px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 650px;
+    border-collapse: collapse;
 }
 
-.tabla_maquinas table{
-    text-align: center;
-    width: 400px;
-}
-
-.tabla_maquinas th, td{
-    border-bottom: 1px solid black;
-    padding-left: 50px;
-    padding-bottom: 10px;
-}
 
 .btns_opciones_maquinaria{
     margin-left: 20px;
@@ -879,6 +818,7 @@ body{
 .body_registrar_maquina{
     height: 100vh;
     width: 100%;
+    padding: 20px;
 }
 
 .form_regis_maquina{
@@ -962,17 +902,10 @@ body{
 }
 
 .btns_eliminar_maquina a{
-    margin-top: 10px;
-    border-radius: 5px;
-    background-color: black;
     text-decoration: none;
-    padding: 5px;
-    color: white;
+    color: black;
 }
 
-.btns_eliminar_maquina a:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-}
 
 .body_editar_maquinaria{
     height: 100vh;
@@ -1052,35 +985,22 @@ body{
     margin-top: 50px;
 }
 
-.tabla_oficios{
+table.tabla_oficios{
+    margin-left: 200px;
     margin-top: 20px;
-    text-align: left;
-    width: 500px;
-    margin-left: 20%;
+    border: 1px solid black;
+    width: 600px;
+    border-collapse: collapse;
 }
+
+
 
 .body_registrar_oficio{
     height: 100vh;
     width: 100%;
+    padding: 20px;
 }
 
-.tabla_oficios{
-    width: 590px;
-    text-align: left;
-    margin-left: 170px;
-    margin-top: 30px;
-}
-
-.tabla_oficios table{
-    text-align: center;
-    width: 400px;
-}
-
-.tabla_oficios th, td{
-    border-bottom: 1px solid black;
-    padding-left: 50px;
-    padding-bottom: 10px;
-}
 
 /* FIN ESTILOS OFICIOS */
 
@@ -1092,25 +1012,19 @@ body{
 
 .btn_registrar{
     margin-left: 200px;
-    background-color: #6d6d6d;
     padding: 10px;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
     border-radius: 10px;
-    -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);-moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    color: black;
 }
 
-.btn_registrar:hover{
-    color: rgb(0, 0, 0);
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-}
 
 .btn_registrar a{
     padding-bottom: 20px;
 }
 
 .btn_editar{
-    color: black;
+    color: #006d9c;
     text-decoration: none;
     margin-right: 20px;
     margin-left: 40px;
@@ -1118,36 +1032,30 @@ body{
 }
 
 .btn_editar:hover{
-    color: rgb(101, 101, 101);
+    color: #013d57;
 }
 
 .btn_eliminar{
-    color: black;
+    color: rgb(255, 87, 87);
     background: none;
     border: none;
     cursor: pointer;
 }
 
 .btn_eliminar:hover{
-    color: rgb(101, 101, 101);
+    color: rgb(183, 16, 16);
 }
 
 .btn_regresar{
     position: absolute;
-    color: white;
+    color: black;
     border-radius: 10px;
     text-decoration: none;
-    background-color: #000000;
     padding: 9px;
     top: 20px;
     left: 220px;
 }
 
-.btn_regresar:hover{
-    border: rgb(67, 149, 149);
-    color: black;
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-}
 
 /* FIN BOTONES REGISTRAR/REGRESAR AL MENU */
 
@@ -1183,74 +1091,49 @@ body{
     cursor: pointer;
 }
 
-.tabla_unidades_papelera{
-    width: 430px;
-    padding: 20px;
-}
-
-.tabla_unidades_papelera th, td{
-    margin-right: 20px;
-}
-
-
-.tabla_materiales_papelera{
+table.tabla_unidades_papelera{
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 1px solid black;
     width: 600px;
-    padding: 20px;
-}
-
-.tabla_materiales_papelera th, td{
-    margin-right: 20px;
-}
-
-
-.tabla_oficios_papelera{
-    width: 600px;
-    padding: 20px;
-}
-
-.tabla_oficios_papelera th, td{
-    margin-right: 20px;
-}
-
-
-
-.tabla_maquinas_papelera{
-    width: 800px;
-    margin: 20px auto;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-.tabla_maquinas_papelera table{
-    width: 500px;
     border-collapse: collapse;
-    margin-left: 23%;
 }
 
-.tabla_maquinas_papelera th{
-    padding-bottom: 20px;
-    padding-left: 30px;
+.modal_eliminar_unidad_de_papelera{
+    text-align: left;
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 170px;
+    margin-left: 314px;
 }
 
-.tabla_maquinas_papelera td{
-    padding-bottom: 10px;
-    padding-left: 30px;
-    border-bottom: 2px solid black;
-    
+
+
+.modal_eliminar_unidad_de_papelera:target{
+    display: block;
 }
 
-.tabla_maquinas_papelera thead, tbody{
-    border-bottom: 2px solid rgb(0, 0, 0);
+
+.modal_eliminar_unidad_de_papelera p{
+    margin-bottom: 30px;
+    color: black;
 }
 
-.tabla_maquinas_papelera tbody a{
-    color: rgb(0, 0, 0);
-    text-decoration: none;
+table.tabla_materiales_papelera{
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 600px;
+    border-collapse: collapse;
 }
 
-.tabla_maquinas_papelera tbody a:hover{
-    color: rgb(132, 132, 132);
-}
+
 
 /* FIN ESTILOS PAPELERA */
 
@@ -1516,6 +1399,207 @@ body::-webkit-scrollbar-thumb{
     width: 300px;
 }
 
+.btn_regis_usuario{
+    width: 310px;
+}
+
+
+/*ESTILOS BUSQUEDA*/
+/* Inicio barras de busqueda */
+
+#resultsmats {
+    z-index: 1000;
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+.resultmats {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultmats:hover {
+    background-color: #f1f1f1;
+}
+.hiddenmats {
+    display: none;
+}
+/*---------------*/
+#resultsmaqs {
+    z-index: 1000;
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+.resultmaqs {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultmaqs:hover {
+    background-color: #f1f1f1;
+}
+.hiddenmaqs {
+    display: none;
+}
+
+/* Fin barras de busqueda */
+
+.contenido_detalles_conceptos{
+    padding: 30px;
+}
+
+table.tabla_concepto{
+    margin-left: 55px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 800px;
+    border-collapse: collapse;
+}
+
+table.table_procesos{
+    margin-left: 55px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 800px;
+    border-collapse: collapse;
+}
+
+table td{
+    text-align: center;
+}
+
+/*REGISTRAR CONCEPTO */
+
+
+.contenido_regis_proceso{
+    padding: 20px;
+}
+
+.form_regis_concepto {
+    margin-top: 70px;
+}
+
+.form_regis_concepto h2{
+    margin-bottom: 10px;
+}
+
+
+
+.textos1_concepto p{
+    display: inline;
+    color: black;
+    margin-right: 170px;
+}
+
+.inputs1_concepto{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.inputs1_concepto input{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 300px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+.inputs1_concepto select{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 300px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+}
+
+.textos2_concepto{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.textos2_concepto p{
+    display: inline;
+    color: black;
+    margin-right: 101px;
+}
+
+.inputs2_concepto{
+    margin-bottom: 20px;
+}
+
+.cant_concepto{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 130px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+.por_herr_equi {
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 342px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+.por_indirectos{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 250px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+.textos3_concepto{
+    margin-bottom: 5px;
+}
+
+.textos3_concepto p{
+    display: inline;
+    color: black;
+    margin-right: 101px;
+}
+
+.inputs3_concepto{
+    margin-bottom: 20px;
+}
+
+.por_financiamiento{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 290px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+.utilidad_con{
+    border-radius: 15px;
+    padding: 10px 11px;
+    width: 290px;
+    border: 1px solid black;
+    outline-color: #00c4da;
+    margin-right: 10px;
+}
+
+/* ESTILOS GENERALES A BOTONES */
+
 .boton{
     padding: 10px;
     border-radius: 10px;
@@ -1526,7 +1610,46 @@ body::-webkit-scrollbar-thumb{
     -moz-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
 }
+
+
 .boton:hover{
     background-color: #00c4da;
 }
 
+.boton_eliminar{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.4px #700202 solid;
+    cursor: pointer;
+    background-color: #fa1414;
+    -webkit-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+}
+
+.boton_eliminar:hover{
+    background-color: #c60808;
+}
+
+.boton_cancelar{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.4px #8c8c8c solid;
+    cursor: pointer;
+    background-color: #dadada;
+    -webkit-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 8px 3px -2px rgba(0, 0, 0, 0.4);
+}
+
+.boton_cancelar:hover{
+    background-color: #9e9d9d;
+}
+
+.boton_restaurar{
+    color: rgb(10, 150, 49);
+}
+
+.boton_restaurar:hover{
+    color: rgb(5, 97, 31);
+}

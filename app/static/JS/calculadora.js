@@ -169,3 +169,6 @@ function precio_total_herr_bas () {
     let sumFinalBas = sumTotal1 + sumTotal2 + totalHerrValue;
     SumaFinalBas.value = sumFinalBas;
   }
+
+
+  

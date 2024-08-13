@@ -1,0 +1,58 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Usuarios {% endblock %}
+
+{% block contenido %}
+
+<div class="contenido_usuarios">
+
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                        {{message}} 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <h2>Usuarios</h2>
+    <div class="btns_opcion_registro">
+        <a href="{{ url_for('listar_usuarios') }}" class="btn_registrar">Registrar un nuevo usuario</a>
+    </div>
+
+    <table class="tabla_usuarios">
+        <thead>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Opciones</th>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    <a href="{{ url_for('editar_usuario', id_usuario=usuario.id_usuario) }}" class="btn_editar"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="btn_eliminar" href="#id_modal_eliminar_usuario_{{ usuario.id_usuario }}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% for usuario in usuarios %}
+    <div class="modal_eliminar_usuario" id="id_modal_eliminar_usuario_{{ usuario.id_usuario }}">
+        <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar usuario</h3>
+        <p>¿Está seguro de eliminar este usuario?</p>
+        <p>{{ usuario.nombre }} {{ usuario.apellido }}</p>
+        <div class="opciones_eliminar_usuario">
+            <a href="{{ url_for('eliminar_usuario', id_usuario=usuario.id_usuario) }}" class="btn_aceptar_eliminar_usuario">Aceptar</a> 
+            <a href="#">Cancelar</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

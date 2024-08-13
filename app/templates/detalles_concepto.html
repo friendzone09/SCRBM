@@ -8,188 +8,398 @@
 
     {% block contenido %}
 
-    <div class="body_materiales">
-
+    <div class="contenido_detalles_conceptos">
         <h2 style="margin-left: 10%; margin-bottom: 50px; margin-top: 50px;">Concepto: {{concepton.1}}</h2>
-        <div class="alinear-horizontal">
-            <p>N°: {{concepton.0}}</p>
-            <p>Proyecto: {{concepton.2}}</p>
-            <p>Unidad: {{concepton.3}}</p>
-            <p>% Maq. y Equipo: {{concepton.4}}</p>
-            <p>% Indirectos: {{concepton.5}}</p>
-            <p>% Financiamiento: {{concepton.6}}</p>
-            <p>% Utilidad: {{concepton.7}}</p>
-        </div>
-        
-        <a class="regresar_menu" href="{{url_for('detalles_proyecto', id_proyecto=concepton[8])}}">Regresar al proyecto</a>
-        
-        <details open>
-            <summary>Materiales del concepto</summary>
-        
-            <div style="position: relative; width: 300px;">
-                <input type="text" id="searchBoxmats" placeholder="Buscar materiales..." style="width: 100%;">
-        <div id="resultsmats">
-            {% for material in materiales %}
-            <div class="resultmats">
-                <a href="{{url_for('detalles_proyecto', id_proyecto=concepton[8])}}">{{material.1}}</a>
+<div class="alinear-horizontal">
+    <p>Proyecto: {{concepton.2}}</p>
+    <p>Unidad: {{concepton.3}}</p>
+    <p>Cantidad de concepto: {{concepton.10}}</p>
+    <p>% de tratamiento{{concepton.18}}</p>
+    <p>% Maq. y Equipo: {{concepton.4}}</p>
+    <p>% Indirectos: {{concepton.5}}</p>
+    <p>% Financiamiento: {{concepton.6}}</p>
+    <p>% Utilidad: {{concepton.7}}</p>
+</div>
+
+<div class="alinear-horizontal">
+    <p><b style="color: green;">Costo individual: ${{ costo_concepto_individual }}</b></p>
+    <a class="regresar_menu" href="{{url_for('detalles_proyecto', id_proyecto=concepton[8])}}">Regresar al proyecto</a>
+    <a class="btn_registrar" href="#editar_concepto">Editar</a>
+    <p><b style="color: green;">importe : ${{ costo_concepto_total }}</b></p>
+</div>
+
+<details open>
+    <summary>Materiales del concepto</summary>
+
+    <div class="alinear-horizontal">
+
+        <div style="position: relative; width: 300px;">
+            <input type="text" id="searchBoxmats" placeholder="Buscar materiales..." style="width: 100%;">
+            <div id="resultsmats">
+                {% for material in materiales %}
+                <div class="resultmats">
+                    <a href="{{url_for('registrar_material_concepto', fk_id_con=concepton[0], fk_id_mat=material[0], costo_mat=material[2]) }}" style="color: black;">{{material.1}} - ${{ material.2 }}</a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
-            </div>
-        
-            {% if materialon %}
-            <table class="tabla_materiales">
-                <thead>
-                    <th>Editar</th>
-                    <th>Nombre</th>
-                    <th>Unidad</th>
-                    <th>Costo</th>
-                    <th>Cantidad</th>
-                    <th>Importe</th>
-                    <th>Remover</th>
-                </thead>
-                <tbody>
-                    {% for material in materialon %}
-                    <tr>
-                        <td>
-                            <a class="btn_editar_materialconcepto" href="#id_modal_editar_materialconcepto_{{ material[7] }}">
-                                <i class="fa-solid fa-pen-to-square" ></i>
-                            </a>
-                        </td>
-                        <td>{{material.1}}</td>
-                        <td>{{material.6}}</td>
-                        <td>${{ material.2 | round(5) }}</td>
-                        <td>{{ material.3 | round(5) }}</td>
-                        <td>{{material.4 | round(5) }}</td>
-                        <td>
-                            <a class="btn_eliminar" href="#modal_eliminar_materialcon_{{ material[7] }}"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-                <p>No hay materiales dentro del concepto, insertar en el cuadro de búsqueda.</p>
-            {% endif %}
-        
-        </details>
-        
-        <details open>
-            <summary>Maquinaria del concepto</summary>
-        
-            <div style="position: relative; width: 300px;">
-                <input type="text" id="searchBoxmaqs" placeholder="Buscar maquinaria..." style="width: 100%;">
-                <div id="resultsmaqs">
-                    {% for maquina in maquinaria %}
-                    <div class="resultmaqs">
-                        <a href="#">{{maquina.1}}</a>
-                    </div>
-                    {% endfor %}
+        <p style="color: green;">Costo de maquinaria: <b>${{costo_total_materiales_concepto}}</b></p>
+
+    </div>
+
+    {% if materialon %}
+    <table class="tabla_materiales">
+        <thead>
+            <th>Nombre</th>
+            <th>Unidad</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Remover</th>
+        </thead>
+        <tbody>
+            {% for material in materialon %}
+            <tr>
+                <td>{{material.1}}</td>
+                <td>{{material.6}}</td>
+                <td>${{ material.2 | round(5) }}</td>
+                <td>
+                    <form action="{{url_for('editar_material_concepto', id_concepto=concepton[0])}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                        <input type="number" step="0.00001" placeholder="Cantidad de Material..." name="cant_conmat" value="{{material[3]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+                        <input type="hidden" name="id_conmat" value="{{material[7]}}" required>
+                        
+                        <button type="submit"x><i class="fa-solid fa-pen"></i></button>
+                    </form>
+                </td>
+                <td>{{material.4 | round(5) }}</td>
+                <td>
+                    <a class="btn_eliminar" href="#modal_eliminar_materialcon_{{ material[7] }}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alinear-horizontal">
+            <p style="color: gray;">No hay materiales, ingresalos en la barra de arriba 介</p>
+        </div>
+    {% endif %}
+
+</details>
+
+<details open>
+    <summary>Maquinaria del concepto</summary>
+
+    <div class="alinear-horizontal">
+
+        <div style="position: relative; width: 300px;">
+            <input type="text" id="searchBoxmaqs" placeholder="Buscar maquinaria..." style="width: 100%;">
+            <div id="resultsmaqs">
+                {% for maquina in maquinaria %}
+                <div class="resultmaqs">
+                    <a href="{{url_for('registrar_maquinaria_concepto', fk_id_con=concepton[0], fk_id_maq=maquina[0], costo_maq=maquina[2]) }}" style="color: black;">{{maquina.1}} - ${{ maquina.2 }}</a>
                 </div>
-            </div>
-        
-            {% if maquinon %}
-            <table class="tabla_materiales">
-                <thead>
-                    <th>Editar</th>
-                    <th>Nombre</th>
-                    <th>Unidad</th>
-                    <th>Costo</th>
-                    <th>Cantidad</th>
-                    <th>Importe</th>
-                    <th>Vida util</th>
-                    <th>Remover</th>
-                </thead>
-                <tbody>
-                    {% for maquina in maquinon %}
-                    <tr>
-                        <td>
-                            <a class="btn_editar_maquinariaconcepto" href="#id_modal_editar_maquinariaconcepto_{{ maquina[8] }}">
-                                <i class="fa-solid fa-pen-to-square" ></i>
-                            </a>
-                        </td>
-                        <td>{{maquina.1}}</td>
-                        <td>{{maquina.7}}</td>
-                        <td>{{ maquina.2 | round(5) }}</td>
-                        <td>{{ maquina.3 | round(5) }}</td>
-                        <td>{{ maquina.4 | round(5) }}</td>
-                        <td>{{ maquina.5 | round(5) }}</td>
-                        <td>
-                            <a class="btn_eliminar" href="#id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-                <p>No hay maquinaria dentro del concepto, insertar en el cuadro de búsqueda.</p>
-            {% endif %}
-        
-        </details>
-        
-        {% for material in materialon %}
-        <div class="modal_eliminar_materialconcepto" id="modal_eliminar_materialcon_{{ material[7] }}">
-            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
-            <p>¿Estas seguro de eliminar este material del concepto?</p>
-            <p>{{material.1}} </p>
-            <div class="btns_modal_crear_proyecto">
-                <a href="{{url_for('eliminar_material_concepto', id_conmat=material[7], id_concepto=concepton[0])}}">Aceptar</a>
-                <a href="#" id="btn_cancelar_registrar_proyecto">Cancelar</a>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
-        
-        {% for material in materialon %}
-        <div class="modal_editar_materialconcepto" id="id_modal_editar_materialconcepto_{{ material[7] }}">
-            <h2 style="margin-bottom: 20px; font-size: 25px;">Editar Material</h2>
-            <form action="#" method="POST">
-                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-                <p>Cantidad del material para el concepto:</p>
-                <input type="number" step="0.00001" placeholder="Cantidad del material..." name="cant_conmat" value="{{material[3]}}" required>
-                <input type="hidden" name="id_conmat" value="{{material[7]}}" required>
-                <p></p>
-                <div class="btns_modal_crear_proyecto">
-                    <button type="submit">Editar</button>
-                    <a href="#">Cancelar</a>
+
+        <p style="color: green;">Costo de maquinaria: <b>${{costo_total_maquinaria_concepto}}</b></p>
+
+    </div>
+
+    {% if maquinon %}
+    <table class="tabla_materiales">
+        <thead>
+            <th>Nombre</th>
+            <th>Unidad</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Vida util</th>
+            <th>Remover</th>
+        </thead>
+        <tbody>
+            {% for maquina in maquinon %}
+            <tr>
+                <td>{{maquina.1}}</td>
+                <td>{{maquina.7}}</td>
+                <td>{{ maquina.2 | round(5) }}</td>
+                <td>
+                    <form action="{{url_for('editar_maquinaria_concepto', id_concepto=concepton[0])}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                        <input type="number" step="0.00001" placeholder="Cantidad del material..." name="cant_conmaq" value="{{maquina[3]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+                        <input type="hidden" name="id_conmaq" value="{{maquina[8]}}" required>
+
+                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                    </form>
+                </td>
+                <td>{{ maquina.4 | round(5) }}</td>
+                <td>{{ maquina.5 | round(5) }}</td>
+                <td>
+                    <a class="btn_eliminar" href="#id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alinear-horizontal">
+            <p style="color: gray;">No hay maquinaria, ingresalos en la barra de arriba 介</p>
+        </div>
+    {% endif %}
+
+</details>
+
+<details open>
+    <summary>Basicos de concepto</summary>
+
+    <div class="alinear-horizontal">
+
+        <div style="position: relative; width: 300px;">
+            <input type="text" id="searchBoxbasi" placeholder="Buscar basicos..." style="width: 100%;">
+            <div id="resultsbasi">
+                {% for basico in basicos %}
+                <div class="resultbasi">
+                    <a href="{{url_for('registrar_basico_concepto', fk_id_concepto=concepton[0], fk_id_basico=basico[0], costo_basico=basico[10])}}" style="color: black;">{{basico.1}} - ${{ basico.10 }}</a>
                 </div>
-            </form>
-        </div>
-        {% endfor %}
-        
-        {% for maquina in maquinon %}
-        <div class="modal_editar_maquinariaconcepto" id="id_modal_editar_maquinariaconcepto_{{ maquina[8] }}">
-            <h2 style="margin-bottom: 20px; font-size: 25px;">Editar Maquinaria</h2>
-            <form action="#" method="POST">
-                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-                <p>Cantidad para la maquinaria:</p>
-                <input type="number" step="0.00001" placeholder="Cantidad de Maquinaria..." name="cant_conmaq" value="{{maquina[3]}}" required>
-                <input type="hidden" name="id_conmaq" value="{{maquina[8]}}" required>
-                <p></p>
-                <div class="btns_modal_crear_proyecto">
-                    <button type="submit">Editar</button>
-                    <a href="#">Cancelar</a>
-                </div>
-            </form>
-        </div>
-        {% endfor %}
-        
-        {% for maquina in maquinon %}
-        <div class="modal_eliminar_maquinariaconcepto" id="id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}">
-            <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar maquinaria</h3>
-            <p>¿Estas seguro de eliminar esta maquinaria del concepto?</p>
-            <p>{{maquina.1}} </p>
-            <div class="btns_modal_crear_proyecto">
-                <a href="{{url_for('eliminar_maquinaria_concepto', id_conmaq=maquina[8], id_concepto=concepton[0])}}">Aceptar</a>
-                <a href="#">Cancelar</a>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
-        
-        
-        
+
+        <p style="color: green;">Costo de basicos: <b>${{costo_total_basicos_concepto}}</b></p>
+
+    </div>
+
+    {% if basicon %}
+    <table class="tabla_materiales">
+        <thead>
+            <th>Nombre</th>
+            <th>Unidad</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Remover</th>
+        </thead>
+        <tbody>
+            {% for basico in basicon %}
+            <tr>
+                <td>{{basico.1}}</td>
+                <td>{{basico.2}}</td>
+                <td>{{ basico.3 | round(5) }}</td>
+                <td>
+                    <form action="{{url_for('editar_basico_concepto', id_concepto=concepton[0])}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                        <input type="number" step="0.00001" name="cantidad_conbas" value="{{basico[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+                        <input type="hidden" name="id_conbas" value="{{basico[0]}}" required>
+
+                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                    </form>
+                </td>
+                <td>{{ basico.5 | round(5) }}</td>
+                <td>
+                    <a class="btn_eliminar" href="#id_modal_eliminar_basicoconcepto_{{ basico[0] }}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alinear-horizontal">
+            <p style="color: gray;">No hay basicos, ingresalos en la barra de arriba 介</p>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% endif %}
+
+</details>
+
+<details open>
+    <summary>Oficios de concepto</summary>
+
+    <div class="alinear-horizontal">
+
+        <div style="position: relative; width: 300px;">
+            <input type="text" id="searchBoxoficon" placeholder="Buscar oficios..." style="width: 100%;">
+            <div id="resultsoficon">
+                {% for oficio in oficios %}
+                <div class="resultoficon">
+                    <a href="{{ url_for('registrar_oficio_concepto', id_concepto=concepton[0], fk_id_cuadrilla=concepton[11], fk_id_oficio=oficio[0], costo_oficio=oficio[2]) }}" style="color: black;">{{oficio.1}} - ${{ oficio.2 }}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <p style="color: green;">Importe de oficios: <b>${{ (conteo_oficios_basico[3] * concepton[12]) | round(5) }}</b></p>
+
+    </div>
+
+    <div class="alinear-horizontal">
+
+        <p>Precosto: <b style="color: green;">${{conteo_oficios_basico[1]}}</b></p>
+        <p>% de maquinaria y equipo de cuadrilla: </p>
+        <form action="{{ url_for('editar_cuadrilla_concepto', id_concepto=concepton[0]) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <input type="number" step="0.0001" name="porcentaje_cuadrilla" value="{{conteo_oficios_basico[2]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+            <input type="hidden" step="1" name="id_cuadrilla" value="{{concepton[11]}}" required>
+            <button type="submit"><i class="fa-solid fa-pen"></i></button>
+        </form>
+
+    </div>
+
+    <div class="alinear-horizontal">
+
+        <p>Cantidad de cuadrilla: </p>
+        <form action="{{ url_for('editar_cantidad_cuadrilla_concepto', id_concepto=concepton[0]) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <input type="number" step="0.00001" name="cant_cuadrilla_con" value="{{concepton[12]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+            <button type="submit"><i class="fa-solid fa-pen"></i></button>
+        </form>
+
+    </div>
+
+    {% if oficion %}
+    <table class="tabla_materiales">
+        <thead>
+            <th>Nombre</th>
+            <th>Unidad</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Remover</th>
+        </thead>
+        <tbody>
+            {% for oficio in oficion %}
+            <tr>
+                <td>{{oficio.1}}</td>
+                <td>{{oficio.2}}</td>
+                <td>{{oficio.3}}</td>
+                <td>
+                    <form action="{{url_for('editar_oficio_concepto', id_concepto=concepton[0])}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                        <input type="number" step="0.00001" name="cant_cuadofi" value="{{oficio[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
+                        <input type="hidden" name="id_cuadofi" value="{{oficio[6]}}" required>
+
+                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                    </form>
+                </td>
+                <td>{{oficio.5}}</td>
+                <td>
+                    <a class="btn_eliminar" href="#id_modal_eliminar_oficioconcepto_{{ oficio[6] }}"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alinear-horizontal">
+            <p style="color: gray;">No hay oficios, ingresalos en la barra de arriba 介</p>
+        </div>
+    {% endif %}
+
+</details>
+
+<p>ㅤ</p>
+<p>ㅤ</p>
+<p>ㅤ</p>
+<p>ㅤ</p>
+<p>ㅤ</p>
+<p>ㅤ</p>
+<p>ㅤ</p>
+
+<div class="modal_editar_concepto" id="editar_concepto">
+    <h2 style="margin-bottom: 20px; font-size: 25px;">Editar Concepto</h2>
+    <form action="{{ url_for('editar_concepto', id_concepto=concepton[0] )}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+        <p>Nombre del concepto:</p>
+        <input type="text" maxlength="40" name="nombre_concepto" value="{{concepton[1]}}" required>
+        
+        <p>Unidad:</p>
+        <select name="fk_unid_con" id="fk_unid_con">
+            {% for unidad in unidades %}
+                <option value="{{ unidad[0] }}" {% if unidad[0] == concepton[9] %}selected{% endif %}>
+                    {{ unidad[1] }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <p>Cantidad de concepto:</p>
+        <input type="number" step="0.00001" name="cantidad_concepto" value="{{concepton[4]}}" required>
+
+        <p>% de Indirectos:</p>
+        <input type="number" step="0.00001" name="indirectos_con" value="{{concepton[5]}}" required>
+
+        <p>% de Financiamiento:</p>
+        <input type="number" step="0.00001" name="financiamiento_con" value="{{concepton[6]}}" required>
+
+        <p>% de Utilidad:</p>
+        <input type="number" step="0.00001" name="utilidad_con" value="{{concepton[7]}}" required>
+
+        <p>% de Tratamiento</p>
+        <input type="text" step="0.00001" name="tratamiento_con" value="{{concepton[18]}}" required>
+
+        <div class="btns_modal_crear_proyecto">
+            <button type="submit">Editar</button>
+            <a href="#" id="btn_cancelar_editar_concepto">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% for material in materialon %}
+<div class="modal_eliminar_materialconcepto" id="modal_eliminar_materialcon_{{ material[7] }}">
+    <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
+    <p>¿Estas seguro de eliminar este material del concepto?</p>
+    <p>{{material.1}} </p>
+    <div class="btns_modal_crear_proyecto">
+        <a href="{{ url_for('eliminar_material_concepto', id_conmat=material[7], id_concepto=concepton[0] )}}">Aceptar</a>
+        <a href="#" id="btn_cancelar_registrar_proyecto">Cancelar</a>
+    </div>
+</div>
+{% endfor %}
+
+{% for maquina in maquinon %}
+<div class="modal_eliminar_maquinariaconcepto" id="id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}">
+    <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar maquinaria</h3>
+    <p>¿Estas seguro de eliminar esta maquinaria del concepto?</p>
+    <p>{{maquina.1}} </p>
+    <div class="btns_modal_crear_proyecto">
+        <a href="{{ url_for('eliminar_maquinaria_concepto', id_conmaq=maquina[8], id_concepto=concepton[0] )}}">Aceptar</a>
+        <a href="#">Cancelar</a>
+    </div>
+</div>
+{% endfor %}
+
+{% for basico in basicon %}
+<div class="modal_eliminar_basicoconcepto" id="id_modal_eliminar_basicoconcepto_{{ basico[0] }}">
+    <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar basico</h3>
+    <p>¿Estas seguro de eliminar este basico del concepto?</p>
+    <p>{{basico.1}} </p>
+    <div class="btns_modal_crear_proyecto">
+        <a href="{{ url_for('eliminar_basico_concepto',id_conbas=basico[0], id_concepto=concepton[0] )}}">Aceptar</a>
+        <a href="#">Cancelar</a>
+    </div>
+</div>
+{% endfor %}
+
+{% for oficio in oficion %}
+<div class="modal_eliminar_oficioconcepto" id="id_modal_eliminar_oficioconcepto_{{ oficio[6] }}">
+    <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar oficio</h3>
+    <p>¿Estas seguro de eliminar este oficio del concepto?</p>
+    <p>{{oficio.1}} </p>
+    <div class="btns_modal_crear_proyecto">
+        <a href="{{ url_for('eliminar_oficio_concepto',id_concepto=concepton[0], id_cuadofi=oficio[6] )}}">Aceptar</a>
+        <a href="#">Cancelar</a>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+     
+        <script src="{{url_for('static', filename = 'JS/buscador.js')}}"></script>
 
     {% endblock %}
 

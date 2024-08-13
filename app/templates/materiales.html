@@ -30,30 +30,35 @@
 
         <h2>Tabla de materiales</h2>
         <div class="btns_opcion_registro">
-            <a href="{{url_for('registrar_material')}}" class="btn_registrar">Registrar material</a>
+            <a href="{{url_for('registrar_material')}}" class="btn_registrar boton">Registrar material</a>
         </div>
 
         <table class="tabla_materiales">
             <thead>
-                <th>Nombre del material</th>
-                <th>Costo</th>
-                <th>Unidad</th>
-                <th>Opciones</th>
+                <tr>
+                    <th>Editar</th>
+                    <th>Nombre del material</th>
+                    <th>Costo</th>
+                    <th>Unidad</th>
+                    <th>Eliminar</th>
+                </tr>
             </thead>
             <tbody>
                 {% for material in materiales %}
                 <tr>
+                    <td>
+                        <a href="{{url_for('editar_material', id_material=material.id_material )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                    </td>
                     <td>{{material.nombre_material}}</td>
                     <td>${{material.costo_material}}</td>
                     <td>{{material.nombre_unidad}}</td>
                     <td>
-                        <a href="{{url_for('editar_material', id_material=material.id_material )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
                         <a class="btn_eliminar" href="#modal_eliminar_material_{{material.id_material}}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                  
                 </tr>
-            </tbody>
-            {% endfor %}
+                {% endfor %}
+            </tbody> 
         </table>
 
         {% for material in materiales %}
@@ -62,8 +67,8 @@
             <p>¿Estas seguro de eliminar este material?</p>
             <p>{{material.nombre_material}} </p>
             <div class="btns_eliminar_material">
-                <a href="{{url_for('eliminar_material', id_material = material.id_material)}}">Aceptar</a>
-                <a href="#">Cancelar</a>
+                <a href="{{url_for('eliminar_material', id_material = material.id_material)}}" class="boton_eliminar">Aceptar</a>
+                <a href="#" class="boton_cancelar">Cancelar</a>
             </div>
         </div>
 
