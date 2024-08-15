@@ -154,7 +154,6 @@ body{
     flex-direction: column;
     position: absolute;
     top: 130px;
-    border-bottom:2px solid white ;
     width: 160px;
     border-top: 2px solid white;
 }
@@ -162,6 +161,10 @@ body{
     padding: 5px;
     color: rgb(255, 255, 255);
     margin-bottom: 10px;
+}
+
+.opciones_proyecto i{
+    margin-right: 10px;
 }
 
 .opciones_proyecto a:hover{
@@ -191,7 +194,6 @@ body{
     position: relative;
     align-items: center;
     padding: 20px;
-    color: blue;
     width: 113px;
     height: 80px;
     text-decoration: none;
@@ -211,24 +213,6 @@ body{
     overflow-x: auto;/* Habilita el desplazamiento vertical */
 }
 
-.container_proyectos {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-x: auto;
-}
-
-
-.proyectos_recientes{
-    position: absolute;
-    padding: 20px;
-    top: 400px;
-    width: 160px;
-}
-
-.proyectos_recientes p{
-    padding: 5px;
-    color: rgb(78, 78, 78);
-} 
 
 
 .crear_proyecto{
@@ -264,7 +248,21 @@ body{
     color: black;
 }
 
+.textos_proyectos{
+    color: black;
+    margin-top: 24px;
+    display: flex;
+    margin-left: 55px;
 
+}
+
+table.tabla_proyectaso{
+    margin-left: 10px;
+    border: 1px solid black;
+    width: 900px;
+    border-collapse: collapse;
+    
+}
 
 /* Ventana modal crear proyecto*/
 
@@ -562,71 +560,58 @@ table.tabla_unidades, th, td{
 
 /* FIN ESTILOS REGISTRO UNIDADES*/
 
-/* INICIO ESTILOS EDITAR UNIDAD*/
-
-
-.form_editar_unidad{
-    border-radius: 20px;
-    color: rgb(0, 0, 0);
+.modal_editar2{
+    text-align: left;
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
     padding: 20px;
-    margin-top: 140px;
-    margin-left: 300px;
-    height: 155px;
     width: 300px;
-    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 110px;
+    margin-left: 314px;
 }
 
-.form_editar_unidad h2{
-    margin-bottom: 30px;
+.modal_editar2:target{
+    display: block;
 }
 
-.form_editar_unidad input{
-    width: 280px;
+.modal_editar2 p{
+    color: black;
+}
+
+.modal_editar2 h3{
+    margin-bottom: 10px;
+}
+
+.modal_editar2 input{
+    margin-bottom: 10px;
+    width: 290px;
     padding: 5px;
     border-radius: 15px;
-    border: 1.5px solid black;
-}
-.btns_editar_unidad a{
-    padding: 4.5px;
-    border-radius: 15px;
-    text-decoration: none;
-    color: white;
-    background-color: black;
+    outline-color: #006d9c;
     border: 1px solid black;
 }
 
-.btns_editar_unidad button{
-    padding: 9px;
-    border-radius: 15px;
-    color: white;
-    background-color: black;
-    cursor: pointer;
-    border: solid black 1px;
+.modal_editar2 select{
+    padding: 5px;
+    width: 290px;
 }
 
-.btns_editar_unidad a:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-    border: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);;
-
-}
-
-.btns_editar_unidad button:hover{
-    background: linear-gradient(to top left, #33ccff 0%, #66ffff 100%);
-    border: rgb(67, 149, 149) solid 1px;
-}
-
-
-
-
-
-.btns_editar_unidad{
-    padding-top: 30px;
+.botones_editar{
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
+}
+
+.botones_editar a{
+    text-decoration: none;
+    color: black;
 }
 
 
-/* FIN ESTILOS EDITAR UNIDAD*/
 
 /* FIN ESTILOS UNIDADES */
 
@@ -1133,6 +1118,21 @@ table.tabla_materiales_papelera{
     border-collapse: collapse;
 }
 
+table.tabla_oficios_papelera{
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 600px;
+    border-collapse: collapse;
+}
+
+table.tabla_maquinas_papelera{
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 600px;
+    border-collapse: collapse;
+}
 
 
 /* FIN ESTILOS PAPELERA */
@@ -1237,6 +1237,7 @@ table.tabla_materiales_papelera{
     padding: 20px;
     display: flex;
     justify-content: center;
+    z-index: 1000;
 }
 
 
@@ -1479,6 +1480,53 @@ table td{
     text-align: center;
 }
 
+
+/*---------------*/
+#resultsbasi {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000; /* AAAAACCCCCTTTTTUUUUUAAAAALLLLLIIIIIZZZZZAAAAACCCCCIIIIIÓÓÓÓÓNNNNN Asegurar que los resultados estén sobre otros elementos */
+}
+.resultbasi {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultbasi:hover {
+    background-color: #f1f1f1;
+}
+.hiddenbasi {
+    display: none;
+}
+/*------------------*/
+#resultsoficon {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000; /* AAAAACCCCCTTTTTUUUUUAAAAALLLLLIIIIIZZZZZAAAAACCCCCIIIIIÓÓÓÓÓNNNNN Asegurar que los resultados estén sobre otros elementos */
+}
+.resultoficon {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultoficon:hover {
+    background-color: #f1f1f1;
+}
+.hiddenoficon {
+    display: none;
+}
 /*REGISTRAR CONCEPTO */
 
 
@@ -1653,3 +1701,322 @@ table td{
 .boton_restaurar:hover{
     color: rgb(5, 97, 31);
 }
+
+.modal_eliminar{
+    text-align: left;
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 170px;
+    margin-left: 314px;
+}
+
+.modal_eliminar p{
+    margin-bottom: 20px;
+    color: black;
+}
+
+.modal_eliminar:target{
+    display: block;
+}
+
+#resultsmaterialesbasicos {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 300px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000; /* AAAAACCCCCTTTTTUUUUUAAAAALLLLLIIIIIZZZZZAAAAACCCCCIIIIIÓÓÓÓÓNNNNN Asegurar que los resultados estén sobre otros elementos */
+}
+.resultmaterialesbasicos {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultmaterialesbasicos:hover {
+    background-color: #f1f1f1;
+}
+.hiddenmaterialesbasicos {
+    display: none;
+}
+/* Fin barras de busqueda materiales basico */
+
+/* Inicio barras de busqueda materiales basico */
+#resultsoficiosbasicos {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px; /* Limitar la altura del contenedor */
+    overflow-y: auto; /* Añadir barra de desplazamiento */
+    position: absolute;
+    background: white;
+    width: 300px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000; /* AAAAACCCCCTTTTTUUUUUAAAAALLLLLIIIIIZZZZZAAAAACCCCCIIIIIÓÓÓÓÓNNNNN Asegurar que los resultados estén sobre otros elementos */
+}
+.resultoficiosbasicos {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+.resultoficiosbasicos:hover {
+    background-color: #f1f1f1;
+}
+.hiddenoficiosbasicos {
+    display: none;
+}
+/* Fin barras de busqueda materiales basico */
+
+table.tabla_materiales_basico{
+    margin: 30px;
+    border: 1px solid black;
+    width: 700px;
+    border-collapse: collapse;
+
+}
+
+.body_detalles_basico{
+    padding: 20px;
+}
+
+.body_detalles_basico details{
+    padding: 20px;
+    background-color: rgba(114, 114, 114, 0.2);
+    margin-bottom: 30px;
+}
+
+.body_detalles_basico summary{
+    cursor: pointer;
+}
+
+.modal_editar{
+    text-align: left;
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 170px;
+    margin-left: 314px;
+}
+
+.modal_editar:target{
+    display: block;
+}
+
+.modal_editar p{
+    color: black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.modal_editar input{
+    width: 300px;
+    padding: 2px;
+    border-radius: 15px;
+    outline-color:#00c4da;
+    border: 1px solid black;
+}
+
+.opciones_editar{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.opciones_editar button{
+    width: 90px;
+}
+
+.opciones_editar a{
+    color: black;
+    text-decoration: none;
+}
+
+table.tabla_datos_basico{
+    margin-left: 10px;
+    border: 1px solid black;
+    width: 900px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 25px;
+
+}
+
+.btn_editar_basico{
+    margin-bottom: 40px;
+    color: black;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+
+
+.body_detalles_concepto details{
+    padding: 20px;
+    background-color: rgba(114, 114, 114, 0.2);
+    margin-bottom: 30px;
+}
+
+.body_detalles_concepto summary{
+    cursor: pointer;
+}
+
+
+
+.modal_editar_concepto{
+    text-align: left;
+    display: none;
+    position: fixed;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 400px;
+    border-radius: 15px;
+    border: 1px solid black;
+    top: 50px;
+    margin-left: 250px;
+}
+
+.modal_editar_concepto:target{
+    display: block;
+}
+
+.modal_editar_concepto p{
+    color: black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.modal_editar_concepto input{
+    width: 400px;
+    padding: 2px;
+    border-radius: 15px;
+    outline-color:#00c4da;
+    border: 1px solid black;
+}
+
+.body_detalles_concepto{
+    padding: 20px;
+}
+
+.boton_editar_proyecto{
+    margin-top: 50px;
+}
+
+
+.container_usuario{
+    margin-left: 350px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.container_usuario h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.img_usuario{
+    border-radius: 50%;
+    height: 270px;
+    width: 270px;
+    border: 1px solid black;
+}
+
+.boton_editar_usuario{
+    margin-left: 300px;
+    color: black;
+    text-decoration: none;
+}
+
+.titulo-perfil{
+    margin-left: 400px;
+}
+
+.img_usuario_dashboard{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+}
+
+
+
+
+
+.form_usuario{
+    margin-top: 70px;
+    margin-left: 20px;
+}
+
+.input_foto_usuario{
+    padding: 5px;
+    width: 200px;
+    border-radius: 15px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.input_nombre_usuario{
+    padding: 5px;
+    width: 1000px;
+    border-radius: 15px;
+    border: 1px solid black;
+
+    outline-color: #00c4da;
+}
+
+.form_usuario p{
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#cancelar_editar_usuario{
+    color: black;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.cambiar_password{
+    margin-top: 20px;
+    margin-left: 20px;
+    color: black;
+}
+ 
+.form_cambiar_password{
+    margin-top: 70px;
+    margin-left: 20px;
+}
+
+.form_cambiar_password p{
+    color: black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.form_cambiar_password input{
+    padding: 5px;
+    width: 1000px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    outline-color: #00c4da;
+    border: 1px solid black;
+}
+
+
+
+
+
+

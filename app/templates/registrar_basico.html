@@ -1,0 +1,55 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %} Registrar Basico {% endblock %}
+
+{% block head %} {% endblock %}
+
+<body class="body_regis_procesos">
+
+    {% block contenido %}
+
+        <div class="contenido_regis_proceso">
+            <a class="boton btn_regresar" href="{{url_for('basicos')}}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
+            <p>ㅤ</p>
+            <p>ㅤ</p>
+            <p>ㅤ</p>
+            <form action="{{url_for('registrar_basico_proceso')}}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+                <h2>Registrar Basico</h2>
+
+                <div class="textos1_concepto">
+                    <p>Nombre</p>
+                    <p></p>
+                    <p>Unidad</p>
+                </div>
+
+                <div class="inputs1_concepto">
+                    <input type="text" placeholder="Nombre de básico..." name="nombre_basico" required>
+                    <select name="fk_unid_basico" id="fk_unid_basico">
+                        <option selected>Elige una unidad</option>
+                        {% for unidad in unidades %}
+                            <option value="{{unidad.0}}">{{unidad.1}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="textos2_concepto">
+                    <p>Porcentaje de Maquinaria y Equipos</p>
+                </div>
+
+                <div class="inputs2_concepto">
+                    <input type="number" step="0.00001" placeholder="% de maquinaria y equipo..." name="porcentmaqyeq_bas" required>
+                </div>
+        
+                <p></p>
+                <div class="btns_modal_crear_proyecto">
+                    <button type="submit" class="boton">Registrar</button>
+                </div>
+            </form>
+
+        </div>
+
+    {% endblock %}
+
+</body>

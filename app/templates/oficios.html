@@ -41,7 +41,7 @@
                 {% for oficio in oficios %}
                 <tr>
                     <td>
-                        <a href="{{url_for('editar_oficio', id_oficio=oficio.id_oficio )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a href="#abrir_modal_editar_{{oficio.id_oficio}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
                     </td>
                     <td>{{oficio.nombre_oficio}}</td>
                     <td>{{oficio.nombre_unidad}}</td>
@@ -69,6 +69,30 @@
             </div>
         </div>
 
+
+    {% endfor %}
+
+    {% for oficio in oficios %}
+    <div class="modal_editar2" id="abrir_modal_editar_{{oficio.id_oficio}}">
+        <form method="post" action="{{url_for('editar_oficio_proceso', id_oficio=oficios[0])}}">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <h3>Editar oficio</h3>
+            <p>Nombre de oficio</p>
+            <input type="text" name="nombre_oficio" value="{{oficio.nombre_oficio}}" id="nombre_oficio">
+            <p>Costo del oficio</p>
+            <input type="number" name="costo_oficio" value="{{oficio.costo_oficio}}" id="costo_oficio">
+            <p>Unidad del oficio</p>
+            <select name="fk_unidad" id="fk_unidad" name="fk_unidad">
+                {% for unidad in unidades %}
+                    <option value="{{unidad.0}}"  {% if unidad.0 == oficio.fk_unidad %} selected {% endif %} >{{unidad.1}} </option>
+                {% endfor %}
+            </select>
+            <div class="botones_editar">
+                <button type="submit" class="boton">Aceptar</button>
+                <a href="#" class="boton_cancelar">Cancelar</a>
+            </div>
+        </form>
+    </div>
 
     {% endfor %}
 

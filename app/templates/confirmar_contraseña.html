@@ -1,0 +1,51 @@
+{% extends "dashboard.html" %}
+
+{% block titulo %}Confirmar Contraseña{% endblock %}
+
+{% block contenido %}
+
+<div class="contenido_editar_usuario">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                {{message}} 
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <a class="btn_regresar boton" href="{{ url_for('editar_usuario', id_usuario=current_user.id_usuario) }}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
+    <form method="post" class="form_cambiar_password" action="{{ url_for('confirmar_contraseña', id_usuario=current_user.id_usuario) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <h2>Cambiar Contraseña</h2>
+        <div class="form-group mb-3">
+            <p>Nueva Contraseña:</p>
+            <input type="password" name="password" id="contraseña_usuario" value="{{ usuario[4] }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <p>Confirma Contraseña:</p>
+            <input type="password" name="confirmar_password" id="confirmar_password" required>
+        </div>
+
+        <button class="boton" type="submit">Confirmar Contraseña</button>
+    </form>
+</div>
+
+<script> 
+    function mostrarNotificacion() {
+        const notificacion = document.getElementById("notificacion");
+        notificacion.style.display = "block";
+    
+        // Cerrar la notificación después de 4 segundos
+        setTimeout(function() {
+            notificacion.style.display = "none";
+        }, 2000);
+    }
+    
+    // Mostrar la notificación para probar
+    mostrarNotificacion();
+</script>
+{% endblock %}

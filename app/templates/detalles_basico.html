@@ -1,28 +1,44 @@
 {% extends "dashboard.html" %}
 
-{% block titulo %} Detalles Proyecto {% endblock %}
+{% block titulo %} Detalles Básico {% endblock %}
 
-{% block head %} {% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block contenido %}
+<div class="body_detalles_basico">
+
+    <h2 style="margin-left: 10%; margin-bottom: 50px; margin-top: 76px;">Basico: {{basicon.1}}</h2>
+    <a class="boton btn_regresar" href="{{url_for('basicos')}}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
+    <a class="boton btn_editar_basico" href="#editar_basico">Editar</a>
 
 
-<body class="body_detalles_basico">
+    <table class="tabla_datos_basico">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Unidad</th>
+                <th>Porcentaje de maquinaria y equipo</th>
+                <th>CUadrilla</th>
+                <th>Cantidad de cuadrilla</th>
+            </tr>
+        </thead>
 
-    <div class="contenido_detalles_basico">
+        <tbody>
+            <tr>
+                <td>{{basicon.1}} </td>
+                <td>{{basicon.2}}</td>
+                <td>{{basicon.3}}</td>
+                <td>{{basicon.4}}</td>
+                <td>{{ basicon.5 | round(5) }}</td>
+            </tr>
+        </tbody>
 
-    <h2 style="margin-left: 10%; margin-bottom: 50px; margin-top: 50px;">Basico: {{basicon.1}}</h2>
-    <div class="alinear-horizontal">
-        <p>Nombre: {{basicon.1}}</p>
-        <p>Unidad:{{basicon.2}}</p>
-        <p>% de maquinaria y equipo: {{basicon.3}}</p>
-        <p>Cuadrilla: {{basicon.4}}</p>
-        <p>Cantidad de Cuadrilla: {{ basicon.5 | round(5) }}</p>
-    </div>
-    <div class="alinear-horizontal">
-        <a class="" href="{{url_for('basicos')}}">Regresar</a>
-        <a class="btn_registrar" href="#editar_basico">Editar</a>
-        <p style="color: green;"><b>Subtotal sin el %: ${{basicon.11}}</b></p>
-        <p style="color: green;"><b>Costo de "{{basicon.1}}": ${{basicon.10}}</b></p>
-    </div>
+
+    </table>
+
+
 
 <details open>
     <summary>Materiales</summary>
@@ -41,11 +57,11 @@
             </div>
         </div>
 
-        <p>Importe de materiales: <b style="color: green;">${{conteo_materiales_basico}}</b>.</p>
+        <p style="margin-left: 10px;">Importe de materiales: <b style="color: green;" >${{conteo_materiales_basico}}</b>.</p>
     </div>
 
     {% if materialones %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -65,7 +81,7 @@
                         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
                         <input type="number" step="0.00001" placeholder="Cantidad..." name="cant_basmat" value="{{material[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_basmat" value="{{material[0]}}" required>
-                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"><i class="fa-solid fa-check"></i></i></button>
                     </form>
                 </td>
                 <td>{{material.5}}</td>
@@ -100,19 +116,19 @@
             </div>
         </div>
 
-        <p>Importe de oficios: <b style="color: green;">${{ (conteo_oficios_basico[3] * basicon[5]) | round(5) }}</b></p>
+        <p style="margin-left: 10px;">Importe de oficios: <b style="color: green;">${{ (conteo_oficios_basico[3] * basicon[5]) | round(5) }}</b></p>
 
     </div>
 
     <div class="alinear-horizontal">
 
-        <p>Precosto: <b style="color: green;">${{conteo_oficios_basico[1]}}</b></p>
-        <p>% de maquinaria y equipo de cuadrilla: </p>
+        <p style="margin-right: 80px;">Precosto: <b style="color: green;">${{conteo_oficios_basico[1]}}</b></p>
+        <p>Porcentaje de maquinaria y equipo de cuadrilla: </p>
             <form action="{{ url_for('editar_cuadrilla_basico', id_basico=basicon[0] )}}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
                 <input type="number" step="0.00001" placeholder="% maq. y eq..." name="porcentaje_cuadrilla" value="{{conteo_oficios_basico[2]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc; color: green;" required>
                 <input type="hidden" name="id_cuadrilla" value="{{fk_cuadrilla_basico_concepton}}" required>
-                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit"><i class="fa-solid fa-check"></i></button>
             </form>
 
     </div>
@@ -122,15 +138,16 @@
         <p>
             <form action="{{ url_for('editar_cantidad_cuadrilla_basico', id_basico=basicon[0]) }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                <label >Cantidade de cuadrilla</label>
                 <input type="number" step="0.00001" placeholder="Cantidad de cuadrilla..." name="cantidad_cuad_basico" value="{{basicon[5]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc; color: green;" required>
-                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit"><i class="fa-solid fa-check"></i></button>
             </form>
         </p>
 
     </div>
 
     {% if oficiones %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -145,12 +162,12 @@
                 <td>{{oficion.1}}</td>
                 <td>{{oficion.2}}</td>
                 <td>{{oficion.3}}</td>
-                <td>{{oficion.4}}
+                <td>
                     <form action="{{ url_for('editar_oficio_basico', id_basico=basicon[0] )}}" method="POST">
                         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
                         <input type="number" step="0.00001" placeholder="Cantidad..." name="cant_cuadofi" value="{{oficion[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_cuadofi" value="{{oficion[6]}}" required>
-                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"><i class="fa-solid fa-check"></i></button>
                     </form>
                 </td>
                 <td>{{oficion.5}}</td>
@@ -170,7 +187,7 @@
 </details>
 
 
-<div class="modal_editar_basico" id="editar_basico">
+<div class="modal_editar" id="editar_basico">
     <h2 style="margin-bottom: 20px; font-size: 25px;">Editar Basico</h2>
     <form action="{{url_for('editar_basico', id_basico=basicon[0])}}" method="POST">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
@@ -185,46 +202,44 @@
             {% endfor %}
         </select>
 
-        <p>% de maquinaria y equipo</p>
+        <p>Porcentaje de maquinaria y equipo</p>
         <input type="number" step="0.00001" name="porcentmaqyeq_bas" value="{{basicon.3}}">
 
         <p></p>
-        <div class="btns_modal_crear_proyecto">
-            <button type="submit">Editar</button>
-            <a href="#" id="btn_cancelar_editar_basico">Cancelar</a>
+        <div class="opciones_editar">
+            <button type="submit" class="boton">Editar</button>
+            <a href="#" class="boton_cancelar">Cancelar</a>
         </div>
     </form>
 </div>
 
 {% for material in materialones %}
-<div class="modal_eliminar_materialbasico" id="modal_eliminar_materialbasico_{{ material[0] }}">
+<div class="modal_eliminar" id="modal_eliminar_materialbasico_{{ material[0] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
     <p>¿Estas seguro de eliminar este material del basico?</p>
     <p>{{material.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_material_basico', id_basico=basicon[0], id_basmat=material[0]) }}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a href="{{ url_for('eliminar_material_basico', id_basico=basicon[0], id_basmat=material[0]) }}" class="boton_eliminar">Aceptar</a>
+        <a href="#" class="boton_cancelar">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
 {% for oficion in oficiones %}
-<div class="modal_eliminar_oficiobasico" id="modal_eliminar_oficiobasico_{{ oficion[6] }}">
+<div class="modal_eliminar" id="modal_eliminar_oficiobasico_{{ oficion[6] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar oficio</h3>
     <p>¿Estas seguro de eliminar este oficio del basico?</p>
     <p>{{oficion.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_oficio_basico', id_basico=basicon[0], id_cuadofi=oficion[6] )}}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a href="{{ url_for('eliminar_oficio_basico', id_basico=basicon[0], id_cuadofi=oficion[6] )}}" class="boton_eliminar">Aceptar</a>
+        <a href="#" class="boton_cancelar">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
+
+
+</div>
+
 <script src="{{url_for('static', filename = 'JS/script3.js')}}" defer></script>
-    
-</body>
-{% block contenido %}
-
-
-
 {% endblock %}

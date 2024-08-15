@@ -1,31 +1,52 @@
 {% extends "dashboard.html" %}
 
-{% block titulo %} Detalles Proyecto {% endblock %}
+{% block titulo %} Detalles Concepto {% endblock %}
 
-{% block head %} {% endblock %}
+{% block head %}
 
-<body class="body_detalles_conceptos">
+{% endblock %}
 
-    {% block contenido %}
+{% block contenido %}
+<div class="body_detalles_concepto">
 
-    <div class="contenido_detalles_conceptos">
-        <h2 style="margin-left: 10%; margin-bottom: 50px; margin-top: 50px;">Concepto: {{concepton.1}}</h2>
+<h2 style="margin-left: 10%; margin-bottom: 20px; margin-top: 70px;">Concepto: {{concepton.1}}</h2>
+
+<a class="btn_regresar boton" href="{{url_for('detalles_proyecto', id_proyecto=concepton[8])}}">Regresar al proyecto</a>
+<a class="boton btn_editar_basico" href="#editar_concepto">Editar</a>
+
+<table class="tabla_datos_basico">
+    <thead>
+        <tr>
+            <th>Proyecto</th>
+            <th>Unidad</th>
+            <th>Cantidad de concepto</th>
+            <th>Porcentaje de tratamiento</th>
+            <th>Procentaje de maquinaria y equipos</th>
+            <th>Porcentaje de indirectos</th>
+            <th>Porcentaje de financiamiento</th>
+            <th>Porcentaje de utilidad</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{concepton.2}}</td>
+            <td>{{concepton.3}}</td>
+            <td>{{concepton.10}}</td>
+            <td>{{concepton.18}}</td>
+            <td>{{concepton.4}}</td>
+            <td>{{concepton.5}}</td>
+            <td>{{concepton.6}}</td>
+            <td>{{concepton.7}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
 <div class="alinear-horizontal">
-    <p>Proyecto: {{concepton.2}}</p>
-    <p>Unidad: {{concepton.3}}</p>
-    <p>Cantidad de concepto: {{concepton.10}}</p>
-    <p>% de tratamiento{{concepton.18}}</p>
-    <p>% Maq. y Equipo: {{concepton.4}}</p>
-    <p>% Indirectos: {{concepton.5}}</p>
-    <p>% Financiamiento: {{concepton.6}}</p>
-    <p>% Utilidad: {{concepton.7}}</p>
-</div>
-
-<div class="alinear-horizontal">
-    <p><b style="color: green;">Costo individual: ${{ costo_concepto_individual }}</b></p>
-    <a class="regresar_menu" href="{{url_for('detalles_proyecto', id_proyecto=concepton[8])}}">Regresar al proyecto</a>
-    <a class="btn_registrar" href="#editar_concepto">Editar</a>
-    <p><b style="color: green;">importe : ${{ costo_concepto_total }}</b></p>
+    <p><b style="color: green;">Costo individual: ${{ costo_concepto_individual | round(2) }}</b></p>
+    
+    <p><b style="color: green; margin-left: 100px;">importe : ${{ costo_concepto_total | round(2) }}</b></p>
 </div>
 
 <details open>
@@ -44,12 +65,12 @@
             </div>
         </div>
 
-        <p style="color: green;">Costo de maquinaria: <b>${{costo_total_materiales_concepto}}</b></p>
+        <p style="color: green; margin-left: 20px;">Costo de materiales: <b>${{costo_total_materiales_concepto}}</b></p>
 
     </div>
 
     {% if materialon %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -71,7 +92,7 @@
                         <input type="number" step="0.00001" placeholder="Cantidad de Material..." name="cant_conmat" value="{{material[3]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_conmat" value="{{material[7]}}" required>
                         
-                        <button type="submit"x><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"x><i class="fa-solid fa-check"></i></button>
                     </form>
                 </td>
                 <td>{{material.4 | round(5) }}</td>
@@ -106,12 +127,12 @@
             </div>
         </div>
 
-        <p style="color: green;">Costo de maquinaria: <b>${{costo_total_maquinaria_concepto}}</b></p>
+        <p style="color: green; margin-left: 20px;">Costo de maquinaria: <b>${{costo_total_maquinaria_concepto}}</b></p>
 
     </div>
 
     {% if maquinon %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -134,7 +155,7 @@
                         <input type="number" step="0.00001" placeholder="Cantidad del material..." name="cant_conmaq" value="{{maquina[3]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_conmaq" value="{{maquina[8]}}" required>
 
-                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"><i class="fa-solid fa-check"></i></button>
                     </form>
                 </td>
                 <td>{{ maquina.4 | round(5) }}</td>
@@ -170,12 +191,12 @@
             </div>
         </div>
 
-        <p style="color: green;">Costo de basicos: <b>${{costo_total_basicos_concepto}}</b></p>
+        <p style="color: green; margin-left: 20px;">Costo de basicos: <b>${{costo_total_basicos_concepto}}</b></p>
 
     </div>
 
     {% if basicon %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -197,7 +218,7 @@
                         <input type="number" step="0.00001" name="cantidad_conbas" value="{{basico[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_conbas" value="{{basico[0]}}" required>
 
-                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"><i class="fa-solid fa-check"></i></button>
                     </form>
                 </td>
                 <td>{{ basico.5 | round(5) }}</td>
@@ -232,19 +253,19 @@
             </div>
         </div>
 
-        <p style="color: green;">Importe de oficios: <b>${{ (conteo_oficios_basico[3] * concepton[12]) | round(5) }}</b></p>
+        <p style="color: green; margin-left: 20px;">Importe de oficios: <b>${{ (conteo_oficios_basico[3] * concepton[12]) | round(5) }}</b></p>
 
     </div>
 
     <div class="alinear-horizontal">
 
         <p>Precosto: <b style="color: green;">${{conteo_oficios_basico[1]}}</b></p>
-        <p>% de maquinaria y equipo de cuadrilla: </p>
+        <p style="margin-left: 85px;">Porcentaje de maquinaria y equipo de cuadrilla: </p>
         <form action="{{ url_for('editar_cuadrilla_concepto', id_concepto=concepton[0]) }}" method="POST">
             <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
             <input type="number" step="0.0001" name="porcentaje_cuadrilla" value="{{conteo_oficios_basico[2]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
             <input type="hidden" step="1" name="id_cuadrilla" value="{{concepton[11]}}" required>
-            <button type="submit"><i class="fa-solid fa-pen"></i></button>
+            <button type="submit"><i class="fa-solid fa-check"></i></button>
         </form>
 
     </div>
@@ -255,13 +276,13 @@
         <form action="{{ url_for('editar_cantidad_cuadrilla_concepto', id_concepto=concepton[0]) }}" method="POST">
             <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
             <input type="number" step="0.00001" name="cant_cuadrilla_con" value="{{concepton[12]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
-            <button type="submit"><i class="fa-solid fa-pen"></i></button>
+            <button type="submit"><i class="fa-solid fa-check"></i></button>
         </form>
 
     </div>
 
     {% if oficion %}
-    <table class="tabla_materiales">
+    <table class="tabla_materiales_basico">
         <thead>
             <th>Nombre</th>
             <th>Unidad</th>
@@ -283,7 +304,7 @@
                         <input type="number" step="0.00001" name="cant_cuadofi" value="{{oficio[4]}}" style="background-color: rgba(255, 255, 255, 0.3); border: 1px solid #ccc" required>
                         <input type="hidden" name="id_cuadofi" value="{{oficio[6]}}" required>
 
-                        <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                        <button type="submit"><i class="fa-solid fa-check"></i></button>
                     </form>
                 </td>
                 <td>{{oficio.5}}</td>
@@ -330,77 +351,75 @@
         <p>Cantidad de concepto:</p>
         <input type="number" step="0.00001" name="cantidad_concepto" value="{{concepton[4]}}" required>
 
-        <p>% de Indirectos:</p>
+        <p>Porcentaje de Indirectos:</p>
         <input type="number" step="0.00001" name="indirectos_con" value="{{concepton[5]}}" required>
 
-        <p>% de Financiamiento:</p>
+        <p>Porcentaje de Financiamiento:</p>
         <input type="number" step="0.00001" name="financiamiento_con" value="{{concepton[6]}}" required>
 
-        <p>% de Utilidad:</p>
+        <p>Porcentaje de Utilidad:</p>
         <input type="number" step="0.00001" name="utilidad_con" value="{{concepton[7]}}" required>
 
-        <p>% de Tratamiento</p>
+        <p>Porcentaje de Tratamiento</p>
         <input type="text" step="0.00001" name="tratamiento_con" value="{{concepton[18]}}" required>
 
-        <div class="btns_modal_crear_proyecto">
-            <button type="submit">Editar</button>
-            <a href="#" id="btn_cancelar_editar_concepto">Cancelar</a>
+        <div class="opciones_editar">
+            <button type="submit" class="boton">Editar</button>
+            <a class="boton_cancelar" href="#" id="btn_cancelar_editar_concepto">Cancelar</a>
         </div>
     </form>
 </div>
 
 {% for material in materialon %}
-<div class="modal_eliminar_materialconcepto" id="modal_eliminar_materialcon_{{ material[7] }}">
+<div class="modal_eliminar" id="modal_eliminar_materialcon_{{ material[7] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar material</h3>
     <p>¿Estas seguro de eliminar este material del concepto?</p>
     <p>{{material.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_material_concepto', id_conmat=material[7], id_concepto=concepton[0] )}}">Aceptar</a>
-        <a href="#" id="btn_cancelar_registrar_proyecto">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a href="{{ url_for('eliminar_material_concepto', id_conmat=material[7], id_concepto=concepton[0] )}}" class="boton_eliminar">Aceptar</a>
+        <a class="boton_cancelar" href="#" id="btn_cancelar_registrar_proyecto">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
 {% for maquina in maquinon %}
-<div class="modal_eliminar_maquinariaconcepto" id="id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}">
+<div class="modal_eliminar" id="id_modal_eliminar_maquinariaconcepto_{{ maquina[8] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar maquinaria</h3>
     <p>¿Estas seguro de eliminar esta maquinaria del concepto?</p>
     <p>{{maquina.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_maquinaria_concepto', id_conmaq=maquina[8], id_concepto=concepton[0] )}}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a class="boton_eliminar" href="{{ url_for('eliminar_maquinaria_concepto', id_conmaq=maquina[8], id_concepto=concepton[0] )}}">Aceptar</a>
+        <a class="boton_cancelar" href="#">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
 {% for basico in basicon %}
-<div class="modal_eliminar_basicoconcepto" id="id_modal_eliminar_basicoconcepto_{{ basico[0] }}">
+<div class="modal_eliminar" id="id_modal_eliminar_basicoconcepto_{{ basico[0] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar basico</h3>
     <p>¿Estas seguro de eliminar este basico del concepto?</p>
     <p>{{basico.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_basico_concepto',id_conbas=basico[0], id_concepto=concepton[0] )}}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a class="boton_eliminar" href="{{ url_for('eliminar_basico_concepto',id_conbas=basico[0], id_concepto=concepton[0] )}}">Aceptar</a>
+        <a class="boton_cancelar" href="#">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
 {% for oficio in oficion %}
-<div class="modal_eliminar_oficioconcepto" id="id_modal_eliminar_oficioconcepto_{{ oficio[6] }}">
+<div class="modal_eliminar" id="id_modal_eliminar_oficioconcepto_{{ oficio[6] }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar oficio</h3>
     <p>¿Estas seguro de eliminar este oficio del concepto?</p>
     <p>{{oficio.1}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{ url_for('eliminar_oficio_concepto',id_concepto=concepton[0], id_cuadofi=oficio[6] )}}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a class="boton_eliminar" href="{{ url_for('eliminar_oficio_concepto',id_concepto=concepton[0], id_cuadofi=oficio[6] )}}">Aceptar</a>
+        <a class="boton_cancelar" href="#">Cancelar</a>
     </div>
 </div>
 {% endfor %}
 
 </div>
-     
-        <script src="{{url_for('static', filename = 'JS/buscador.js')}}"></script>
 
-    {% endblock %}
+<script src="{{url_for('static', filename = 'JS/script2.js')}}" defer></script>
 
-</body>
+{% endblock %}

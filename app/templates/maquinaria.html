@@ -40,7 +40,7 @@
                 {% for maquina in maquinaria %}
                 <tr>
                     <td>
-                        <a href="{{url_for('editar_maquina', id_maquina=maquina.id_maquina )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a href="#abrir_modal_editar_{{maquina.id_maquina}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
                     </td>
                     <td>{{maquina.nombre_maquina}}</td>
                     <td>${{maquina.costo_maquina}}</td>
@@ -66,9 +66,33 @@
                 <a href="#" class="boton_cancelar">Cancelar</a>
             </div>
         </div>
-
-
     {% endfor %}   
+
+    {% for maquina in maquinaria %}
+    <div class="modal_editar2" id="abrir_modal_editar_{{maquina.id_maquina}}">
+        <form method="post" action="{{url_for('editar_maquina_proceso', id_maquina= maquinaria[0])}}">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <h3>Editar maquina</h3>
+            <p>Nombre de la maquina</p>
+            <input type="text" name="nombre_maquina" value="{{maquina.nombre_maquina}}">
+            <p>Costo de la maquina</p>
+            <input type="number" name="costo_maquina" value="{{maquina.costo_maquina}}">
+            <p>Vida útil</p>
+            <input type="number" name="vida_util" value="{{maquina.vida_util}}">
+            <p>Selecciona la unidad</p>
+            <select name="fk_unidad" id="">    
+                {% for unidad in unidades %}
+                    <option value="{{unidad[0]}}" {% if unidad.0 == maquina.fk_unidad %} selected {% endif %}  >{{unidad[1]}} </option>
+                {% endfor %}  
+            </select>
+            <div class="botones_editar">
+                <button type="submit" class="boton">Aceptar</button>
+                <a href="#" class="boton_cancelar">Regresar</a>
+            </div>
+        </form>
+    </div>
+
+    {% endfor %}
     
     <div class="paginador">
 

@@ -11,10 +11,10 @@ class User(UserMixin):
         self.nombre = nombre
         self.apellidos = apellidos
         self.correo_usuario = correo_usuario
-        self.contrasenhia_usuario = password
-        self.img_usuario = foto
+        self.password = password
+        self.foto = foto
         self.activo = activo
 
     @classmethod
-    def check_password(cls, hashed_password, password):
+    def check_password(self, hashed_password, password):
         return check_password_hash(hashed_password, password)

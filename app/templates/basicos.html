@@ -12,8 +12,18 @@
 
     <div class="contenido_basicos">
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                        {{message}} 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <h2 style="margin-left: 45%; margin-bottom: 50px; margin-top: 50px;">Basicos</h2>
-    <a class="btn_registrar" href="#id_modal_registrar_basico">Registrar basico</a>
+    <a class="btn_registrar boton" href="{{url_for('registrar_basico')}}">Registrar basico</a>
 
     <table class="tabla_materiales">
         <thead>
@@ -30,7 +40,7 @@
                 <td>{{basico.nombre_unidad}}</td>
                 <td>${{ basico.suma_total | round(5) }}</td>
                 <td>
-                    <a href="{{url_for('detalles_basico', id_basico=basico.id_basico)}}" class="btn_registrar_basico"><i class="fa-solid fa-pen-to-square" ></i></a>
+                    <a href="{{url_for('detalles_basico', id_basico=basico.id_basico)}}" class="btn_editar"><i class="fa-solid fa-eye"></i></a>
                 </td>
                 <td>
                     <a class="btn_eliminar" href="#modal_eliminar_basico_{{ basico.id_basico }}"><i class="fa-solid fa-trash"></i></a>
@@ -39,33 +49,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <div class="modal_registrar_basico" id="id_modal_registrar_basico">
-        <h2 style="margin-bottom: 20px; font-size: 25px;">Registrar Básico</h2>
-        <form action="{{url_for('registrar_basico')}}" method="POST">
-            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-
-            <p>Nombre del Básico</p>
-            <input type="text" placeholder="Nombre de básico..." name="nombre_basico" required>
-
-            <p>Unidad</p>
-            <select name="fk_unid_basico" id="fk_unid_basico">
-                <option selected>Elige una unidad</option>
-                {% for unidad in unidades %}
-                    <option value="{{unidad.0}}">{{unidad.1}} </option>
-                {% endfor %}
-            </select>
-
-            <p>% de maquinaria y equipo</p>
-            <input type="number" step="0.00001" placeholder="% de maquinaria y equipo..." name="porcentmaqyeq_bas" required>
-            
-            <p></p>
-            <div class="btns_modal_crear_proyecto">
-                <button type="submit">Registrar</button>
-                <a href="#">Cancelar</a>
-            </div>
-        </form>
-    </div>
 
     <div class="paginador">
         {% if total_pages == 1 and page== 1 %}
@@ -93,16 +76,32 @@
     </div>
 
 {% for basico in basicos %}
-<div class="modal_eliminar_basico" id="modal_eliminar_basico_{{ basico.id_basico }}">
+<div class="modal_eliminar" id="modal_eliminar_basico_{{ basico.id_basico }}">
     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar basico</h3>
     <p>¿Estas seguro de eliminar este basico</p>
     <p>{{basico.nombre_basico}} </p>
-    <div class="btns_modal_crear_proyecto">
-        <a href="{{url_for('eliminar_basico', id_basico=basico.id_basico )}}">Aceptar</a>
-        <a href="#">Cancelar</a>
+    <div class="opciones_eliminar_unidad">
+        <a href="{{url_for('eliminar_basico', id_basico=basico.id_basico )}}" class="boton_eliminar">Aceptar</a>
+        <a href="#" class="boton_cancelar">Cancelar</a>
     </div>
 </div>
 {% endfor %}
+
+
+<script> 
+    function mostrarNotificacion() {
+        const notificacion = document.getElementById("notificacion");
+        notificacion.style.display = "block";
+    
+        // Cerrar la notificación después de 4 segundos
+        setTimeout(function() {
+            notificacion.style.display = "none";
+        }, 2000);
+    }
+    
+    // Mostrar la notificación para probar
+    mostrarNotificacion();
+</script>
 
      {% endblock %}
     

@@ -10,33 +10,42 @@
 <div class="body_detalles_proyectos">
     <div class="contenido_detalles_proyecto">
         <a class="boton btn_regresar" href="{{url_for('dashboard')}}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
+        <a class="boton boton_editar_proyecto" href="#modal_crear_proyecto" id="abrir_editar_proyecto">Editar</a>
         <h2 style="margin-left: 200px; margin-top: 20px; margin-bottom: 15px;">Proyecto: {{proyectaso.2}}</h2>
         <div class="alinear-horizontal">
-            <a class="boton" href="#modal_crear_proyecto" id="abrir_editar_proyecto">Editar</a>
+            
 
             
-            <p> Nombre: <p>{{proyectaso.2}}</p> </p>
-            <p>Título: </p>
-            <p>Creador: </p>
-            <p>Dirección: </p>
-            <p>Cliente: </p>
-            <p>Tipo: </p>
-            <p>Costo: </p>
-           
-
-            
-            
-            <!--<p>{{proyectaso.3}}</p>
-            <p>Creador</p>
-            <p></p>
-            <p>{{proyectaso.4}}, {{proyectaso.5}}, {{proyectaso.6}}.</p>
-            <p>{{proyectaso.7}}</p>
-            <p>{% if proyectaso.9 == true %}
-                Gubernamental
-            {% else %}
-                Partícular
-            {% endif %}</p>
-            <p>Costo</p>-->
+            <table class="tabla_proyectaso">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Titulo</th>
+                        <th>Creador</th>
+                        <th>Dirección</th>
+                        <th>Cliente</th>
+                        <th>Tipo</th>
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{proyectaso.2}}</td>
+                        <td>{{proyectaso.3}}</td>
+                        <td>{{proyectaso.10}}</td>
+                        <td>{{proyectaso.4}}, {{proyectaso.5}}, {{proyectaso.6}}</td>
+                        <td>{{proyectaso.7}}</td>
+                        <td>{% if proyectaso.9 == True %} 
+                            Gubernamental 
+                            {% else %} 
+                            Particular
+                            {% endif %}
+                        </td>
+                        <td>{{ costo_total_de_proyecto | round(3) }}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
            
         </div>
 
@@ -46,9 +55,9 @@
         <h2 style="margin-left: 290px; margin-bottom: 20px; margin-top: 10px;">Conceptos del proyecto</h2>
         <a class="boton" href="{{url_for('registrar_concepto', id_proyecto=proyectaso.0)}}" id="abrir_registrar_concepto">Nuevo concepto</a>
         {% if costo_total_de_proyecto %}
-        <p style="color: green;">Importe del proyecto: <b>${{ costo_total_de_proyecto | round(3) }}</b></p>
+        <p class="textos_proyectos" style="color: green;">Importe del proyecto: <b>${{ costo_total_de_proyecto | round(3) }}</b></p>
         {% else %}
-        <p>Aun sin presupuesto</p>
+        <p class="textos_proyectos">Aun sin presupuesto</p>
         {% endif %}
         {% if conceptos %}
         <table class="table_procesos">
@@ -72,12 +81,12 @@
                         </td>
                         <td>{{concepto.1}}</td>
                         <td>{{concepto.3}}</td>
-                        <td></td>
+                        <td>{{concepto.20 | round(2)}}</td>
                         <td>{{concepto.4}}</td>
                         <td>{{concepto.7}}%</td>
-                        <td></td>
+                        <td>{{concepto.21 | round(2)}} </td>
                         <td>
-                            <a class="btn_eliminar" href="#">
+                            <a class="btn_eliminar" href="#modal_eliminar_concepto_{{concepto.0}}">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
@@ -86,7 +95,7 @@
                 </tbody>
             </table>
             {% else %}
-            <p>Aun sin conceptos registrados, resgitra uno</p>
+            <p class="textos_proyectos">Aun sin conceptos registrados, resgitra uno</p>
             {% endif %}
 
             <div class="modal_crear_proyecto" id="modal_crear_proyecto">
@@ -138,18 +147,18 @@
 
             </div>
 
-            <!--
+            
             {% for concepto in conceptos %}
-                <div class="modal_eliminar_concepto" id="modal_eliminar_concepto_{{concepto.id_concepto}}">
+                <div class="modal_eliminar" id="modal_eliminar_concepto_{{concepto.0}}">
                     <h3 style="margin-bottom: 20px; font-size: 25px;">Eliminar concepto</h3>
                     <p>¿Estas seguro de eliminar este concepto?</p>
                     <p>{{concepto.1}}</p>
-                    <div class="btns_eliminar_concepto">
-                        <a href="#">Aceptar</a>
-                        <a href="#">Cancelar</a>
+                    <div class="opciones_eliminar_unidad">
+                        <a href="{{url_for('eliminar_concepto', id_proyecto=proyectaso.0, id_concepto=concepto.0) }}" class="boton_eliminar">Aceptar</a>
+                        <a href="#" class="boton_cancelar">Cancelar</a>
                     </div>
                 </div>
-            {% endfor %}-->
+            {% endfor %}
 
         </div>
 

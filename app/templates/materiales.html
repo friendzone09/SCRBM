@@ -8,8 +8,6 @@
 {% block vision_de_usuario %} {% endblock %}
 
 
-
-
 <body class="body_materiales">
 
 {% block contenido %}
@@ -47,7 +45,7 @@
                 {% for material in materiales %}
                 <tr>
                     <td>
-                        <a href="{{url_for('editar_material', id_material=material.id_material )}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
+                        <a href="#abrir_modal_editar_{{material.id_material}}" class="btn_editar"><i class="fa-solid fa-pen-to-square" ></i></a>
                     </td>
                     <td>{{material.nombre_material}}</td>
                     <td>${{material.costo_material}}</td>
@@ -72,6 +70,29 @@
             </div>
         </div>
 
+    {% endfor %}
+    
+    {% for material in materiales %}
+    <div class="modal_editar2" id="abrir_modal_editar_{{material.id_material}}">
+        <form method="post" action="{{url_for('editar_material_proceso', id_material= materiales[0])}}">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <h3>Editar material</h3>
+            <p>Nombre de el material</p>
+            <input type="text" name="nombre_material" value="{{material.nombre_material}}">
+            <p>Costro del material</p>
+            <input type="number" name="costo_material" value="{{material.costo_material}}">
+            <p>Unidad del material</p>
+            <select name="fk_unidad" id="">
+                {% for unidad in unidades %}
+                    <option value="{{unidad.0}}" {% if unidad.0 == material.fk_unidad %} selected {% endif %} >{{unidad.1}} </option>
+                {% endfor %}
+            </select>
+            <div class="botones_editar">
+                <button type="submit" class="boton">Aceptar</button>
+                <a href="#" class="boton_cancelar">Cancelar</a>
+            </div>
+        </form>
+    </div>
     {% endfor %}
 
   

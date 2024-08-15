@@ -1,6 +1,6 @@
 {% extends "dashboard.html" %}
 
-{% block titulo %} Detalles Proyecto {% endblock %}
+{% block titulo %} Registrar Concepto {% endblock %}
 
 {% block head %} {% endblock %}
 
@@ -9,10 +9,10 @@
     {% block contenido %}
 
         <div class="contenido_regis_proceso">
-            <a class="boton btn_regresar" href="{{url_for('detalles_proyecto', id_proyecto=proyectaso[0])}}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
-                <form action="{{url_for('registrar_concepto_proceso', id_proyecto=proyectaso[0])}}" method="POST" class="form_regis_concepto">
+            <a class="boton btn_regresar" href="{{url_for('detalles_proyecto', id_proyecto=proyectaso)}}"><i class="fa-solid fa-arrow-left"></i>Regresar</a>
+                <form action="{{url_for('registrar_concepto_proceso', id_proyecto=proyectaso)}}" method="POST" class="form_regis_concepto">
                     <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-                    <input type="hidden" name="fk_proy_con" value="{{proyectaso[0]}}">
+                    <input type="hidden" name="fk_proy_con" value="{{proyectaso}}">
                     <h2>Registrar Concepto</h2>
                     <div class="textos1_concepto">
                         <p>Nombre del Concepto</p>
@@ -43,10 +43,12 @@
                     <div class="textos3_concepto">
                         <p>Porcentaje de Financiamiento</p>
                         <p>Porcentaje de Utilidad</p>
+                        <p>Porcentaje de Tratamiento</p>
                     </div>
                     <div class="inputs3_concepto">
                         <input type="number" step="0.00001" placeholder="Financiamiento..." name="financiamiento_con" required class="por_financiamiento">
                         <input type="number" step="0.00001" placeholder="Utilidad..." name="utilidad_con" required class="utilidad_con">
+                        <input type="number" step="0.00001" placeholder="% de tratamiento" name="tratamiento_con" required class="utilidad_con">
                     </div>
 
                     <p></p>

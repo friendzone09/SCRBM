@@ -13,8 +13,13 @@
 
     <div class="vision_de_usuario">
         <div class="usuario">
+            
+            {% if current_user.foto %}
+            <img src="{{ url_for('static', filename='img/uploads/' + current_user.foto) }}" class="img_usuario_dashboard">
+            {% else %}
+            <img src="{{ url_for('static', filename='img/uploads/default-profile.png') }}" class="img_usuario_dashboard" >
+            {% endif %}
 
-             <button class="foto_usuario"><i class="fa-solid fa-user fa-3x"></i></button>
              <div class="usuario_opciones">
                 <ul>
                     <p>{{current_user.nombre}} </p>
@@ -26,21 +31,15 @@
         </div>
      
         <div class="opciones_proyecto">
-            <a href="{{url_for('dashboard')}}">Proyectos</a>
-            <a href="{{url_for('unidades')}}">Unidades</a>
-            <a href="{{url_for('materiales')}}">Materiales</a>
-            <a href="#">Basicos</a>
-            <a href="{{url_for('oficios')}}">Oficios</a>
-            <a href="{{url_for('maquinaria')}}">Maquinaria</a>
+            <a href="{{url_for('dashboard')}}"><i class="fa-solid fa-folder"></i>Proyectos</a>
+            <a href="{{url_for('unidades')}}"><i class="fa-solid fa-file"></i>Unidades</a>
+            <a href="{{url_for('materiales')}}"><i class="fa-solid fa-wrench"></i>Materiales</a>
+            <a href="{{url_for('basicos')}}"><i class="fa-solid fa-hammer"></i>Basicos</a>
+            <a href="{{url_for('oficios')}}"><i class="fa-solid fa-user-tie"></i>Oficios</a>
+            <a href="{{url_for('maquinaria')}}"><i class="fa-solid fa-truck"></i>Maquinaria</a>
             
         </div>
 
-        <div class="proyectos_recientes">
-            <p>Proyectos recientes:</p>
-            {% for lis_proyectos in listar_proyecto %}
-            <a href="{{url_for('detalles_proyecto', id_proyecto=lis_proyectos.0 )}}">{{lis_proyectos.2}}</a>
-            {% endfor %}
-        </div>
         
     </div>
 
@@ -59,7 +58,7 @@
                 {% for proyecto in proyectos %}
                 <a href="{{url_for('detalles_proyecto', id_proyecto=proyecto.id_proyecto )}}" class="proyectos">
                     <i class="fa-solid fa-folder-open icono_proyecto"></i>
-                    <p id="nombre_proyectos">{{proyecto.nombre_proyecto}}</p> 
+                    <p id="nombre_proyectos">...{{ proyecto.nombre_proyecto[25:50] }}</p> 
                 </a>
                 {% endfor %}
 
@@ -75,6 +74,9 @@
 
             <form method="post" action="{{url_for('registrar_proyecto_proceso')}}">
                 <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                
+                <input type="hidden" name="fk_creador_proyecto" value="{{current_user.id_usuario}}">
+
 
                 <h1>Crear un proyecto</h1>
                 <div class="textos_nombre_proyectos">

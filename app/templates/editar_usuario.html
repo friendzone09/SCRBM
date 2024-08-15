@@ -2,34 +2,67 @@
 
 {% block titulo %} Editar Usuario {% endblock %}
 
+<body class="body_editar_usuario">
+    
+
 {% block contenido %}
 <div class="contenido_editar_usuario">
-    <h2>Editar Usuario</h2>
-    <form method="post" class="form_usuarios" action="{{ url_for('usuarios_actualizar', id_usuario=usuario[0]) }}" enctype="multipart/form-data">
+
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notifcacion {% if "Error" in message %} peligro {%  elif "Advertencia" in message %} advertencia {% else %} completado {% endif %} " id="notificacion">
+                        {{message}} 
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <a class="btn_regresar boton" id="cancelar_editar_usuario" href="{{ url_for('usuarios_detalles', id_usuario=usuario[0]) }}"><i class="fa-solid fa-arrow-left"></i>Cancelar</a>
+
+    <form method="post" class="form_usuario" action="{{ url_for('usuarios_actualizar', id_usuario=usuario[0]) }}" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        
+        <h2>Editar Usuario</h2>
         <div class="form-group mb-3">
-            <label for="nombre">Nombre:</label>
-            <input type="text" placeholder="Nombre..." name="nombre" id="nombre" value="{{ usuario[1] }}" required>
+            <p>Nombre:</p>
+            <input class="input_nombre_usuario" type="text" placeholder="Nombre..." name="nombre" id="nombre" value="{{ usuario[1] }}" required>
         </div>
         <div class="form-group mb-3">
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" placeholder="Apellidos..." name="apellidos" id="apellidos" value="{{ usuario[2] }}" required>
-        </div>
-        <div class="form-group mb-3">
-            <label for="contraseña_usuario">Contraseña:</label>
-            <input type="password" name="password" id="contraseña_usuario" value="{{ usuario[4] }}" required>
+            <p>Apellidos:</p>
+            <input class="input_nombre_usuario" type="text" placeholder="Apellidos..." name="apellidos" id="apellidos" value="{{ usuario[2] }}" required>
         </div>
 
+
         <div class="form-group mb-3">
-            <label for="formFile" class="form-label">Foto de perfil</label>
-            <input class="form-control" type="file" id="formFile" name="foto" accept="image/png, .jpeg, .jpg">
+            <p>Foto de perfil</p>
+            <input class="input_foto_usuario" type="file" id="formFile" name="foto" accept="image/png, .jpeg, .jpg">
         </div>
     
-        <button class="btn btn-primary d-inline-flex align-items-center" type="submit">
-            Actualizar
-        </button>
-        <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('usuarios_detalles', id_usuario=usuario[0]) }}">Cancelar</a>
+        
+            <button class="boton" type="submit">Actualizar</button>
     </form>
+
+    <div class="cambiar_password">
+        <p style="color: black;">¿Deseas cambiar tu contraseña?</p>
+        <a  href="{{ url_for('confirmar_contraseña', id_usuario=usuario[0]) }}">Cambiar contraseña</a>
+    </div>
+
 </div>
+
+<script> 
+    function mostrarNotificacion() {
+        const notificacion = document.getElementById("notificacion");
+        notificacion.style.display = "block";
+    
+        // Cerrar la notificación después de 4 segundos
+        setTimeout(function() {
+            notificacion.style.display = "none";
+        }, 2000);
+    }
+    
+    // Mostrar la notificación para probar
+    mostrarNotificacion();
+</script>
+
+</body>
 {% endblock %}
