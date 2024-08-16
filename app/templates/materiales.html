@@ -74,7 +74,7 @@
     
     {% for material in materiales %}
     <div class="modal_editar2" id="abrir_modal_editar_{{material.id_material}}">
-        <form method="post" action="{{url_for('editar_material_proceso', id_material= materiales[0])}}">
+        <form method="post" action="{{url_for('editar_material_proceso', id_material= material.id_material)}}">
             <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
             <h3>Editar material</h3>
             <p>Nombre de el material</p>

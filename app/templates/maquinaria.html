@@ -70,7 +70,7 @@
 
     {% for maquina in maquinaria %}
     <div class="modal_editar2" id="abrir_modal_editar_{{maquina.id_maquina}}">
-        <form method="post" action="{{url_for('editar_maquina_proceso', id_maquina= maquinaria[0])}}">
+        <form method="post" action="{{url_for('editar_maquina_proceso', id_maquina= maquina.id_maquina)}}">
             <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
             <h3>Editar maquina</h3>
             <p>Nombre de la maquina</p>

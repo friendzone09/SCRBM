@@ -74,7 +74,7 @@
 
     {% for oficio in oficios %}
     <div class="modal_editar2" id="abrir_modal_editar_{{oficio.id_oficio}}">
-        <form method="post" action="{{url_for('editar_oficio_proceso', id_oficio=oficios[0])}}">
+        <form method="post" action="{{url_for('editar_oficio_proceso', id_oficio=oficio.id_oficio)}}">
             <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
             <h3>Editar oficio</h3>
             <p>Nombre de oficio</p>
